@@ -1,0 +1,56 @@
+name: import-data-batch-demo
+services:
+  batch-db:
+    container_name: batch-db
+    image: postgres:16-alpine
+    hostname: ${DB_HOST}
+    ports:
+      - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${DB_USERNAME}'" ]
+      timeout: 5s
+      interval: 2s
+      retries: 3
+    restart: always
+    volumes:
+      - "./db-init:/docker-entrypoint-initdb.d"
+      - "postgres_data:/data/postgres"
+      - "postgres_backup:/data/postgres/backup"
+    env_file: .env
+
+  batch-db-migration-tool:
+    container_name: batch-db-migration-tool
+    image: liquibase/liquibase
+    command: update --changelog-file=db.changelog.xml --username=${DB_USERNAME} --password=${DB_PASSWORD} --url=jdbc:postgresql://batch-db:${DB_INTERNAL_PORT}/${DB_NAME}
+    volumes:
+      - ./db-init/db.changelog.xml:/liquibase/db.changelog.xml
+      - ./db-init/sql:/liquibase/sql
+    restart: on-failure
+    depends_on:
+      - batch-db
+    env_file: .env
+
+  batch-db-file-storage:
+    container_name: batch-db-file-storage
+    image: localstack/localstack
+    ports:
+      - "${AWS_S3_EXTERNAL_PORT}:${AWS_S3_INTERNAL_PORT}"
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - ./bucket-init:/etc/localstack/init/ready.d
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    env_file: .env
+
+volumes:
+  postgres_data:
+  postgres_backup:
+
+networks:
+  default:
+    driver: bridge

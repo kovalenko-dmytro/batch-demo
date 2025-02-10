@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">    
+
+    <changeSet id="db-change-set-1" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1550_create_table_batch_job_instance.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-2" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1555_create_table_batch_job_execution.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-3" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1600_create_table_batch_job_execution_context.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-4" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1605_create_table_batch_job_execution_params.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-5" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1610_create_table_batch_step_execution.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-6" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1615_create_table_batch_step_execution_context.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-7" author="import-data-batch-demo">
+        <sqlFile path="sql/2024-12-11-1620_create_batch_sequences.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-8" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-02-05-1915_create_table_examples.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>
