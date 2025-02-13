@@ -2,6 +2,7 @@ package com.gmail.apach.dima.batch_demo.example.job;
 
 import com.gmail.apach.dima.batch_demo.core.common.Constant;
 import com.gmail.apach.dima.batch_demo.core.config.batch.JobRegistry;
+import com.gmail.apach.dima.batch_demo.core.exception.JobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.core.job.ChunkConfigurable;
 import com.gmail.apach.dima.batch_demo.core.job.JobConfigurable;
 import com.gmail.apach.dima.batch_demo.domain.entity.ExampleEntity;
@@ -11,6 +12,7 @@ import com.gmail.apach.dima.batch_demo.example.reader.ExampleReader;
 import com.gmail.apach.dima.batch_demo.example.writer.ExampleWriter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
@@ -32,6 +34,8 @@ public class ExampleJob
     private final ExampleReader exampleReader;
     private final ExampleProcessor exampleProcessor;
     private final ExampleWriter exampleWriter;
+    private final JobExceptionHandler exceptionHandler;
+    private final JobExecutionListener commonJobExecutionListener;
 
     @Override
     public ItemReader<ExampleLine> chunkReader() {
@@ -63,6 +67,7 @@ public class ExampleJob
     public Step chunkStep() {
         return new StepBuilder(chunkStepName(), jobRepository)
             .<ExampleLine, ExampleEntity>chunk(chunkSize(), transactionManager)
+            .exceptionHandler(exceptionHandler)
             .reader(chunkReader())
             .processor(chunkProcessor())
             .writer(chunkWriter())
@@ -74,7 +79,7 @@ public class ExampleJob
     public Job job() {
         return new JobBuilder(JobRegistry.EXAMPLE, jobRepository)
             .start(chunkStep())
+            .listener(commonJobExecutionListener)
             .build();
     }
-
 }
