@@ -2,12 +2,10 @@ package com.gmail.apach.dima.batch_demo.example.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Builder;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 
 @Builder
-@Validated
 public record ExampleLine(
     @NotBlank
     @Size(min = 10, max = 10)

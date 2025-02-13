@@ -1,18 +1,15 @@
 package com.gmail.apach.dima.batch_demo.example.reader;
 
 import com.gmail.apach.dima.batch_demo.core.common.DateConstant;
-import com.gmail.apach.dima.batch_demo.core.config.message.constant.Info;
 import com.gmail.apach.dima.batch_demo.core.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.core.job.reader.CsvFileItemReader;
 import com.gmail.apach.dima.batch_demo.core.model.batch.Parameter;
-import com.gmail.apach.dima.batch_demo.core.service.message.MessageService;
 import com.gmail.apach.dima.batch_demo.core.service.oss.ObjectStorageService;
 import com.gmail.apach.dima.batch_demo.core.util.DateUtil;
 import com.gmail.apach.dima.batch_demo.example.common.ExampleHeaders;
 import com.gmail.apach.dima.batch_demo.example.model.ExampleLine;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
@@ -32,22 +29,15 @@ import java.io.ByteArrayInputStream;
 public class ExampleReader extends CsvFileItemReader<ExampleLine> implements StepExecutionListener {
 
     private final ObjectStorageService awsS3StorageService;
-    private final MessageService messageService;
 
-    private String jobName;
-    private long jobId;
     private String fileStorageResource;
-    private String stepName;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        final var jobExecution = stepExecution.getJobExecution();
-        this.jobName = jobExecution.getJobInstance().getJobName();
-        this.jobId = jobExecution.getJobInstance().getInstanceId();
-        this.fileStorageResource = jobExecution.getJobParameters()
+        this.fileStorageResource = stepExecution
+            .getJobExecution()
+            .getJobParameters()
             .getString(Parameter.FILE_STORAGE_RESOURCE.getArg());
-        this.stepName = stepExecution.getStepName();
-        log.info(messageService.message(Info.JOB_STEP_READER_STARTED, jobName, jobId, stepName));
     }
 
     @Override
@@ -79,12 +69,5 @@ public class ExampleReader extends CsvFileItemReader<ExampleLine> implements Ste
     protected Resource getResource() throws ObjectStorageException {
         final var payload = awsS3StorageService.get(fileStorageResource).getPayload();
         return new InputStreamResource(new ByteArrayInputStream(payload));
-    }
-
-    @NonNull
-    @Override
-    public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
-        log.info(messageService.message(Info.JOB_STEP_READER_COMPLETED, jobName, jobId, stepName));
-        return StepExecutionListener.super.afterStep(stepExecution);
     }
 }
