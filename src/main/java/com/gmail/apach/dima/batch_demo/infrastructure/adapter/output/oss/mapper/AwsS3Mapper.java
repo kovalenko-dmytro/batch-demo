@@ -11,6 +11,7 @@ import java.io.IOException;
     injectionStrategy = InjectionStrategy.CONSTRUCTOR,
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL,
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@SuppressWarnings("unused")
 public interface AwsS3Mapper {
 
     @Mapping(target = "storageKey", source = "resource.location.object")
