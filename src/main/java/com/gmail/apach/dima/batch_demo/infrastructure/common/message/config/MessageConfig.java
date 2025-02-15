@@ -12,6 +12,7 @@ import java.util.Locale;
 
 @Configuration
 @RequiredArgsConstructor
+@SuppressWarnings("unused")
 public class MessageConfig {
 
     private final MessageConfigProperties properties;

@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.base.job.handler;
 
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.BatchStatus;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JobExceptionHandler implements ExceptionHandler {
 
-    private final MessageUtil messageService;
+    private final MessageUtil messageUtil;
     @Override
     public void handleException(@NonNull RepeatContext context, @NonNull Throwable throwable) throws Throwable {
-        throw new JobInterruptedException("Aborting Job", BatchStatus.FAILED);
+        throw new JobInterruptedException(
+            messageUtil.getMessage(Error.JOB_INTERRUPTED, throwable.getMessage()),
+            BatchStatus.FAILED);
     }
 }

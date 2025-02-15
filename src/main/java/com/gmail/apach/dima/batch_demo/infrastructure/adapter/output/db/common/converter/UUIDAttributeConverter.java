@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Converter(autoApply = true)
+@SuppressWarnings("unused")
 public class UUIDAttributeConverter implements AttributeConverter<UUID, String> {
 
     @Override
