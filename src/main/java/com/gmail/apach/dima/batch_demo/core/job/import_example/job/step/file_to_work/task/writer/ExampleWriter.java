@@ -1,7 +1,8 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.writer;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.ExampleEntity;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.repository.ExampleRepository;
+import com.gmail.apach.dima.batch_demo.application.output.db.WorkExampleOutputPort;
+import com.gmail.apach.dima.batch_demo.core.base.common.constant.StepExecutionContextKey;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,9 @@ import java.util.List;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class ExampleWriter
-    implements ItemWriter<ExampleEntity>, StepExecutionListener, ChunkListener {
+    implements ItemWriter<WorkExampleEntity>, StepExecutionListener, ChunkListener {
 
-    private final ExampleRepository exampleRepository;
+    private final WorkExampleOutputPort workExampleOutputPort;
     private final MessageUtil messageUtil;
 
     private String jobName;
@@ -39,7 +40,9 @@ public class ExampleWriter
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        stepExecution.getExecutionContext().put("inserted-ids", new ArrayList<>());
+        stepExecution
+            .getExecutionContext()
+            .put(StepExecutionContextKey.INSERTED_IDS, new ArrayList<>());
 
         final var jobInstance = stepExecution.getJobExecution().getJobInstance();
         this.jobName = jobInstance.getJobName();
@@ -50,9 +53,10 @@ public class ExampleWriter
     }
 
     @Override
-    public void write(@NonNull Chunk<? extends ExampleEntity> chunk) {
-        final var inserted = exampleRepository.saveAll(chunk.getItems());
-        insertedIds.addAll(inserted.stream().map(ExampleEntity::getId).toList());
+    @SuppressWarnings("unchecked")
+    public void write(@NonNull Chunk<? extends WorkExampleEntity> chunk) {
+        final var inserted = workExampleOutputPort.save((List<WorkExampleEntity>) chunk.getItems());
+        insertedIds.addAll(inserted.stream().map(WorkExampleEntity::getId).toList());
         log.info(messageUtil.getMessage(Info.JOB_STEP_WRITER_PROCESSED, jobName, jobId, stepName, inserted.size()));
     }
 
@@ -63,7 +67,7 @@ public class ExampleWriter
             .getStepContext()
             .getStepExecution()
             .getExecutionContext()
-            .get("inserted-ids");
+            .get(StepExecutionContextKey.INSERTED_IDS);
     }
 
     @Override
@@ -79,7 +83,7 @@ public class ExampleWriter
             .getStepContext()
             .getStepExecution()
             .getExecutionContext()
-            .put("inserted-ids", insertedIds);
+            .put(StepExecutionContextKey.INSERTED_IDS, insertedIds);
     }
 
     @NonNull
@@ -95,9 +99,12 @@ public class ExampleWriter
             return ExitStatus.COMPLETED;
         }
 
-        this.insertedIds = (List<String>) stepExecution.getExecutionContext().get("inserted-ids");
+        this.insertedIds = (List<String>) stepExecution
+            .getExecutionContext()
+            .get(StepExecutionContextKey.INSERTED_IDS);
+
         if (CollectionUtils.isNotEmpty(insertedIds)) {
-            exampleRepository.deleteAllById(insertedIds);
+            workExampleOutputPort.delete(insertedIds);
             log.info(messageUtil.getMessage(
                 Info.JOB_STEP_WRITER_ROLLBACK,
                 jobName, jobId, stepName, insertedIds.size()));

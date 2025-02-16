@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class ExampleReader extends CsvFileItemReader<WorkLine> implements StepExecutionListener {
+public class FileItemReader extends CsvFileItemReader<WorkLine> implements StepExecutionListener {
 
     private Resource jobResource;
 
@@ -36,15 +36,18 @@ public class ExampleReader extends CsvFileItemReader<WorkLine> implements StepEx
     @Override
     protected FieldSetMapper<WorkLine> fieldSetMapper() {
         return fieldSet -> WorkLine.builder()
-            .stringColumn(fieldSet.readString(FileHeaders.HEADER_STRING.getValue()))
-            .integerColumn(fieldSet.readInt(FileHeaders.HEADER_INTEGER.getValue()))
-            .dateTimeColumn(DateUtil.toLocalDateTime(
-                    fieldSet.readDate(
-                        FileHeaders.HEADER_DATE_TIME.getValue(),
-                        Format.DATE_TIME_yyyy_MM_dd_HH_mm_ss)
-                )
-            )
-            .booleanColumn(fieldSet.readBoolean(FileHeaders.HEADER_BOOLEAN.getValue()))
+            .fieldParam1(fieldSet.readString(FileHeaders.FIELD_PARAM_1.getName()))
+            .fieldParam2(fieldSet.readInt(FileHeaders.FIELD_PARAM_2.getName()))
+            .fieldParam3(
+                DateUtil.toLocalDateTime(
+                    fieldSet.readDate(FileHeaders.FIELD_PARAM_3.getName(),
+                        Format.DATE_TIME_yyyy_MM_dd_HH_mm_ss)))
+            .fieldParam4(fieldSet.readBoolean(FileHeaders.FIELD_PARAM_4.getName()))
+            .fieldParam5(fieldSet.readString(FileHeaders.FIELD_PARAM_5.getName()))
+            .fieldParam6(fieldSet.readString(FileHeaders.FIELD_PARAM_6.getName()))
+            .fieldParam7(fieldSet.readInt(FileHeaders.FIELD_PARAM_7.getName()))
+            .fieldParam8(fieldSet.readString(FileHeaders.FIELD_PARAM_8.getName()))
+            .fieldParam9(fieldSet.readInt(FileHeaders.FIELD_PARAM_9.getName()))
             .build();
     }
 

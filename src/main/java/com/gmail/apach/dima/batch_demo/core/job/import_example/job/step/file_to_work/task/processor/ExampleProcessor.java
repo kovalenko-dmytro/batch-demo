@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to
 
 import com.gmail.apach.dima.batch_demo.core.job.import_example.mapper.ExampleMapper;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.ExampleEntity;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class ExampleProcessor implements ItemProcessor<WorkLine, ExampleEntity> {
+public class ExampleProcessor implements ItemProcessor<WorkLine, WorkExampleEntity> {
 
     private final ExampleMapper exampleMapper;
 
     @NonNull
     @Override
-    public ExampleEntity process(@NonNull WorkLine line) {
+    public WorkExampleEntity process(@NonNull WorkLine line) {
         return exampleMapper.toWorkExampleEntity(line);
     }
 }

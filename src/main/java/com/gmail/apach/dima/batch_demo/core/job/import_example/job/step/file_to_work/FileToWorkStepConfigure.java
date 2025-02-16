@@ -2,10 +2,10 @@ package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to
 
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.processor.ExampleProcessor;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader.ExampleReader;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader.FileItemReader;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.writer.ExampleWriter;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.ExampleEntity;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
@@ -20,7 +20,7 @@ public class FileToWorkStepConfigure {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
-    private final ExampleReader exampleReader;
+    private final FileItemReader fileItemReader;
     private final ExampleProcessor exampleProcessor;
     private final ExampleWriter exampleWriter;
     private final JobExceptionHandler exceptionHandler;
@@ -28,9 +28,9 @@ public class FileToWorkStepConfigure {
     @Bean
     public Step fileToWorkStep() {
         return new StepBuilder("FILE-TO-WORK-STEP", jobRepository)
-            .<WorkLine, ExampleEntity>chunk(10, transactionManager)
+            .<WorkLine, WorkExampleEntity>chunk(10, transactionManager)
             .exceptionHandler(exceptionHandler)
-            .reader(exampleReader)
+            .reader(fileItemReader)
             .processor(exampleProcessor)
             .writer(exampleWriter)
             .build();
