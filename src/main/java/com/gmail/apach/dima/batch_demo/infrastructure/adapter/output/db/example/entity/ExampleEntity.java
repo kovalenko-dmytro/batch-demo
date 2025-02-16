@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.inventory.entity;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

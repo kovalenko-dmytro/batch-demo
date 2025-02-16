@@ -4,8 +4,8 @@ import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.processor.ExampleProcessor;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader.ExampleReader;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.writer.ExampleWriter;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.model.ExampleLine;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.inventory.entity.ExampleEntity;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.ExampleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
@@ -16,7 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class ExampleFileToWorkStep {
+public class FileToWorkStepConfigure {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
@@ -28,7 +28,7 @@ public class ExampleFileToWorkStep {
     @Bean
     public Step fileToWorkStep() {
         return new StepBuilder("FILE-TO-WORK-STEP", jobRepository)
-            .<ExampleLine, ExampleEntity>chunk(10, transactionManager)
+            .<WorkLine, ExampleEntity>chunk(10, transactionManager)
             .exceptionHandler(exceptionHandler)
             .reader(exampleReader)
             .processor(exampleProcessor)

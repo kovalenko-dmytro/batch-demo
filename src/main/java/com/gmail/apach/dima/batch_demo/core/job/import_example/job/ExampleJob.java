@@ -18,17 +18,19 @@ public class ExampleJob {
     private final JobRepository jobRepository;
 
     private final Step truncateWorkStep;
+    private final Step uploadFileStep;
     private final Step fileToWorkStep;
     //private final Step workToMasterStep;
     JobParametersValidator exampleJobValidator;
-    private final JobExecutionListener commonJobExecutionListener;
+    private final JobExecutionListener baseJobExecutionListener;
 
     @Bean(name = JobRegistry.IMPORT_EXAMPLE)
     public Job job() {
         return new JobBuilder(JobRegistry.IMPORT_EXAMPLE, jobRepository)
             .validator(exampleJobValidator)
-            .listener(commonJobExecutionListener)
+            .listener(baseJobExecutionListener)
             .start(truncateWorkStep)
+            .next(uploadFileStep)
             .next(fileToWorkStep)
             //.next(workToMasterStep)
             .build();

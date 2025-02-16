@@ -1,6 +1,8 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.trancate_work.task;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file.task;
 
-import com.gmail.apach.dima.batch_demo.application.output.db.WorkExampleOutputPort;
+import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
+import com.gmail.apach.dima.batch_demo.core.base.common.constant.JobExecutionContextKey;
+import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
 import lombok.RequiredArgsConstructor;
@@ -14,28 +16,37 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import java.io.ByteArrayInputStream;
 
 @Slf4j
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class TruncateWorkExampleTask implements Tasklet, StepExecutionListener {
+public class UploadFileTask implements Tasklet, StepExecutionListener {
 
-    private final WorkExampleOutputPort workExampleOutputPort;
+    private final AwsOssOutputPort awsOssOutputPort;
     private final MessageUtil messageUtil;
 
     private String jobName;
     private long jobId;
     private String stepName;
+    private String fileStorageResource;
+    private Resource jobResource;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        final var jobInstance = stepExecution.getJobExecution().getJobInstance();
-        this.jobName = jobInstance.getJobName();
-        this.jobId = jobInstance.getInstanceId();
+        final var jobExecution = stepExecution.getJobExecution();
+        this.jobName = jobExecution.getJobInstance().getJobName();
+        this.jobId = jobExecution.getJobInstance().getInstanceId();
         this.stepName = stepExecution.getStepName();
+        this.fileStorageResource = jobExecution
+            .getJobParameters()
+            .getString(Parameter.FILE_STORAGE_RESOURCE.getArg());
         log.info(messageUtil.getMessage(Info.JOB_STEP_STARTED, jobName, jobId, stepName));
     }
 
@@ -45,7 +56,8 @@ public class TruncateWorkExampleTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        workExampleOutputPort.truncate();
+        final var storedResource = awsOssOutputPort.get(fileStorageResource);
+        this.jobResource = new InputStreamResource(new ByteArrayInputStream(storedResource.getPayload()));
         log.info(messageUtil.getMessage(Info.JOB_STEP_PROCESSED, jobName, jobId, stepName));
         return RepeatStatus.FINISHED;
     }
@@ -54,6 +66,10 @@ public class TruncateWorkExampleTask implements Tasklet, StepExecutionListener {
     @Override
     public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
         final var exitStatus = ExitStatus.COMPLETED;
+        stepExecution
+            .getJobExecution()
+            .getExecutionContext()
+            .put(JobExecutionContextKey.JOB_FILE_RESOURCE, jobResource);
         log.info(messageUtil.getMessage(Info.JOB_STEP_COMPLETED, jobName, jobId, stepName, exitStatus.getExitCode()));
         return exitStatus;
     }

@@ -1,0 +1,54 @@
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "work_examples")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
+public class WorkExampleEntity {
+
+    @Id
+    @UuidGenerator
+    @Column(name = "id_", length = 36, unique = true, nullable = false)
+    private String id;
+
+    @Column(name = "field_param_1", nullable = false)
+    String fieldParam1;
+
+    @Column(name = "field_param_2", nullable = false)
+    Integer fieldParam2;
+
+    @Column(name = "field_param_3", nullable = false)
+    LocalDateTime fieldParam3;
+
+    @Column(name = "field_param_4")
+    Boolean fieldParam4;
+
+    @Column(name = "field_param_5", nullable = false)
+    String fieldParam5;
+
+    @Column(name = "field_param_6", nullable = false)
+    String fieldParam6;
+
+    @Column(name = "field_param_7", nullable = false)
+    Integer fieldParam7;
+
+    @Column(name = "field_param_8", nullable = false)
+    String fieldParam8;
+
+    @Column(name = "field_param_9", nullable = false)
+    Integer fieldParam9;
+}

@@ -9,7 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class ExampleWorkToMasterStep {
+public class WorkToMasterStepConfigure {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
@@ -17,7 +17,7 @@ public class ExampleWorkToMasterStep {
     @Bean
     public Step workToMasterStep() {
         /*return new StepBuilder("STEP", jobRepository)
-            .<ExampleLine, ExampleEntity>chunk(10, transactionManager)
+            .<WorkLine, ExampleEntity>chunk(10, transactionManager)
 
             .build();*/
         return null;

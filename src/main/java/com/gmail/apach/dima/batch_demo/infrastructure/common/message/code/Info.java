@@ -11,6 +11,7 @@ public enum Info {
     JOB_INITIALIZED("info.job.initialized"),
     JOB_EXEC_MARK("info.job.execution.mark"),
     JOB_STEP_STARTED("info.job.step.started"),
+    JOB_STEP_PROCESSED("info.job.step.processed"),
     JOB_READER_FILE_RESOURCE_READ("info.job.step.reader.file.resource.read"),
     JOB_STEP_COMPLETED("info.job.step.completed"),
     JOB_STEP_READER_STARTED("info.job.step.reader.started"),

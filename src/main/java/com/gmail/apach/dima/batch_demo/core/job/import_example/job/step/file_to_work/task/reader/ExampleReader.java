@@ -1,12 +1,11 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader;
 
-import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Format;
+import com.gmail.apach.dima.batch_demo.core.base.common.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.common.util.DateUtil;
 import com.gmail.apach.dima.batch_demo.core.base.job.reader.CsvFileItemReader;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ExampleHeaders;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.model.ExampleLine;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.common.FileHeaders;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
@@ -14,43 +13,38 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import java.io.ByteArrayInputStream;
 
 @Slf4j
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class ExampleReader extends CsvFileItemReader<ExampleLine> implements StepExecutionListener {
+public class ExampleReader extends CsvFileItemReader<WorkLine> implements StepExecutionListener {
 
-    private final AwsOssOutputPort awsOssOutputPort;
-
-    private String fileStorageResource;
+    private Resource jobResource;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        this.fileStorageResource = stepExecution
+        this.jobResource = (Resource) stepExecution
             .getJobExecution()
-            .getJobParameters()
-            .getString(Parameter.FILE_STORAGE_RESOURCE.getArg());
+            .getExecutionContext()
+            .get(JobExecutionContextKey.JOB_FILE_RESOURCE);
     }
 
     @Override
-    protected FieldSetMapper<ExampleLine> fieldSetMapper() {
-        return fieldSet -> ExampleLine.builder()
-            .stringColumn(fieldSet.readString(ExampleHeaders.HEADER_STRING.getValue()))
-            .integerColumn(fieldSet.readInt(ExampleHeaders.HEADER_INTEGER.getValue()))
+    protected FieldSetMapper<WorkLine> fieldSetMapper() {
+        return fieldSet -> WorkLine.builder()
+            .stringColumn(fieldSet.readString(FileHeaders.HEADER_STRING.getValue()))
+            .integerColumn(fieldSet.readInt(FileHeaders.HEADER_INTEGER.getValue()))
             .dateTimeColumn(DateUtil.toLocalDateTime(
                     fieldSet.readDate(
-                        ExampleHeaders.HEADER_DATE_TIME.getValue(),
+                        FileHeaders.HEADER_DATE_TIME.getValue(),
                         Format.DATE_TIME_yyyy_MM_dd_HH_mm_ss)
                 )
             )
-            .booleanColumn(fieldSet.readBoolean(ExampleHeaders.HEADER_BOOLEAN.getValue()))
+            .booleanColumn(fieldSet.readBoolean(FileHeaders.HEADER_BOOLEAN.getValue()))
             .build();
     }
 
@@ -61,12 +55,11 @@ public class ExampleReader extends CsvFileItemReader<ExampleLine> implements Ste
 
     @Override
     protected String[] getHeaders() {
-        return ExampleHeaders.headers;
+        return FileHeaders.headers;
     }
 
     @Override
     protected Resource getResource() {
-        final var payload = awsOssOutputPort.get(fileStorageResource).getPayload();
-        return new InputStreamResource(new ByteArrayInputStream(payload));
+        return this.jobResource;
     }
 }
