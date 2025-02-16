@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.processor;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.processor;
 
 import com.gmail.apach.dima.batch_demo.core.job.import_example.mapper.ExampleMapper;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.ExampleLine;

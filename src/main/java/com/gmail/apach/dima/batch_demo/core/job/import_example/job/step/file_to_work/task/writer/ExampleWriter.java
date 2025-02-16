@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.writer;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.writer;
 
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.inventory.entity.ExampleEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.inventory.repository.ExampleRepository;

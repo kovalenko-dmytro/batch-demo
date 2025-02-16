@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JobRegistry {
 
-    public final static String EXAMPLE = "EXAMPLE";
+    public final static String IMPORT_EXAMPLE = "import-example";
 }

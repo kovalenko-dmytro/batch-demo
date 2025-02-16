@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.base.job.executor;
 
 import com.gmail.apach.dima.batch_demo.application.input.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.JobParameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
@@ -32,7 +33,7 @@ public class BatchExecutor implements JobExecutionInputPort {
             log.info(messageService.getMessage(Info.JOB_INITIALIZED, job.getName()));
 
             final var jobParamBuilder = parameters.fromProperties();
-            final var jobExecutionMark = job.getName().concat(LocalDateTime.now().toString());
+            final var jobExecutionMark = job.getName().concat(Delimiter.DASH).concat(LocalDateTime.now().toString());
             jobParamBuilder.addString(JobParameter.JOB_EXEC_MARK, jobExecutionMark);
             log.info(messageService.getMessage(Info.JOB_EXEC_MARK, jobExecutionMark));
 

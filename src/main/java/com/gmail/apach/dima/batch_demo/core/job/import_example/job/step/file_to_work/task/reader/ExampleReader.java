@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.reader;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader;
 
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Format;

@@ -1,17 +1,17 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.validator.policy;
+package com.gmail.apach.dima.batch_demo.core.base.common.validator.policy.impl;
 
 import com.gmail.apach.dima.batch_demo.core.base.common.validator.policy.AbstractValidationPolicy;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.NonNull;
+import org.springframework.batch.core.JobParameters;
 
-public class FileStorageResourcePolicy extends AbstractValidationPolicy<RequestParameters> {
+public class FileStorageResourcePolicy extends AbstractValidationPolicy<JobParameters> {
 
     @Override
-    public boolean satisfy(@NonNull RequestParameters input) {
-        return StringUtils.isNoneBlank(input.get(Parameter.FILE_STORAGE_RESOURCE));
+    public boolean satisfy(JobParameters parameters) {
+        final var resource = (CharSequence) parameters.getParameter(Parameter.FILE_STORAGE_RESOURCE.getArg());
+        return StringUtils.isNoneBlank(resource);
     }
 
     @Override

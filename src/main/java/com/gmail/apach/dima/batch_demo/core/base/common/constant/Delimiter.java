@@ -8,4 +8,5 @@ public final class Delimiter {
 
     public static final String COMMA = ",";
     public static final String EQUAL = "=";
+    public static final String DASH = "-";
 }
