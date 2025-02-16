@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work;
 
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.processor.ExampleProcessor;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader.FileItemReader;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.writer.ExampleWriter;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.ChunkItemWriter;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.FileItemReader;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.LineItemProcessor;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +21,8 @@ public class FileToWorkStepConfigure {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final FileItemReader fileItemReader;
-    private final ExampleProcessor exampleProcessor;
-    private final ExampleWriter exampleWriter;
+    private final LineItemProcessor lineItemProcessor;
+    private final ChunkItemWriter chunkItemWriter;
     private final JobExceptionHandler exceptionHandler;
 
     @Bean
@@ -31,8 +31,8 @@ public class FileToWorkStepConfigure {
             .<WorkLine, WorkExampleEntity>chunk(10, transactionManager)
             .exceptionHandler(exceptionHandler)
             .reader(fileItemReader)
-            .processor(exampleProcessor)
-            .writer(exampleWriter)
+            .processor(lineItemProcessor)
+            .writer(chunkItemWriter)
             .build();
     }
 }

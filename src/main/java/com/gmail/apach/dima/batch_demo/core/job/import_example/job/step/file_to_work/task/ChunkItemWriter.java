@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.writer;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task;
 
 import com.gmail.apach.dima.batch_demo.application.output.db.WorkExampleOutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.StepExecutionContextKey;
@@ -27,7 +27,7 @@ import java.util.List;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class ExampleWriter
+public class ChunkItemWriter
     implements ItemWriter<WorkExampleEntity>, StepExecutionListener, ChunkListener {
 
     private final WorkExampleOutputPort workExampleOutputPort;

@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.reader;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task;
 
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Format;
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.JobExecutionContextKey;
