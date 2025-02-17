@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.mapper;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.mapper;
 
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL,
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 @Validated
-public interface ExampleMapper {
+public interface WorkExampleMapper {
 
     WorkExampleEntity toWorkExampleEntity(@Valid WorkLine workLine);
 }

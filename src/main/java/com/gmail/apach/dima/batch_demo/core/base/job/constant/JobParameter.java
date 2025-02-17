@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.base.common.constant;
+package com.gmail.apach.dima.batch_demo.core.base.job.constant;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

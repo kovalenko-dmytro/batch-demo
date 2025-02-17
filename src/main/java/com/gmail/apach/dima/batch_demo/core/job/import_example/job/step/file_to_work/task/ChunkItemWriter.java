@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task;
 
 import com.gmail.apach.dima.batch_demo.application.output.db.WorkExampleOutputPort;
-import com.gmail.apach.dima.batch_demo.core.base.common.constant.StepExecutionContextKey;
+import com.gmail.apach.dima.batch_demo.core.base.job.constant.StepExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;

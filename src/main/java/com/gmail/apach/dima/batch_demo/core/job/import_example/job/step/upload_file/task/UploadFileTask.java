@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file.task;
 
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
-import com.gmail.apach.dima.batch_demo.core.base.common.constant.JobExecutionContextKey;
+import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
