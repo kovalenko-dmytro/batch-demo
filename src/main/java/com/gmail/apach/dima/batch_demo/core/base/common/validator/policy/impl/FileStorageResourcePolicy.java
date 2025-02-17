@@ -10,7 +10,9 @@ public class FileStorageResourcePolicy extends AbstractValidationPolicy<JobParam
 
     @Override
     public boolean satisfy(JobParameters parameters) {
-        final var resource = (CharSequence) parameters.getParameter(Parameter.FILE_STORAGE_RESOURCE.getArg());
+        final var resource = (String) parameters
+            .getParameter(Parameter.FILE_STORAGE_RESOURCE.getArg())
+            .getValue();
         return StringUtils.isNoneBlank(resource);
     }
 

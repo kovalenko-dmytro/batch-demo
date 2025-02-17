@@ -1,17 +1,18 @@
 package com.gmail.apach.dima.batch_demo.core.base.job.reader;
 
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.database.JpaCursorItemReader;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 public abstract class CursorItemReader<T> extends JpaCursorItemReader<T> {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        final var factoryBean = new LocalContainerEntityManagerFactoryBean();
-        super.setEntityManagerFactory(factoryBean.getObject());
+        super.setEntityManagerFactory(getEntityManagerFactory());
         super.setQueryString(getQuery());
         super.afterPropertiesSet();
     }
 
     protected abstract String getQuery();
+
+    protected abstract EntityManagerFactory getEntityManagerFactory();
 }
