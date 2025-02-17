@@ -16,7 +16,7 @@ public class WorkToMasterStepConfigure {
 
     @Bean
     public Step workToMasterStep() {
-        /*return new StepBuilder(StepName.WORK_TO_MASTER_STEP.getName(), jobRepository)
+        /*return new StepBuilder(ImportExampleStepName.WORK_TO_MASTER_STEP.getName(), jobRepository)
             .<WorkLine, ExampleEntity>chunk(10, transactionManager)
 
             .build();*/
