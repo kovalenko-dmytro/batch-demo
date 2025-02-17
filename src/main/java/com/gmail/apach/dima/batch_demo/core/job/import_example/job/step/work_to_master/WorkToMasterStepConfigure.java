@@ -1,5 +1,6 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master;
 
+import com.gmail.apach.dima.batch_demo.core.base.job.config.BatchConfigProperties;
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
@@ -27,12 +28,13 @@ public class WorkToMasterStepConfigure {
     private final MasterItemWriter masterItemWriter;
     private final BaseStepExecutionListener baseStepExecutionListener;
     private final JobExceptionHandler exceptionHandler;
+    private final BatchConfigProperties batchConfigProperties;
 
     @Bean
     @SuppressWarnings("unused")
     public Step workToMasterStep() {
         return new StepBuilder(ImportExampleStepName.WORK_TO_MASTER_STEP.getName(), jobRepository)
-            .<WorkExampleEntity, MasterExampleEntity>chunk(10, transactionManager)
+            .<WorkExampleEntity, MasterExampleEntity>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(workItemReader)
             .processor(entityItemProcessor)
             .writer(masterItemWriter)
