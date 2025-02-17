@@ -26,6 +26,7 @@ public class FileToWorkStepConfigure {
     private final JobExceptionHandler exceptionHandler;
 
     @Bean
+    @SuppressWarnings("unused")
     public Step fileToWorkStep() {
         return new StepBuilder("FILE-TO-WORK-STEP", jobRepository)
             .<WorkLine, WorkExampleEntity>chunk(10, transactionManager)

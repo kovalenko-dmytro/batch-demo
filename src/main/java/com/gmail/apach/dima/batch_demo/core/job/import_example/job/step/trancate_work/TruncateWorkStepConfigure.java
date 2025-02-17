@@ -20,6 +20,7 @@ public class TruncateWorkStepConfigure {
     private final JobExceptionHandler exceptionHandler;
 
     @Bean
+    @SuppressWarnings("unused")
     protected Step truncateWorkStep() {
         return new StepBuilder("TRUNCATE-WORK-STEP", jobRepository)
             .tasklet(truncateWorkExampleTask, transactionManager)

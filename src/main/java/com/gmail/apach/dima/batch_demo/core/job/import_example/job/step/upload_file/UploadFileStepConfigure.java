@@ -20,6 +20,7 @@ public class UploadFileStepConfigure {
     private final JobExceptionHandler exceptionHandler;
 
     @Bean
+    @SuppressWarnings("unused")
     protected Step uploadFileStep() {
         return new StepBuilder("UPLOAD-FILE-STEP", jobRepository)
             .tasklet(uploadFileTask, transactionManager)
