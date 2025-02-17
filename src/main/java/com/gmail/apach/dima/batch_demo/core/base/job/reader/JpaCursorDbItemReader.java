@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.core.base.job.reader;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.item.database.JpaCursorItemReader;
 
-public abstract class CursorItemReader<T> extends JpaCursorItemReader<T> {
+public abstract class JpaCursorDbItemReader<T> extends JpaCursorItemReader<T> {
 
     @Override
     public void afterPropertiesSet() throws Exception {
