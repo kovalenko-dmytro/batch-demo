@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file;
 
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file.task.UploadFileTask;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class UploadFileStepConfigure {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final UploadFileTask uploadFileTask;
+    private final BaseStepExecutionListener baseStepExecutionListener;
     private final JobExceptionHandler exceptionHandler;
 
     @Bean
@@ -25,6 +27,7 @@ public class UploadFileStepConfigure {
     protected Step uploadFileStep() {
         return new StepBuilder(ImportExampleStepName.UPLOAD_FILE_STEP.getName(), jobRepository)
             .tasklet(uploadFileTask, transactionManager)
+            .listener(baseStepExecutionListener)
             .exceptionHandler(exceptionHandler)
             .build();
     }

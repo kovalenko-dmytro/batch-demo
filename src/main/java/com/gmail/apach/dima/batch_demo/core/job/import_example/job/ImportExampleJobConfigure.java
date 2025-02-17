@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class ExampleJob {
+public class ImportExampleJobConfigure {
 
     private final JobRepository jobRepository;
 

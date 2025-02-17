@@ -3,8 +3,6 @@ package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
@@ -30,24 +28,15 @@ import java.io.ByteArrayInputStream;
 public class UploadFileTask implements Tasklet, StepExecutionListener {
 
     private final AwsOssOutputPort awsOssOutputPort;
-    private final MessageUtil messageUtil;
 
-    private String jobName;
-    private long jobId;
-    private String stepName;
     private String fileStorageResource;
     private Resource jobResource;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
         final var jobExecution = stepExecution.getJobExecution();
-        this.jobName = jobExecution.getJobInstance().getJobName();
-        this.jobId = jobExecution.getJobInstance().getInstanceId();
-        this.stepName = stepExecution.getStepName();
         this.fileStorageResource = jobExecution
-            .getJobParameters()
-            .getString(Parameter.FILE_STORAGE_RESOURCE.getArg());
-        log.info(messageUtil.getMessage(Info.JOB_STEP_STARTED, jobName, jobId, stepName));
+            .getJobParameters().getString(Parameter.FILE_STORAGE_RESOURCE.getArg());
     }
 
     @NonNull
@@ -58,7 +47,6 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
     ) {
         final var storedResource = awsOssOutputPort.get(fileStorageResource);
         this.jobResource = new InputStreamResource(new ByteArrayInputStream(storedResource.getPayload()));
-        log.info(messageUtil.getMessage(Info.JOB_STEP_PROCESSED, jobName, jobId, stepName));
         return RepeatStatus.FINISHED;
     }
 
@@ -67,18 +55,10 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
     public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
         final var exceptions = stepExecution.getFailureExceptions();
         if (exceptions.isEmpty()) {
-            stepExecution
-                .getJobExecution()
-                .getExecutionContext()
+            stepExecution.getJobExecution().getExecutionContext()
                 .put(JobExecutionContextKey.JOB_FILE_RESOURCE, jobResource);
-
-            final var status = ExitStatus.COMPLETED;
-            log.info(messageUtil.getMessage(Info.JOB_STEP_COMPLETED,jobName, jobId, stepName, status.getExitCode()));
-            return status;
+            return ExitStatus.COMPLETED;
         }
-
-        final var status = ExitStatus.FAILED;
-        log.info(messageUtil.getMessage(Info.JOB_STEP_COMPLETED, jobName, jobId, stepName, status.getExitCode()));
-        return status;
+        return ExitStatus.FAILED;
     }
 }

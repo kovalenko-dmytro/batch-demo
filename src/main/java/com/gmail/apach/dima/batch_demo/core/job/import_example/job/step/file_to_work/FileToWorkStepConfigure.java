@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work;
 
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.ChunkItemWriter;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.FileItemReader;
@@ -24,6 +25,7 @@ public class FileToWorkStepConfigure {
     private final FileItemReader fileItemReader;
     private final LineItemProcessor lineItemProcessor;
     private final ChunkItemWriter chunkItemWriter;
+    private final BaseStepExecutionListener baseStepExecutionListener;
     private final JobExceptionHandler exceptionHandler;
 
     @Bean
@@ -31,10 +33,11 @@ public class FileToWorkStepConfigure {
     public Step fileToWorkStep() {
         return new StepBuilder(ImportExampleStepName.FILE_TO_WORK_STEP.getName(), jobRepository)
             .<WorkLine, WorkExampleEntity>chunk(10, transactionManager)
-            .exceptionHandler(exceptionHandler)
             .reader(fileItemReader)
             .processor(lineItemProcessor)
             .writer(chunkItemWriter)
+            .listener(baseStepExecutionListener)
+            .exceptionHandler(exceptionHandler)
             .build();
     }
 }
