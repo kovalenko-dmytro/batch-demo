@@ -66,24 +66,19 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
     @Override
     public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
         final var exceptions = stepExecution.getFailureExceptions();
-
         if (exceptions.isEmpty()) {
             stepExecution
                 .getJobExecution()
                 .getExecutionContext()
                 .put(JobExecutionContextKey.JOB_FILE_RESOURCE, jobResource);
 
-            log.info(messageUtil.getMessage(
-                Info.JOB_STEP_COMPLETED,
-                jobName, jobId, stepName, ExitStatus.COMPLETED.getExitCode()));
-
-            return ExitStatus.COMPLETED;
+            final var status = ExitStatus.COMPLETED;
+            log.info(messageUtil.getMessage(Info.JOB_STEP_COMPLETED,jobName, jobId, stepName, status.getExitCode()));
+            return status;
         }
 
-        log.info(messageUtil.getMessage(
-            Info.JOB_STEP_COMPLETED,
-            jobName, jobId, stepName, ExitStatus.FAILED.getExitCode()));
-
-        return ExitStatus.FAILED;
+        final var status = ExitStatus.FAILED;
+        log.info(messageUtil.getMessage(Info.JOB_STEP_COMPLETED, jobName, jobId, stepName, status.getExitCode()));
+        return status;
     }
 }

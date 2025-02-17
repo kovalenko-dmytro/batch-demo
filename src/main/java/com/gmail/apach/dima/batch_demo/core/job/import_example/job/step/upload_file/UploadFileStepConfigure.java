@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file;
 
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.common.StepName;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file.task.UploadFileTask;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
@@ -22,7 +23,7 @@ public class UploadFileStepConfigure {
     @Bean
     @SuppressWarnings("unused")
     protected Step uploadFileStep() {
-        return new StepBuilder("UPLOAD-FILE-STEP", jobRepository)
+        return new StepBuilder(StepName.UPLOAD_FILE_STEP.getName(), jobRepository)
             .tasklet(uploadFileTask, transactionManager)
             .exceptionHandler(exceptionHandler)
             .build();
