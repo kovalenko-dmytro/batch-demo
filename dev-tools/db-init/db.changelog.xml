@@ -39,7 +39,15 @@
     </changeSet>
 
     <changeSet id="db-change-set-9" author="import-data-batch-demo">
-        <sqlFile path="sql/2025-02-05-1915_create_table_examples.sql"/>
+        <sqlFile path="sql/2025-02-05-1915_create_table_master_examples.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-10" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-02-17-1915_create_table_master_examples_nested_one.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-11" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-02-17-2015_create_table_master_examples_nested_two.sql"/>
     </changeSet>
 
 

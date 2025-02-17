@@ -20,8 +20,8 @@ public class ImportExampleJobConfigure {
     private final Step truncateWorkStep;
     private final Step uploadFileStep;
     private final Step fileToWorkStep;
-    //private final Step workToMasterStep;
-    JobParametersValidator exampleJobValidator;
+    private final Step workToMasterStep;
+    private final JobParametersValidator exampleJobValidator;
     private final JobExecutionListener baseJobExecutionListener;
 
     @Bean(name = JobRegistry.IMPORT_EXAMPLE)
@@ -32,7 +32,8 @@ public class ImportExampleJobConfigure {
             .start(truncateWorkStep)
             .next(uploadFileStep)
             .next(fileToWorkStep)
-            //.next(workToMasterStep)
+            .next(workToMasterStep)
+            .next(truncateWorkStep)
             .build();
     }
 }

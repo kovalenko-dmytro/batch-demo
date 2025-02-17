@@ -1,8 +1,17 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master;
 
+import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task.EntityItemProcessor;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task.MasterItemWriter;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task.WorkItemReader;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.MasterExampleEntity;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -13,13 +22,22 @@ public class WorkToMasterStepConfigure {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
+    private final WorkItemReader workItemReader;
+    private final EntityItemProcessor entityItemProcessor;
+    private final MasterItemWriter masterItemWriter;
+    private final BaseStepExecutionListener baseStepExecutionListener;
+    private final JobExceptionHandler exceptionHandler;
 
     @Bean
+    @SuppressWarnings("unused")
     public Step workToMasterStep() {
-        /*return new StepBuilder(ImportExampleStepName.WORK_TO_MASTER_STEP.getName(), jobRepository)
-            .<WorkLine, ExampleEntity>chunk(10, transactionManager)
-
-            .build();*/
-        return null;
+        return new StepBuilder(ImportExampleStepName.WORK_TO_MASTER_STEP.getName(), jobRepository)
+            .<WorkExampleEntity, MasterExampleEntity>chunk(10, transactionManager)
+            .reader(workItemReader)
+            .processor(entityItemProcessor)
+            .writer(masterItemWriter)
+            .listener(baseStepExecutionListener)
+            .exceptionHandler(exceptionHandler)
+            .build();
     }
 }
