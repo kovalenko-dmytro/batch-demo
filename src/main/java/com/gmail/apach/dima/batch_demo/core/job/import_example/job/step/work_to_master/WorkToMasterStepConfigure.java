@@ -4,7 +4,7 @@ import com.gmail.apach.dima.batch_demo.core.base.job.config.BatchConfigPropertie
 import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.listener.InitRollbackHolderStepExecutionListener;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.listener.JobPromotionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task.MasterItemWriter;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task.WorkItemReader;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task.WorkToMasterItemProcessor;
@@ -28,7 +28,7 @@ public class WorkToMasterStepConfigure {
     private final WorkToMasterItemProcessor workToMasterItemProcessor;
     private final MasterItemWriter masterItemWriter;
     private final BaseStepExecutionListener baseStepExecutionListener;
-    private final InitRollbackHolderStepExecutionListener initRollbackHolderListener;
+    private final JobPromotionListener jobPromotionListener;
     private final JobExceptionHandler exceptionHandler;
     private final BatchConfigProperties batchConfigProperties;
 
@@ -41,7 +41,7 @@ public class WorkToMasterStepConfigure {
             .processor(workToMasterItemProcessor)
             .writer(masterItemWriter)
             .listener(baseStepExecutionListener)
-            .listener(initRollbackHolderListener)
+            .listener(jobPromotionListener)
             .exceptionHandler(exceptionHandler)
             .build();
     }
