@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.task;
 
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.work_to_master.mapper.ExampleMapper;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.mapper.MasterExampleMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.MasterExampleEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WorkToMasterItemProcessor implements ItemProcessor<WorkExampleEntity, MasterExampleEntity> {
 
-    private final ExampleMapper exampleMapper;
+    private final MasterExampleMapper masterExampleMapper;
 
     @NonNull
     @Override
     public MasterExampleEntity process(@NonNull WorkExampleEntity work) {
-        return exampleMapper.toExampleEntity(work);
+        return masterExampleMapper.toExampleEntity(work);
     }
 }

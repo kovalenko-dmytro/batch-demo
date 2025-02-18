@@ -3,6 +3,7 @@ package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
+import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
@@ -14,12 +15,8 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import java.io.ByteArrayInputStream;
 
 @Slf4j
 @Component
@@ -30,7 +27,7 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
     private final AwsOssOutputPort awsOssOutputPort;
 
     private String fileStorageResource;
-    private Resource jobResource;
+    private StoredResource storedResource;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
@@ -45,8 +42,7 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        final var storedResource = awsOssOutputPort.get(fileStorageResource);
-        this.jobResource = new InputStreamResource(new ByteArrayInputStream(storedResource.getPayload()));
+        this.storedResource = awsOssOutputPort.get(fileStorageResource);
         return RepeatStatus.FINISHED;
     }
 
@@ -56,7 +52,7 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
         final var exceptions = stepExecution.getFailureExceptions();
         if (exceptions.isEmpty()) {
             stepExecution.getJobExecution().getExecutionContext()
-                .put(JobExecutionContextKey.JOB_FILE_RESOURCE, jobResource);
+                .put(JobExecutionContextKey.STORED_RESOURCE, storedResource);
             return ExitStatus.COMPLETED;
         }
         return ExitStatus.FAILED;

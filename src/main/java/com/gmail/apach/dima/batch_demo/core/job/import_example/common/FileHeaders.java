@@ -12,12 +12,7 @@ public enum FileHeaders {
     FIELD_PARAM_1("field_param_1"),
     FIELD_PARAM_2("field_param_2"),
     FIELD_PARAM_3("field_param_3"),
-    FIELD_PARAM_4("field_param_4"),
-    FIELD_PARAM_5("field_param_5"),
-    FIELD_PARAM_6("field_param_6"),
-    FIELD_PARAM_7("field_param_7"),
-    FIELD_PARAM_8("field_param_8"),
-    FIELD_PARAM_9("field_param_9");
+    FIELD_PARAM_4("field_param_4");
 
     private final String name;
 

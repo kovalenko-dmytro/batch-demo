@@ -14,11 +14,6 @@ public record WorkLine(
     String fieldParam1,
     Integer fieldParam2,
     LocalDateTime fieldParam3,
-    Boolean fieldParam4,
-    String fieldParam5,
-    String fieldParam6,
-    Integer fieldParam7,
-    String fieldParam8,
-    Integer fieldParam9
+    Boolean fieldParam4
 ) {
 }

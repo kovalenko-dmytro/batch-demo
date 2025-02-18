@@ -36,19 +36,4 @@ public class WorkExampleEntity {
 
     @Column(name = "field_param_4")
     Boolean fieldParam4;
-
-    @Column(name = "field_param_5", nullable = false)
-    String fieldParam5;
-
-    @Column(name = "field_param_6", nullable = false)
-    String fieldParam6;
-
-    @Column(name = "field_param_7", nullable = false)
-    Integer fieldParam7;
-
-    @Column(name = "field_param_8", nullable = false)
-    String fieldParam8;
-
-    @Column(name = "field_param_9", nullable = false)
-    Integer fieldParam9;
 }

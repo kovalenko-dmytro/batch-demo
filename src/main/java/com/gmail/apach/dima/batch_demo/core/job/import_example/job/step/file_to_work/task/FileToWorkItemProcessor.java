@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task;
 
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.mapper.WorkExampleMapper;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.mapper.WorkExampleMapper;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity.WorkExampleEntity;
 import lombok.RequiredArgsConstructor;

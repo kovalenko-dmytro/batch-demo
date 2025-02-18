@@ -1,6 +1,9 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.example.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,18 +36,4 @@ public class MasterExampleEntity {
 
     @Column(name = "column_4")
     Boolean column4;
-
-    @OneToOne(
-        mappedBy = "parent",
-        fetch = FetchType.EAGER,
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    private MasterExampleNestedOneEntity nestedOne;
-
-    @OneToOne(
-        mappedBy = "parent",
-        fetch = FetchType.EAGER,
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    private MasterExampleNestedTwoEntity nestedTwo;
 }

@@ -43,12 +43,12 @@ public class MasterItemWriter
             .get(JobExecutionContextKey.INSERTED_IDS);
     }
 
-    @Override
+    /*@Override
     public void afterChunk(@NonNull ChunkContext context) {
         context
             .getStepContext()
             .getJobExecutionContext()
-            .put(JobExecutionContextKey.INSERTED_IDS, insertedIds);
+            .replace(JobExecutionContextKey.INSERTED_IDS, insertedIds);
     }
 
     @Override
@@ -56,6 +56,6 @@ public class MasterItemWriter
         context
             .getStepContext()
             .getJobExecutionContext()
-            .put(JobExecutionContextKey.INSERTED_IDS, insertedIds);
-    }
+            .replace(JobExecutionContextKey.INSERTED_IDS, insertedIds);
+    }*/
 }

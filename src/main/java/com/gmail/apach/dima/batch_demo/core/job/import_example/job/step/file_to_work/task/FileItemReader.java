@@ -4,6 +4,7 @@ import com.gmail.apach.dima.batch_demo.core.base.common.constant.Format;
 import com.gmail.apach.dima.batch_demo.core.base.common.util.DateUtil;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.job.reader.CsvFileItemReader;
+import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.FileHeaders;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,12 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import java.io.ByteArrayInputStream;
 
 @Slf4j
 @Component
@@ -23,14 +27,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class FileItemReader extends CsvFileItemReader<WorkLine> implements StepExecutionListener {
 
-    private Resource jobResource;
+    private StoredResource storedResource;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        this.jobResource = (Resource) stepExecution
+        this.storedResource = (StoredResource) stepExecution
             .getJobExecution()
             .getExecutionContext()
-            .get(JobExecutionContextKey.JOB_FILE_RESOURCE);
+            .get(JobExecutionContextKey.STORED_RESOURCE);
     }
 
     @Override
@@ -43,11 +47,6 @@ public class FileItemReader extends CsvFileItemReader<WorkLine> implements StepE
                     fieldSet.readDate(FileHeaders.FIELD_PARAM_3.getName(),
                         Format.DATE_TIME_yyyy_MM_dd_HH_mm_ss)))
             .fieldParam4(fieldSet.readBoolean(FileHeaders.FIELD_PARAM_4.getName()))
-            .fieldParam5(fieldSet.readString(FileHeaders.FIELD_PARAM_5.getName()))
-            .fieldParam6(fieldSet.readString(FileHeaders.FIELD_PARAM_6.getName()))
-            .fieldParam7(fieldSet.readInt(FileHeaders.FIELD_PARAM_7.getName()))
-            .fieldParam8(fieldSet.readString(FileHeaders.FIELD_PARAM_8.getName()))
-            .fieldParam9(fieldSet.readInt(FileHeaders.FIELD_PARAM_9.getName()))
             .build();
     }
 
@@ -63,6 +62,6 @@ public class FileItemReader extends CsvFileItemReader<WorkLine> implements StepE
 
     @Override
     protected Resource getResource() {
-        return this.jobResource;
+        return new InputStreamResource(new ByteArrayInputStream(storedResource.getPayload()));
     }
 }
