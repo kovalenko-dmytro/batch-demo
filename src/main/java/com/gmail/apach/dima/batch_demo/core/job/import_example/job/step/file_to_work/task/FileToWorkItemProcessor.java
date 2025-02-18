@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class LineItemProcessor implements ItemProcessor<WorkLine, WorkExampleEntity> {
+public class FileToWorkItemProcessor implements ItemProcessor<WorkLine, WorkExampleEntity> {
 
     private final WorkExampleMapper workExampleMapper;
 

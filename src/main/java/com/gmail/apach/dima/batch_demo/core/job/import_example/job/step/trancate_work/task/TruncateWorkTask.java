@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class TruncateWorkExampleTask implements Tasklet {
+public class TruncateWorkTask implements Tasklet {
 
     private final WorkExampleOutputPort workExampleOutputPort;
 

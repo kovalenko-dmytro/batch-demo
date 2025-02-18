@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class EntityItemProcessor implements ItemProcessor<WorkExampleEntity, MasterExampleEntity> {
+public class WorkToMasterItemProcessor implements ItemProcessor<WorkExampleEntity, MasterExampleEntity> {
 
     private final ExampleMapper exampleMapper;
 

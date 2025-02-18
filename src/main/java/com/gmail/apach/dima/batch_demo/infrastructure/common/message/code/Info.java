@@ -22,7 +22,7 @@ public enum Info {
     JOB_STEP_WRITER_STARTED("info.job.step.writer.started"),
     JOB_STEP_WRITER_PROCESSED("info.job.step.writer.processed"),
     JOB_STEP_WRITER_COMPLETED("info.job.step.writer.completed"),
-    JOB_STEP_WRITER_ROLLBACK("info.job.step.writer.rollback"),
+    JOB_STEP_ROLLBACK_PROCESSED("info.job.step.rollback.processed"),
     JOB_FINISHED("info.job.finished");
 
     private final String key;

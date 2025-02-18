@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public final class JobExecutionContextKey {
 
     public static final String JOB_FILE_RESOURCE = "job-file-resource";
+    public static final String INSERTED_IDS = "inserted-ids";
 }
