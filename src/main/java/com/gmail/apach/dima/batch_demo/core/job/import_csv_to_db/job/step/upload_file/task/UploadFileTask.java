@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_csv_to_db.job.step.upload_file.task;
 
-import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
+import com.gmail.apach.dima.batch_demo.application.output.oss.AwsS3OutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UploadFileTask implements Tasklet, StepExecutionListener {
 
-    private final AwsOssOutputPort awsOssOutputPort;
+    private final AwsS3OutputPort awsS3OutputPort;
 
     private String fileStorageResource;
     private StoredResource storedResource;
@@ -40,7 +40,7 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        this.storedResource = awsOssOutputPort.get(fileStorageResource);
+        this.storedResource = awsS3OutputPort.get(fileStorageResource);
         return RepeatStatus.FINISHED;
     }
 

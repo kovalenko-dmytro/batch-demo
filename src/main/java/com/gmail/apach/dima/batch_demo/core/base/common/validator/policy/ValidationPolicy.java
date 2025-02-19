@@ -8,7 +8,6 @@ public interface ValidationPolicy<I> {
 
     boolean satisfy(@NonNull I input);
 
-
     Error errorCode();
 
     Object[] errorParams();

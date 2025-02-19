@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss;
 
-import com.gmail.apach.dima.batch_demo.application.output.oss.AwsOssOutputPort;
+import com.gmail.apach.dima.batch_demo.application.output.oss.AwsS3OutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.config.AwsOssProperties;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.config.AwsS3Properties;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.mapper.AwsS3Mapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
@@ -20,10 +20,10 @@ import java.util.UUID;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AwsOssAdapter implements AwsOssOutputPort {
+public class AwsS3Adapter implements AwsS3OutputPort {
 
     private final S3Template s3Template;
-    private final AwsOssProperties properties;
+    private final AwsS3Properties properties;
     private final AwsS3Mapper awsS3Mapper;
     private final MessageUtil messageUtil;
 

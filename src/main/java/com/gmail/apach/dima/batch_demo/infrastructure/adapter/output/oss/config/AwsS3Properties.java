@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "spring.cloud.aws")
 @Validated
 @Data
-public class AwsOssProperties {
+public class AwsS3Properties {
 
     private S3 s3;
 
