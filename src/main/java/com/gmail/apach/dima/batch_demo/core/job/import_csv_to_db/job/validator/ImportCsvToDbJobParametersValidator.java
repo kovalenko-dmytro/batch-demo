@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_csv_to_db.job.validator;
 
-import com.gmail.apach.dima.batch_demo.core.base.common.validator.policy.impl.FileStorageResourcePolicy;
+import com.gmail.apach.dima.batch_demo.core.base.common.validator.implementation.FileStorageResourcePolicy;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.JobParameters;
