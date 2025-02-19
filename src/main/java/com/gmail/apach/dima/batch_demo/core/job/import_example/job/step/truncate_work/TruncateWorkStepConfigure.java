@@ -1,9 +1,9 @@
-package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.trancate_work;
+package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.truncate_work;
 
-import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
-import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
+import com.gmail.apach.dima.batch_demo.core.base.job.handler.BaseJobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.base.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
-import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.trancate_work.task.TruncateWorkTask;
+import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.truncate_work.task.TruncateWorkTask;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
@@ -18,16 +18,16 @@ public class TruncateWorkStepConfigure {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
+    private final BaseJobExceptionHandler exceptionHandler;
     private final TruncateWorkTask truncateWorkTask;
-    private final BaseStepExecutionListener baseStepExecutionListener;
-    private final JobExceptionHandler exceptionHandler;
+    private final LogStepExecutionListener logStepExecutionListener;
 
     @Bean
     @SuppressWarnings("unused")
     protected Step truncateWorkStep() {
         return new StepBuilder(ImportExampleStepName.TRUNCATE_WORK_STEP.getName(), jobRepository)
             .tasklet(truncateWorkTask, transactionManager)
-            .listener(baseStepExecutionListener)
+            .listener(logStepExecutionListener)
             .exceptionHandler(exceptionHandler)
             .build();
     }

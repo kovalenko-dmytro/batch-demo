@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class BaseStepExecutionListener implements StepExecutionListener {
+public class LogStepExecutionListener implements StepExecutionListener {
 
     private final MessageUtil messageUtil;
 

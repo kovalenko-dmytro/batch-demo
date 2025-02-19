@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 
 @Component
 @RequiredArgsConstructor
-public class ExampleJobValidator implements JobParametersValidator {
+public class ImportExampleJobParametersValidator implements JobParametersValidator {
 
     private final MessageUtil messageUtil;
 

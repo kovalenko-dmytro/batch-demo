@@ -8,7 +8,6 @@ import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.FileHeaders;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.model.WorkLine;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 
-@Slf4j
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor

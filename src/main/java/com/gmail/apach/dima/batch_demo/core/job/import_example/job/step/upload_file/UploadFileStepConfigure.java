@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file;
 
-import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
-import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
+import com.gmail.apach.dima.batch_demo.core.base.job.handler.BaseJobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.base.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.upload_file.task.UploadFileTask;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +19,15 @@ public class UploadFileStepConfigure {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final UploadFileTask uploadFileTask;
-    private final BaseStepExecutionListener baseStepExecutionListener;
-    private final JobExceptionHandler exceptionHandler;
+    private final LogStepExecutionListener logStepExecutionListener;
+    private final BaseJobExceptionHandler exceptionHandler;
 
     @Bean
     @SuppressWarnings("unused")
     protected Step uploadFileStep() {
         return new StepBuilder(ImportExampleStepName.UPLOAD_FILE_STEP.getName(), jobRepository)
             .tasklet(uploadFileTask, transactionManager)
-            .listener(baseStepExecutionListener)
+            .listener(logStepExecutionListener)
             .exceptionHandler(exceptionHandler)
             .build();
     }

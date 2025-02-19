@@ -10,5 +10,5 @@ public interface WorkExampleOutputPort {
 
     List<WorkExampleEntity> save(List<WorkExampleEntity> workExampleEntities);
 
-    void delete(List<String> ids);
+    long count();
 }

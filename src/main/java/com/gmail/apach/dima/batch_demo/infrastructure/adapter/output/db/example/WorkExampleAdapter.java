@@ -25,7 +25,7 @@ public class WorkExampleAdapter implements WorkExampleOutputPort {
     }
 
     @Override
-    public void delete(List<String> ids) {
-        workExampleRepository.deleteAllById(ids);
+    public long count() {
+        return workExampleRepository.count();
     }
 }

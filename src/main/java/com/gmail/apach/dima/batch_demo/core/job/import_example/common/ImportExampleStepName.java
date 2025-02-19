@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum ImportExampleStepName {
 
-    UPLOAD_FILE_STEP("upload-file-step"),
     TRUNCATE_WORK_STEP("truncate-work-step"),
+    UPLOAD_FILE_STEP("upload-file-step"),
     FILE_TO_WORK_STEP("file-to-work-step"),
     WORK_TO_MASTER_STEP("work-to-master-step");
 

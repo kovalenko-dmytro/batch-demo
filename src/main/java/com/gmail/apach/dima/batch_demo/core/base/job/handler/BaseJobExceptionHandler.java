@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JobExceptionHandler implements ExceptionHandler {
+public class BaseJobExceptionHandler implements ExceptionHandler {
 
     private final MessageUtil messageUtil;
+
     @Override
     public void handleException(@NonNull RepeatContext context, @NonNull Throwable throwable) throws Throwable {
         throw new JobInterruptedException(

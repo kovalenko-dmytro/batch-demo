@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @SuppressWarnings("unused")
-public class BaseJobExecutionListener implements JobExecutionListener {
+public class LogJobFailuresListener implements JobExecutionListener {
 
     private final MessageUtil messageUtil;
 

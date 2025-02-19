@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.Chunk;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -24,13 +25,13 @@ public class MasterItemWriter
 
     private final MasterExampleOutputPort masterExampleOutputPort;
 
-    private StepExecution stepExecution;
+    private ExecutionContext executionContext;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        stepExecution.getExecutionContext()
-            .put(JobExecutionContextKey.INSERTED_IDS, new ArrayList<String>());
-        this.stepExecution = stepExecution;
+        final var executionContext = stepExecution.getJobExecution().getExecutionContext();
+        executionContext.put(JobExecutionContextKey.INSERTED_IDS, new ArrayList<String>());
+        this.executionContext = executionContext;
     }
 
     @Override
@@ -42,8 +43,7 @@ public class MasterItemWriter
         final var inserted = masterExampleOutputPort.save(items);
         final var insertedIds = inserted.stream().map(MasterExampleEntity::getId).toList();
 
-        final var stepContext = this.stepExecution.getExecutionContext();
-        final var heldIds = (List<String>) stepContext.get(JobExecutionContextKey.INSERTED_IDS);
+        final var heldIds = (List<String>) this.executionContext.get(JobExecutionContextKey.INSERTED_IDS);
         heldIds.addAll(insertedIds);
     }
 }

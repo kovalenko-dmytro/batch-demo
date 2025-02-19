@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work;
 
 import com.gmail.apach.dima.batch_demo.core.base.job.config.BatchConfigProperties;
-import com.gmail.apach.dima.batch_demo.core.base.job.handler.JobExceptionHandler;
-import com.gmail.apach.dima.batch_demo.core.base.job.listener.BaseStepExecutionListener;
+import com.gmail.apach.dima.batch_demo.core.base.job.handler.BaseJobExceptionHandler;
+import com.gmail.apach.dima.batch_demo.core.base.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.common.ImportExampleStepName;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.FileItemReader;
 import com.gmail.apach.dima.batch_demo.core.job.import_example.job.step.file_to_work.task.FileToWorkItemProcessor;
@@ -23,12 +23,12 @@ public class FileToWorkStepConfigure {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
+    private final BatchConfigProperties batchConfigProperties;
     private final FileItemReader fileItemReader;
     private final FileToWorkItemProcessor fileToWorkItemProcessor;
     private final WorkItemWriter workItemWriter;
-    private final BaseStepExecutionListener baseStepExecutionListener;
-    private final JobExceptionHandler exceptionHandler;
-    private final BatchConfigProperties batchConfigProperties;
+    private final BaseJobExceptionHandler exceptionHandler;
+    private final LogStepExecutionListener logStepExecutionListener;
 
     @Bean
     @SuppressWarnings("unused")
@@ -38,8 +38,8 @@ public class FileToWorkStepConfigure {
             .reader(fileItemReader)
             .processor(fileToWorkItemProcessor)
             .writer(workItemWriter)
-            .listener(baseStepExecutionListener)
             .exceptionHandler(exceptionHandler)
+            .listener(logStepExecutionListener)
             .build();
     }
 }
