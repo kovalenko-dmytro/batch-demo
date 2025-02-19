@@ -35,13 +35,9 @@ public abstract class CsvFileItemReader<T> extends FlatFileItemReader<T> {
     }
 
     @Override
-    protected void doOpen() {
-        try {
-            setResource(getResource());
-            super.doOpen();
-        } catch (Exception e) {
-            log.error("Error occurred while file resource was getting with cause: {}", e.getMessage());
-        }
+    protected void doOpen() throws Exception {
+        setResource(getResource());
+        super.doOpen();
     }
 
     protected abstract FieldSetMapper<T> fieldSetMapper();
