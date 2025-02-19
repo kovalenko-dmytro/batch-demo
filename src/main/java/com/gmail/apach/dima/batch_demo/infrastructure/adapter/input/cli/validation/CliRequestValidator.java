@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.validation;
 
-import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
+import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
@@ -17,7 +17,7 @@ public class CliRequestValidator {
 
     public void validate(RequestParameters input) {
         Assert.isTrue(
-            StringUtils.isNoneBlank(input.get(Parameter.BATCH_NAME)),
-            messageUtil.getMessage(Error.BATCH_NAME_NOT_DEFINED, Parameter.BATCH_NAME.getArg()));
+            StringUtils.isNoneBlank(input.get(RequestParameter.BATCH_NAME)),
+            messageUtil.getMessage(Error.BATCH_NAME_NOT_DEFINED, RequestParameter.BATCH_NAME.getArg()));
     }
 }

@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.core.job.import_csv_to_db.job.step.uploa
 
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsS3OutputPort;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.Parameter;
+import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ExitStatus;
@@ -31,7 +31,7 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
     public void beforeStep(@NonNull StepExecution stepExecution) {
         final var jobExecution = stepExecution.getJobExecution();
         this.fileStorageResource = jobExecution
-            .getJobParameters().getString(Parameter.FILE_STORAGE_RESOURCE.getArg());
+            .getJobParameters().getString(RequestParameter.FILE_STORAGE_RESOURCE.getArg());
     }
 
     @NonNull

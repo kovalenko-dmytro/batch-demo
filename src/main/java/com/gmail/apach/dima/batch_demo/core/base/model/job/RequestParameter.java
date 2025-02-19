@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Getter
-public enum Parameter {
+public enum RequestParameter {
 
     RUN_MODE("run-mode"),
     BATCH_NAME("batch-name"),
@@ -17,21 +17,22 @@ public enum Parameter {
 
     private final String arg;
 
-    private static final Map<String, Parameter> CACHE = new HashMap<>();
+    private static final Map<String, RequestParameter> CACHE = new HashMap<>();
 
     static {
-        for (var parameter : Parameter.values()) {
+        for (var parameter : RequestParameter.values()) {
             CACHE.put(parameter.getArg(), parameter);
         }
     }
 
-    public static Parameter from(String value) {
+    public static RequestParameter from(String value) {
         return Optional
             .ofNullable(CACHE.get(value))
-            .orElseThrow(IllegalArgumentException::new);
+            .orElseThrow(() ->
+                new IllegalArgumentException("There id no request parameters with value: " + value));
     }
 
-    public static String from(Parameter parameter) {
-        return parameter.arg;
+    public static String from(RequestParameter requestParameter) {
+        return requestParameter.arg;
     }
 }

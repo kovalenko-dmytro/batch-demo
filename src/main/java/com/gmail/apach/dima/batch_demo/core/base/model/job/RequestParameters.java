@@ -9,18 +9,18 @@ import java.util.Optional;
 
 public record RequestParameters(
     @NonNull
-    Map<Parameter, String> parameters
+    Map<RequestParameter, String> parameters
 ) {
 
-    public String get(Parameter parameter) {
+    public String get(RequestParameter requestParameter) {
         return Optional
-            .ofNullable(parameters.get(parameter))
+            .ofNullable(parameters.get(requestParameter))
             .orElse(StringUtils.EMPTY);
     }
 
     public JobParametersBuilder fromProperties() {
         final var builder = new JobParametersBuilder();
-        parameters.forEach((name, value) -> builder.addString(Parameter.from(name), value));
+        parameters.forEach((name, value) -> builder.addString(RequestParameter.from(name), value));
         return builder;
     }
 }
