@@ -12,7 +12,7 @@ public final class JobParametersReceiver {
 
     public static JobParameters importCsvToD(String resourceKey) {
         final var paramsBuilder = new JobParametersBuilder();
-        paramsBuilder.addString(RequestParameter.BATCH_NAME.getArg(), JobRegistry.IMPORT_CSV_TO_DB);
+        paramsBuilder.addString(RequestParameter.JOB_NAME.getArg(), JobRegistry.IMPORT_CSV_TO_DB);
         paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getArg(), resourceKey);
         return paramsBuilder.toJobParameters();
     }

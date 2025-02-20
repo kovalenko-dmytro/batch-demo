@@ -12,7 +12,7 @@ import java.util.Optional;
 public enum RequestParameter {
 
     RUN_MODE("run-mode"),
-    BATCH_NAME("batch-name"),
+    JOB_NAME("job-name"),
     FILE_STORAGE_RESOURCE("file-storage-resource");
 
     private final String arg;

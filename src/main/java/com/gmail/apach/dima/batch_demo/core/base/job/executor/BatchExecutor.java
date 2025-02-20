@@ -24,23 +24,24 @@ public class BatchExecutor implements JobExecutionInputPort {
 
     private final ApplicationContext context;
     private final JobLauncher jobLauncher;
-    private final MessageUtil messageService;
+    private final MessageUtil messageUtil;
 
     @Override
     public void execute(RequestParameters parameters) {
         try {
-            final var job = context.getBean(parameters.get(RequestParameter.BATCH_NAME), Job.class);
-            log.info(messageService.getMessage(Info.JOB_INITIALIZED, job.getName()));
+            final var job = context.getBean(parameters.get(RequestParameter.JOB_NAME), Job.class);
+            log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, job.getName()));
 
-            final var jobParamBuilder = parameters.fromProperties();
+            final var jobParamBuilder = parameters.builderFromRequestParameters();
             final var jobExecutionMark = job.getName().concat(Delimiter.DASH).concat(LocalDateTime.now().toString());
             jobParamBuilder.addString(JobParameter.JOB_EXEC_MARK, jobExecutionMark);
-            log.info(messageService.getMessage(Info.JOB_EXEC_MARK, jobExecutionMark));
+            log.info(messageUtil.getMessage(Info.JOB_EXEC_MARK, jobExecutionMark));
 
             final var execution = jobLauncher.run(job, jobParamBuilder.toJobParameters());
-            log.info(messageService.getMessage(Info.JOB_FINISHED, job.getName(), execution.getStatus().name()));
+            log.info(messageUtil.getMessage(Info.JOB_FINISHED, job.getName(), execution.getStatus().name()));
         } catch (Exception e) {
-            log.error(messageService.getMessage(Error.JOB_FAILED, parameters.get(RequestParameter.BATCH_NAME), e.getMessage()));
+            log.error(messageUtil
+                .getMessage(Error.JOB_FAILED, parameters.get(RequestParameter.JOB_NAME), e.getMessage()));
         }
     }
 }

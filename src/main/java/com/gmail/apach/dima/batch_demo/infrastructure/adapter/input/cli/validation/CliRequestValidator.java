@@ -17,7 +17,7 @@ public class CliRequestValidator {
 
     public void validate(RequestParameters input) {
         Assert.isTrue(
-            StringUtils.isNoneBlank(input.get(RequestParameter.BATCH_NAME)),
-            messageUtil.getMessage(Error.BATCH_NAME_NOT_DEFINED, RequestParameter.BATCH_NAME.getArg()));
+            StringUtils.isNoneBlank(input.get(RequestParameter.JOB_NAME)),
+            messageUtil.getMessage(Error.BATCH_NAME_NOT_DEFINED, RequestParameter.JOB_NAME.getArg()));
     }
 }
