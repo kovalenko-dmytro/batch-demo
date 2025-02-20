@@ -6,6 +6,10 @@ spring:
     log-startup-info: false
   profiles:
     active: test
+  messages:
+    basename: classpath:i18n/messages
+    encoding: UTF-8
+    cache-duration: 60
   jpa:
     hibernate:
       ddl-auto: create
@@ -23,10 +27,11 @@ spring:
   liquibase:
     enabled: false
   datasource:
-    url:
+    url: jdbc:tc:postgresql://localhost:5432/test
     username:
     password:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+
   cloud:
     aws:
       s3:

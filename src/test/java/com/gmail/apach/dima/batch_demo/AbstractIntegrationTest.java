@@ -1,21 +1,24 @@
 package com.gmail.apach.dima.batch_demo;
 
-import com.github.database.rider.core.api.configuration.DBUnit;
-import com.github.database.rider.core.api.configuration.Orthography;
-import com.github.database.rider.junit5.api.DBRider;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.ActiveProfile;
+import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.AwsS3Adapter;
+import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.runner.RunWith;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.JobRepositoryTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -24,21 +27,16 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
-@ActiveProfiles(ActiveProfile.TEST)
-@RunWith(SpringRunner.class)
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
+@SpringBootTest(classes = BatchDemoApplication.class)
 @SpringBatchTest
-@EnableAutoConfiguration
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@DBRider
-@DBUnit(
-    caseInsensitiveStrategy = Orthography.LOWERCASE,
-    batchedStatements = true,
-    allowEmptyFields = true,
-    alwaysCleanBefore = true,
-    alwaysCleanAfter = true
-)
+@TestExecutionListeners({
+    DependencyInjectionTestExecutionListener.class,
+    DirtiesContextTestExecutionListener.class
+})
 public abstract class AbstractIntegrationTest {
 
     private static final String BUCKET_NAME = "test-bucket";
@@ -61,14 +59,14 @@ public abstract class AbstractIntegrationTest {
 
     @Autowired
     protected JobLauncherTestUtils jobLauncherTestUtils;
-
     @Autowired
     protected JobRepositoryTestUtils jobRepositoryTestUtils;
-
-    @AfterEach
-    public void cleanUp() {
-        jobRepositoryTestUtils.removeJobExecutions();
-    }
+    @Autowired
+    private AwsS3Adapter awsS3Adapter;
+    @Autowired
+    private JobLauncher jobLauncher;
+    @Autowired
+    private ApplicationContext context;
 
     @BeforeAll
     static void beforeAll() {
@@ -81,5 +79,27 @@ public abstract class AbstractIntegrationTest {
         System.setProperty("spring.cloud.aws.s3.region", LOCAL_STACK_CONTAINER.getRegion());
         System.setProperty("spring.cloud.aws.s3.endpoint", String.valueOf(LOCAL_STACK_CONTAINER.getEndpoint()));
         System.setProperty("aws.s3.bucket-name", BUCKET_NAME);
+    }
+
+    @AfterEach
+    public void cleanUp() {
+        jobRepositoryTestUtils.removeJobExecutions();
+    }
+
+    protected JobExecution launchJob(String jobName, JobParameters jobParameters) throws Exception {
+        final var job = context.getBean(jobName, Job.class);
+        return jobLauncher.run(job, jobParameters);
+    }
+
+    protected StoredResource uploadFile(String filePath) throws IOException {
+        final var file = new File(filePath);
+        final var originalFileName = filePath.substring(filePath.lastIndexOf(Delimiter.SLASH));
+        final var fileName = FilenameUtils.removeExtension(originalFileName);
+        final var multipartFile = new MockMultipartFile(
+                fileName,
+                originalFileName,
+                MediaType.TEXT_PLAIN_VALUE,
+                Files.readAllBytes(file.toPath()));
+        return awsS3Adapter.save(multipartFile);
     }
 }

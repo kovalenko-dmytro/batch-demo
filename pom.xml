@@ -134,13 +134,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.github.database-rider</groupId>
-			<artifactId>rider-junit5</artifactId>
-			<version>1.44.0</version>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 
 	<dependencyManagement>
