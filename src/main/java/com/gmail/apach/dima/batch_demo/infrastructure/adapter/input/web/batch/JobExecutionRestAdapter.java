@@ -2,6 +2,7 @@ package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch;
 
 import com.gmail.apach.dima.batch_demo.application.input.JobExecutionInputPort;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch.dto.JobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper.BatchRestMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.util.RestUriUtil;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URISyntaxException;
 
-@Tag(name = "Batch API")
+@Tag(name = OpenApiTag.BATCH_API)
 @RestController
 @RequestMapping(value = RequestPath.BATCH_API_ROOT_PATH)
 @RequiredArgsConstructor
