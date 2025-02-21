@@ -24,5 +24,6 @@ public class CliModeRunner implements ApplicationRunner {
         final var parameters = cliMapper.toParameters(args);
         cliRequestValidator.validate(parameters);
         jobExecutionInputPort.execute(parameters);
+        System.exit(0);
     }
 }

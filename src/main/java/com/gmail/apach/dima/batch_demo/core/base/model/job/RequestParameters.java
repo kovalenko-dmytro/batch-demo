@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.base.model.job;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.lang.NonNull;
 
@@ -18,9 +19,9 @@ public record RequestParameters(
             .orElse(StringUtils.EMPTY);
     }
 
-    public JobParametersBuilder builderFromRequestParameters() {
+    public JobParameters toJobParameters() {
         final var builder = new JobParametersBuilder();
         parameters.forEach((name, value) -> builder.addString(RequestParameter.from(name), value));
-        return builder;
+        return builder.toJobParameters();
     }
 }
