@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 @RequestMapping(value = RequestPath.BATCH_API_ROOT_PATH)
 @RequiredArgsConstructor
 @Validated
+@SuppressWarnings("unused")
 public class JobExecutionRestAdapter {
 
     private final BatchRestMapper batchRESTMapper;

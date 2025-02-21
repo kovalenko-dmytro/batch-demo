@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition
+@SuppressWarnings("unused")
 public class OpenApiConfig {
 
     @Bean

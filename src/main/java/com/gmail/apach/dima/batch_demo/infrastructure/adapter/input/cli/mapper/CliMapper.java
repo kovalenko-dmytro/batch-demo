@@ -3,7 +3,6 @@ package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.mapper;
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,7 @@ public class CliMapper {
             final var argPair = sourceArg.split(Delimiter.EQUAL);
             result.put(
                 RequestParameter.from(argPair[0]),
-                argPair.length == 2 ? argPair[1] : StringUtils.EMPTY
+                argPair.length == 2 ? argPair[1] : Delimiter.EMPTY
             );
         }
         if (!result.containsKey(RequestParameter.JOB_EXEC_MARK)) {
