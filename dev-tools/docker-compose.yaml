@@ -1,4 +1,4 @@
-name: import-data-batch-demo
+name: batch-demo
 services:
   batch-db:
     container_name: batch-db
