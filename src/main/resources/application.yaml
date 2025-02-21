@@ -40,10 +40,6 @@ spring:
       region:
         static: ${AWS_S3_REGION}
 
-springdoc:
-  api-docs:
-    path: /api-docs
-
 logging:
   level:
     org:
@@ -54,8 +50,3 @@ logging:
     com:
       zaxxer:
         hikari: WARN
-
-server:
-  servlet:
-    context-path: /${SERVER_CONTEXT_PATH}
-  port: ${SERVER_PORT}

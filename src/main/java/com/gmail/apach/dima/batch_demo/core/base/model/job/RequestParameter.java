@@ -10,8 +10,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Getter
 public enum RequestParameter {
-
-    RUN_MODE("run-mode"),
+    
     JOB_NAME("job-name"),
     JOB_EXEC_MARK("job-exec-mark"),
     FILE_STORAGE_RESOURCE("file-storage-resource");

@@ -18,9 +18,6 @@ public class CliMapper {
         final var result = new HashMap<RequestParameter, String>();
         final var sourceArgs = args.getSourceArgs();
         for (var sourceArg : sourceArgs) {
-            if (sourceArg.contains(RequestParameter.RUN_MODE.getArg())) {
-                continue;
-            }
             final var argPair = sourceArg.split(Delimiter.EQUAL);
             result.put(
                 RequestParameter.from(argPair[0]),

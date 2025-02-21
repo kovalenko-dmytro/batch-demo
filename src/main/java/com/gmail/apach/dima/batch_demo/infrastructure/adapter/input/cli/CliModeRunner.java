@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebAppli
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile(ActiveProfile.NOT_TEST)
+@Profile(ActiveProfile.CLI)
 @ConditionalOnNotWebApplication
 @Component
 @RequiredArgsConstructor
