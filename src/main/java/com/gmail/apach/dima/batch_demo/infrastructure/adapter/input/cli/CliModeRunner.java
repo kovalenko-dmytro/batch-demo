@@ -7,10 +7,12 @@ import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.ActiveProf
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Profile(ActiveProfile.NOT_TEST)
+@ConditionalOnNotWebApplication
 @Component
 @RequiredArgsConstructor
 public class CliModeRunner implements ApplicationRunner {

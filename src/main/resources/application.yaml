@@ -4,7 +4,7 @@ spring:
   profiles:
     active: ${APPLICATION_PROFILE}
   messages:
-    basename: i18n/messages
+    basename: classpath:i18n/messages
     encoding: UTF-8
     cache-duration: 60
   jpa:
@@ -39,6 +39,10 @@ spring:
         secret-key: ${AWS_S3_SECRET_KEY}
       region:
         static: ${AWS_S3_REGION}
+
+springdoc:
+  api-docs:
+    path: /api-docs
 
 logging:
   level:

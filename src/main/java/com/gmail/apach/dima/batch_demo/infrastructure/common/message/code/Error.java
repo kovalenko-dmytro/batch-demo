@@ -12,7 +12,16 @@ public enum Error {
     FILE_UNABLE_UPLOAD("error.file.storage.unable.upload"),
     FILE_UNABLE_READ("error.file.storage.unable.read"),
     JOB_INTERRUPTED("error.job.interrupted"),
-    JOB_FAILED("error.job.failed");
+    JOB_FAILED("error.job.failed"),
+
+    ENTITY_NOT_FOUND("error.entity.not.found"),
+    ENTITY_CREATION_EXCEPTION("error.entity.created"),
+    VALIDATION_REQUEST("error.validation.request"),
+    MISSING_REQUEST_PARAMETER("error.missing.request.parameter"),
+    NO_HANDLER_FOUND("error.no.handler.found"),
+    HTTP_METHOD_NOT_ALLOWED("error.http.method.not.allowed"),
+    MEDIA_TYPE_NOT_SUPPORTED("error.media.type.not.supported"),
+    INTERNAL_SERVER_ERROR_OCCURRED("error.internal.server.error.occurred");
 
     private final String key;
 }
