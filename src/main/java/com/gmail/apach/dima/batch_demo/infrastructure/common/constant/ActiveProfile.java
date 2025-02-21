@@ -13,7 +13,4 @@ public final class ActiveProfile {
     public static final String PRODUCTION = "production";
     public static final String TEST = "test";
     public static final String NOT_TEST = "!test";
-    public static final String CLI = "cli";
-    public static final String SHELL = "shell";
-    public static final String WEB = "web";
 }

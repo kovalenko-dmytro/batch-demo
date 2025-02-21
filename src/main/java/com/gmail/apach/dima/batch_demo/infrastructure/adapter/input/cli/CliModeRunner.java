@@ -10,8 +10,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile(ActiveProfile.NOT_TEST)
 @Component
-@Profile(ActiveProfile.CLI)
 @RequiredArgsConstructor
 public class CliModeRunner implements ApplicationRunner {
 
