@@ -2,9 +2,9 @@ package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch;
 
 import com.gmail.apach.dima.batch_demo.application.input.JobExecutionInputPort;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch.dto.JobExecutionRequest;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper.BatchRestMapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.swagger.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.util.RestUriUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

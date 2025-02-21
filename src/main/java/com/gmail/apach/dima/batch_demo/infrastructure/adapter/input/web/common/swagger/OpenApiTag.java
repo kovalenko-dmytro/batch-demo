@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.swagger;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
