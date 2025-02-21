@@ -10,8 +10,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile(ActiveProfile.NOT_TEST)
 @Component
-@Profile(ActiveProfile.CLI)
 @RequiredArgsConstructor
 public class CliModeRunner implements ApplicationRunner {
 
@@ -24,5 +24,6 @@ public class CliModeRunner implements ApplicationRunner {
         final var parameters = cliMapper.toParameters(args);
         cliRequestValidator.validate(parameters);
         jobExecutionInputPort.execute(parameters);
+        System.exit(0);
     }
 }
