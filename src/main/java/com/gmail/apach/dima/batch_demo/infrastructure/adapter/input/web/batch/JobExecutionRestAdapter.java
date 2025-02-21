@@ -36,7 +36,7 @@ public class JobExecutionRestAdapter {
     ) throws URISyntaxException {
         final var requestParameters = batchRESTMapper.toRequestParameters(request);
         jobExecutionInputPort.execute(requestParameters);
-        final var createdUri = RestUriUtil.buildCreatedUri(httpRequest, requestParameters);
-        return ResponseEntity.created(createdUri).build();
+        final var location = RestUriUtil.location(httpRequest, requestParameters);
+        return ResponseEntity.created(location).build();
     }
 }

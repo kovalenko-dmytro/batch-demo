@@ -14,20 +14,18 @@ import java.net.URISyntaxException;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RestUriUtil {
 
-    public static URI buildCreatedUri(
-        HttpServletRequest httpRequest,
-        RequestParameters parameters
-    ) throws URISyntaxException {
-        final var stringBuilder = new StringBuilder()
-            .append(httpRequest.getScheme())
-            .append(Delimiter.COLON)
-            .append(Delimiter.DOUBLE_SLASH)
-            .append(httpRequest.getServerName())
-            .append(Delimiter.COLON)
-            .append(httpRequest.getServerPort())
-            .append(RequestPath.BATCH_API_ROOT_PATH)
-            .append(Delimiter.SLASH)
-            .append(parameters.get(RequestParameter.JOB_EXEC_MARK));
-        return new URI(stringBuilder.toString());
+    public static URI location(HttpServletRequest request, RequestParameters params) throws URISyntaxException {
+        final var joined = String.join(
+            Delimiter.EMPTY,
+            request.getScheme(),
+            Delimiter.COLON,
+            Delimiter.DOUBLE_SLASH,
+            request.getServerName(),
+            Delimiter.COLON,
+            String.valueOf(request.getServerPort()),
+            RequestPath.BATCH_API_ROOT_PATH,
+            Delimiter.SLASH,
+            params.get(RequestParameter.JOB_EXEC_MARK));
+        return new URI(joined);
     }
 }
