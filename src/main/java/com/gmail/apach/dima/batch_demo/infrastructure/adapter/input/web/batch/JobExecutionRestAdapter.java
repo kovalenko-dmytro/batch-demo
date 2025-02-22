@@ -7,7 +7,6 @@ import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.m
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.swagger.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.util.RestUriUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +30,10 @@ public class JobExecutionRestAdapter {
     private final JobExecutionInputPort jobExecutionInputPort;
 
     @PostMapping
-    public ResponseEntity<Void> execute(
-        @Valid @RequestBody JobExecutionRequest request,
-        HttpServletRequest httpRequest
-    ) throws URISyntaxException {
+    public ResponseEntity<Void> execute(@Valid @RequestBody JobExecutionRequest request) throws URISyntaxException {
         final var requestParameters = batchRESTMapper.toRequestParameters(request);
         jobExecutionInputPort.execute(requestParameters);
-        final var location = RestUriUtil.location(httpRequest, requestParameters);
+        final var location = RestUriUtil.location(requestParameters);
         return ResponseEntity.created(location).build();
     }
 }

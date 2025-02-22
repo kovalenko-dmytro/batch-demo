@@ -4,9 +4,10 @@ import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
 import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +15,10 @@ import java.net.URISyntaxException;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RestUriUtil {
 
-    public static URI location(HttpServletRequest request, RequestParameters params) throws URISyntaxException {
+    public static URI location(RequestParameters params) throws URISyntaxException {
+        final  var request = ((ServletRequestAttributes)
+            RequestContextHolder.currentRequestAttributes()).getRequest();
+
         final var joined = String.join(
             Delimiter.EMPTY,
             request.getScheme(),
