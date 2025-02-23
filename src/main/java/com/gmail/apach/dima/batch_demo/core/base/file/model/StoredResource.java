@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.base.model.oss;
+package com.gmail.apach.dima.batch_demo.core.base.file.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +18,6 @@ public class StoredResource implements Serializable {
     private static final long serialVersionUID = 123456789L;
 
     private String storageKey;
+    private String fileName;
     private byte[] payload;
 }

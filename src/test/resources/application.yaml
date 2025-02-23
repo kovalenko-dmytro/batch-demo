@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: batch-demo
   main:
     banner-mode: off
     log-startup-info: false
@@ -13,7 +11,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    open-in-view: false
     properties:
       hibernate:
         order_inserts: true
@@ -31,7 +28,6 @@ spring:
     username:
     password:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-
   cloud:
     aws:
       s3:

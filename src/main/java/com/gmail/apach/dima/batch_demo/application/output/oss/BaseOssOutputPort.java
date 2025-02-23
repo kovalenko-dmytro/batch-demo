@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.output.oss;
 
-import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
+import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
 import jakarta.validation.constraints.NotNull;
 
 @SuppressWarnings("unused")

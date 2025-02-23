@@ -2,9 +2,9 @@ package com.gmail.apach.dima.batch_demo.core.batch.import_csv_to_db.job.step.fil
 
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Format;
 import com.gmail.apach.dima.batch_demo.core.base.common.util.DateUtil;
+import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.core.base.job.reader.CsvFileItemReader;
-import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
 import com.gmail.apach.dima.batch_demo.core.batch.import_csv_to_db.common.ImportCsvToDbFileHeaders;
 import com.gmail.apach.dima.batch_demo.core.batch.import_csv_to_db.model.WorkLine;
 import lombok.RequiredArgsConstructor;

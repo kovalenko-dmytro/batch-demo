@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.core.base.job.executor;
 
-import com.gmail.apach.dima.batch_demo.application.input.JobExecutionInputPort;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
+import com.gmail.apach.dima.batch_demo.application.input.job.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;

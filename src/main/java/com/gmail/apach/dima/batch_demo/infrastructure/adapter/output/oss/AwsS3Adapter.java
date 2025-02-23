@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss;
 
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsS3OutputPort;
-import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
+import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.config.AwsS3Properties;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.mapper.AwsS3Mapper;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Slf4j
 @Component
@@ -29,7 +28,7 @@ public class AwsS3Adapter implements AwsS3OutputPort {
 
     @Override
     public StoredResource save(@NotNull MultipartFile file) {
-        final var objectKey = UUID.randomUUID().toString();
+        final var objectKey = file.getOriginalFilename();
         try {
             final var resource = s3Template.upload(properties.getS3().getBucket(), objectKey, file.getInputStream());
             return awsS3Mapper.toStoredResource(resource);
