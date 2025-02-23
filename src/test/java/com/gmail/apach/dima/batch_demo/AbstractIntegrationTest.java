@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo;
 
-import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
-import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
+import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.AwsS3Adapter;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

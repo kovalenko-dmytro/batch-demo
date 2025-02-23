@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper;
 
-import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
+import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.file.dto.FileResponse;
 import org.mapstruct.*;
 

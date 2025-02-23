@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.validation;
 
-import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
-import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameters;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import lombok.RequiredArgsConstructor;

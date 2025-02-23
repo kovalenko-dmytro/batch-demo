@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.mapper;
 
-import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
+import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.exception.ObjectStorageException;
 import io.awspring.cloud.s3.S3Resource;
 import org.mapstruct.*;
 
@@ -25,7 +26,11 @@ public interface AwsS3Mapper {
     }
 
     @Named("getPayload")
-    default byte[] getPayload(S3Resource resource) throws IOException {
-        return resource.getInputStream().readAllBytes();
+    default byte[] getPayload(S3Resource resource) throws ObjectStorageException {
+        try {
+            return resource.getInputStream().readAllBytes();
+        } catch (IOException e) {
+            throw new ObjectStorageException(e.getMessage());
+        }
     }
 }

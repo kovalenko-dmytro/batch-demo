@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master;
 
-import com.gmail.apach.dima.batch_demo.application.output.db.MasterTableOutputPort;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master.entity.MasterTableEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master.repository.MasterTableRepository;
+import com.gmail.apach.dima.batch_demo.port.output.db.MasterTableOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

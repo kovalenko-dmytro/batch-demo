@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work;
 
-import com.gmail.apach.dima.batch_demo.application.output.db.WorkTableOutputPort;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.repository.WorkTableRepository;
+import com.gmail.apach.dima.batch_demo.port.output.db.WorkTableOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
