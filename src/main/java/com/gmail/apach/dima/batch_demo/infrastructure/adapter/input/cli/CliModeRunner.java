@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli;
 
-import com.gmail.apach.dima.batch_demo.application.input.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.application.input.job.JobExecutionInputPort;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.mapper.CliMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.validation.CliRequestValidator;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.ActiveProfile;

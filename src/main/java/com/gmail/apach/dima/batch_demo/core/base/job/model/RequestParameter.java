@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.base.model.job;
+package com.gmail.apach.dima.batch_demo.core.base.job.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Getter
 public enum RequestParameter {
-    
+
     JOB_NAME("job-name"),
     JOB_EXEC_MARK("job-exec-mark"),
     FILE_STORAGE_RESOURCE("file-storage-resource");

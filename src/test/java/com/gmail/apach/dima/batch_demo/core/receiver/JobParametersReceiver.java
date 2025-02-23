@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.core.receiver;
 
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.core.base.job.registry.JobRegistry;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.batch.core.JobParameters;

@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.core.batch.import_csv_to_db.job.step.upload_file.task;
 
 import com.gmail.apach.dima.batch_demo.application.output.oss.AwsS3OutputPort;
+import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.core.base.job.constant.JobExecutionContextKey;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
-import com.gmail.apach.dima.batch_demo.core.base.model.oss.StoredResource;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;

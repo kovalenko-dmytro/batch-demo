@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.core.base.model.job;
+package com.gmail.apach.dima.batch_demo.core.base.job.model;
 
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
 import org.springframework.batch.core.JobParameters;

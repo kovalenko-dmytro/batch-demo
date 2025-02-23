@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.util;
 
 import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

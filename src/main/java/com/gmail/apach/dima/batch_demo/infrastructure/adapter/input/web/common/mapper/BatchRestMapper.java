@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper;
 
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameter;
-import com.gmail.apach.dima.batch_demo.core.base.model.job.RequestParameters;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch.dto.JobExecutionRequest;
 import org.springframework.stereotype.Component;
 

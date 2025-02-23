@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch;
 
-import com.gmail.apach.dima.batch_demo.application.input.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.application.input.job.JobExecutionInputPort;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch.dto.JobExecutionRequest;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper.BatchRestMapper;

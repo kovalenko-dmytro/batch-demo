@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public final class OpenApiTag {
 
     public static final String BATCH_API = "Batch API";
+    public static final String FILE_API = "File API";
 }
