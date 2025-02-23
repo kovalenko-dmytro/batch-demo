@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.handler;
 
-import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.dto.ErrorResponse;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.exception.ApplicationServerException;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;

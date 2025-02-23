@@ -1,12 +1,12 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss;
 
-import com.gmail.apach.dima.batch_demo.application.output.oss.AwsS3OutputPort;
-import com.gmail.apach.dima.batch_demo.core.base.file.model.StoredResource;
+import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.config.AwsS3Properties;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.mapper.AwsS3Mapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
+import com.gmail.apach.dima.batch_demo.port.output.oss.AwsS3OutputPort;
 import io.awspring.cloud.s3.S3Template;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

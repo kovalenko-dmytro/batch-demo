@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.mapper;
 
-import com.gmail.apach.dima.batch_demo.core.base.common.constant.Delimiter;
-import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameter;
-import com.gmail.apach.dima.batch_demo.core.base.job.model.RequestParameters;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
