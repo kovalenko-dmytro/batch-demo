@@ -1,5 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task;
 
+import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.CsvFileFieldNames;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.CsvFileHeaders;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLine;
 import com.gmail.apach.dima.batch_demo.application.core.common.util.FileUtil;
@@ -38,8 +39,13 @@ public class CsvItemWriter extends CsvFileItemWriter<CsvLine> implements StepExe
     }
 
     @Override
-    protected String[] getHeaders() {
-        return CsvFileHeaders.headers;
+    protected String[] getFieldNames() {
+        return CsvFileFieldNames.names;
+    }
+
+    @Override
+    protected String getHeadersRow() {
+        return CsvFileHeaders.headersRow;
     }
 
     @Override
