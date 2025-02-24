@@ -62,7 +62,7 @@ public abstract class AbstractIntegrationTest {
     @Autowired
     protected JobRepositoryTestUtils jobRepositoryTestUtils;
     @Autowired
-    private AwsS3Adapter awsS3Adapter;
+    protected AwsS3Adapter awsS3Adapter;
     @Autowired
     private JobLauncher jobLauncher;
     @Autowired

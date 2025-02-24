@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class ExcelToCsvJobConfigure {
+public class ImportExcelToCsvJobConfigure {
 
     private final JobRepository jobRepository;
     private final Step importExcelStep;
