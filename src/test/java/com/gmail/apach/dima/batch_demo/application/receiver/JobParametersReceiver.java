@@ -16,4 +16,11 @@ public final class JobParametersReceiver {
         paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getArg(), resourceKey);
         return paramsBuilder.toJobParameters();
     }
+    public static JobParameters importExcelToCsv(String resourceKey) {
+        final var paramsBuilder = new JobParametersBuilder();
+        paramsBuilder.addString(RequestParameter.JOB_NAME.getArg(), JobRegistry.IMPORT_EXCEL_TO_CSV);
+        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getArg(), resourceKey);
+        return paramsBuilder.toJobParameters();
+    }
+
 }

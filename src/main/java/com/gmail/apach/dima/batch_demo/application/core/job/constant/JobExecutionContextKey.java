@@ -8,4 +8,5 @@ public final class JobExecutionContextKey {
 
     public static final String STORED_RESOURCE = "stored-resource";
     public static final String INSERTED_IDS = "inserted-ids";
+    public static final String EXPORT_FILE_TEMP_PATH = "export-file-temp-path";
 }
