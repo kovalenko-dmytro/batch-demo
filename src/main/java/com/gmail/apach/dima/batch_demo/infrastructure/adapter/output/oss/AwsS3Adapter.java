@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 @Slf4j
@@ -34,6 +36,18 @@ public class AwsS3Adapter implements AwsS3OutputPort {
             return awsS3Mapper.toStoredResource(resource);
         } catch (IOException e) {
             log.error(messageUtil.getMessage(Error.FILE_UNABLE_UPLOAD, file.getOriginalFilename(), e.getMessage()));
+            return new StoredResource();
+        }
+    }
+
+    @Override
+    public StoredResource save(@NotNull File file) {
+        final var objectKey = file.getName();
+        try (final var is = new FileInputStream(file)) {
+            final var resource = s3Template.upload(properties.getS3().getBucket(), objectKey, is);
+            return awsS3Mapper.toStoredResource(resource);
+        } catch (IOException e) {
+            log.error(messageUtil.getMessage(Error.FILE_UNABLE_UPLOAD, file.getName(), e.getMessage()));
             return new StoredResource();
         }
     }

@@ -1,8 +1,12 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.export_csv.task;
 
+import com.gmail.apach.dima.batch_demo.application.core.common.util.FileUtil;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
 import com.gmail.apach.dima.batch_demo.port.output.oss.AwsS3OutputPort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.StepExecution;
@@ -14,23 +18,26 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
+@Slf4j
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class UploadCsvTask implements Tasklet, StepExecutionListener {
 
     private final AwsS3OutputPort awsS3OutputPort;
+    private final MessageUtil messageUtil;
 
-    private MultipartFile exportFile;
+    private String exportFileTempPath;
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        this.exportFile = (MultipartFile) stepExecution
+        this.exportFileTempPath = (String) stepExecution
             .getJobExecution()
             .getExecutionContext()
-            .get(JobExecutionContextKey.EXPORT_FILE);
+            .get(JobExecutionContextKey.EXPORT_FILE_TEMP_PATH);
     }
 
     @NonNull
@@ -39,7 +46,8 @@ public class UploadCsvTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        awsS3OutputPort.save(exportFile);
+        final var storedResource = awsS3OutputPort.save(new File(exportFileTempPath));
+        log.info(messageUtil.getMessage(Info.JOB_STEP_EXPORT_FILE_UPLOADED, storedResource.getStorageKey()));
         return RepeatStatus.FINISHED;
     }
 
@@ -47,6 +55,7 @@ public class UploadCsvTask implements Tasklet, StepExecutionListener {
     @Override
     public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
         final var exceptions = stepExecution.getFailureExceptions();
+        FileUtil.deleteTempFile(exportFileTempPath);
         return exceptions.isEmpty() ? ExitStatus.COMPLETED : ExitStatus.FAILED;
     }
 }

@@ -24,6 +24,7 @@ public enum Info {
     JOB_STEP_WRITER_COMPLETED("info.job.step.writer.completed"),
     JOB_STEP_ROLLBACK_PROCESSED("info.job.step.rollback.processed"),
     CLEANUP_ON_FAILURE("info.job.cleanup.on.failure"),
+    JOB_STEP_EXPORT_FILE_UPLOADED("info.job.export.file.uploaded"),
     JOB_FINISHED("info.job.finished");
 
     private final String key;
