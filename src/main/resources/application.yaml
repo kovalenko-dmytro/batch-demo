@@ -4,7 +4,7 @@ spring:
   profiles:
     active: ${APPLICATION_PROFILE}
   messages:
-    basename: i18n/messages
+    basename: classpath:i18n/messages
     encoding: UTF-8
     cache-duration: 60
   jpa:
@@ -50,8 +50,3 @@ logging:
     com:
       zaxxer:
         hikari: WARN
-
-server:
-  servlet:
-    context-path: /${SERVER_CONTEXT_PATH}
-  port: ${SERVER_PORT}

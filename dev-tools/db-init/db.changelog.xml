@@ -35,7 +35,11 @@
     </changeSet>
 
     <changeSet id="db-change-set-8" author="import-data-batch-demo">
-        <sqlFile path="sql/2025-02-05-1915_create_table_examples.sql"/>
+        <sqlFile path="sql/2025-02-05-1815_create_table_work_table.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-9" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-02-05-1915_create_table_master_table.sql"/>
     </changeSet>
 
 
