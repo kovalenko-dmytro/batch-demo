@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public final class JobRegistry {
 
     public final static String IMPORT_CSV_TO_DB = "import-csv-to-db";
+    public final static String IMPORT_EXCEL_TO_CSV = "import-excel-to-csv";
 }
