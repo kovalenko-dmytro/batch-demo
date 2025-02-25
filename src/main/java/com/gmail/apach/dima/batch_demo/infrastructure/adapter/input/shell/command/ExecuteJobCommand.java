@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.command;
 
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.constant.ShellArgument;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.constant.ShellCommand;

@@ -1,10 +1,10 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.batch;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch.dto.JobExecutionRequest;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper.BatchRestMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.swagger.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.util.RestUriUtil;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.batch.dto.JobExecutionRequest;
 import com.gmail.apach.dima.batch_demo.port.input.job.JobExecutionInputPort;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

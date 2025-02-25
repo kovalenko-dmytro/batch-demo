@@ -1,9 +1,9 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.file;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.file;
 
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper.FileRestMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.swagger.OpenApiTag;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.file.dto.FileResponse;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.file.dto.FileResponse;
 import com.gmail.apach.dima.batch_demo.port.input.file.UploadFileInputPort;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

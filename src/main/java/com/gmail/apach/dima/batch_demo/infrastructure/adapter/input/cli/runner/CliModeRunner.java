@@ -1,7 +1,7 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.runner;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.mapper.CliMapper;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.validation.CliRequestValidator;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.common.mapper.CliMapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.common.validation.CliRequestValidator;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.ActiveProfile;
 import com.gmail.apach.dima.batch_demo.port.input.job.JobExecutionInputPort;
 import lombok.RequiredArgsConstructor;
