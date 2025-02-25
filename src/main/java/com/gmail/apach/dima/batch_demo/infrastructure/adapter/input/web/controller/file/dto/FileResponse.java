@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.file.dto;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.file.dto;
 
 import lombok.Builder;
 

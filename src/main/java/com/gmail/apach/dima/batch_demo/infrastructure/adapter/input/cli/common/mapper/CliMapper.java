@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.mapper;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.common.mapper;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;

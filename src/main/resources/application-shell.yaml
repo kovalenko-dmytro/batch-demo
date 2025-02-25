@@ -1,10 +1,8 @@
 spring:
-  main:
-    web-application-type: none
   shell:
     history:
       enabled: false
     noninteractive:
-      enabled: false
+      enabled: true
     interactive:
-      enabled: false
+      enabled: true

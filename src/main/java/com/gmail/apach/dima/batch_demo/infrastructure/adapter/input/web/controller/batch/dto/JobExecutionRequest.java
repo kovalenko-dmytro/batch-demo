@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.batch.dto;
+package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.batch.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
