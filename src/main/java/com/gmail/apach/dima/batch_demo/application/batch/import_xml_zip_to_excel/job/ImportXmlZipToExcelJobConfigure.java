@@ -20,6 +20,7 @@ public class ImportXmlZipToExcelJobConfigure {
     private final Step unpackZipStep;
     private final Step createExcelStep;
     private final Step processTemplateStep;
+    private final Step processSettingStep;
 
     private final Step exportExcelStep;
     private final XmlZipToExcelJobParametersValidator jobParametersValidator;
@@ -34,6 +35,7 @@ public class ImportXmlZipToExcelJobConfigure {
             .next(unpackZipStep)
             .next(createExcelStep)
             .next(processTemplateStep)
+            .next(processSettingStep)
 
             .next(exportExcelStep)
             .build();
