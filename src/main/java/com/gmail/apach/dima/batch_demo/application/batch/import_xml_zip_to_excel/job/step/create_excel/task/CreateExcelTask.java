@@ -6,6 +6,7 @@ import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutio
 import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Extension;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.StepExecution;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+
+import java.io.FileOutputStream;
 
 @Slf4j
 @Component
@@ -31,8 +34,17 @@ public class CreateExcelTask implements Tasklet, StepExecutionListener {
     public RepeatStatus execute(
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
-    ) {
+    ) throws Exception {
+        final var workBook = new XSSFWorkbook();
+        ExportFile.sheetNames().forEach(workBook::createSheet);
+
         this.exportFileTempPath = FileUtil.createTempFile(ExportFile.FILE_NAME.getValue(), Extension.EXCEL);
+        final var fos = new FileOutputStream(exportFileTempPath);
+        workBook.write(fos);
+
+        workBook.close();
+        fos.close();
+
         return RepeatStatus.FINISHED;
     }
 

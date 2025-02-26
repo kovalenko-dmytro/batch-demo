@@ -9,14 +9,15 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Getter
-public enum ZippedFileName {
+public enum TemplateSheetHeader {
 
-    TEMPLATE("template.xml"),
-    SETTING("setting.xml"),
-    CONFIG("config.xml");
+    NAME("Name"),
+    DESCRIPTION("Description"),
+    CODE("Code"),
+    ENABLED("Enabled");
 
-    public static final Set<String> zippedFileNames =
-        Arrays.stream(ZippedFileName.values()).map(ZippedFileName::getName).collect(Collectors.toSet());
+    public static final Set<String> headers =
+        Arrays.stream(TemplateSheetHeader.values()).map(TemplateSheetHeader::getName).collect(Collectors.toSet());
 
     private final String name;
 }
