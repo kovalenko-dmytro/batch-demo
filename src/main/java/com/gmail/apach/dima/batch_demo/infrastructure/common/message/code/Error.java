@@ -11,6 +11,7 @@ public enum Error {
     FILE_STORAGE_RESOURCE_MISSING("error.file.storage.resource.parameter.missing"),
     FILE_UNABLE_UPLOAD("error.file.storage.unable.upload"),
     FILE_UNABLE_READ("error.file.storage.unable.read"),
+    FILE_ZIP_CONTENT_MISSING("error.file.zip.content.missing"),
     JOB_INTERRUPTED("error.job.interrupted"),
     JOB_FAILED("error.job.failed"),
 

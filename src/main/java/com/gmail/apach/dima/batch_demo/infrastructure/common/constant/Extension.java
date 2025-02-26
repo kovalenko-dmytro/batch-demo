@@ -10,4 +10,5 @@ public final class Extension {
     public static final String CSV = ".csv";
     public static final String XML = ".xml";
     public static final String EXCEL = ".xlsx";
+    public static final String ZIP = ".zip";
 }
