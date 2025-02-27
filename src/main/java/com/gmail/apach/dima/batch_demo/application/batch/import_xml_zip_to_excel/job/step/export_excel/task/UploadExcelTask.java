@@ -54,8 +54,15 @@ public class UploadExcelTask implements Tasklet, StepExecutionListener {
     @NonNull
     @Override
     public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
-        final var exceptions = stepExecution.getFailureExceptions();
         FileUtil.deleteTempFile(exportFileTempPath);
+
+        final var xmlTempDirPath = (String) stepExecution
+            .getJobExecution()
+            .getExecutionContext()
+            .get(JobExecutionContextKey.TEMP_DIR_PATH);
+        FileUtil.deleteTempFile(xmlTempDirPath);
+
+        final var exceptions = stepExecution.getFailureExceptions();
         return exceptions.isEmpty() ? ExitStatus.COMPLETED : ExitStatus.FAILED;
     }
 }
