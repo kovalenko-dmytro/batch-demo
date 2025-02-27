@@ -4,26 +4,24 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.TemplateSheetHeader;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateExcelLine;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
+import com.gmail.apach.dima.batch_demo.application.core.job.writer.ExcelFileItemWriter;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
-import org.springframework.batch.item.Chunk;
-import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.List;
 
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class TemplateExcelItemWriter implements ItemWriter<TemplateExcelLine>, StepExecutionListener {
+public class TemplateExcelItemWriter
+    extends ExcelFileItemWriter<TemplateExcelLine> implements StepExecutionListener {
 
     private String exportFileTempPath;
 
@@ -36,40 +34,29 @@ public class TemplateExcelItemWriter implements ItemWriter<TemplateExcelLine>, S
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void write(@NonNull Chunk<? extends TemplateExcelLine> chunk) throws Exception {
-        final var fis = new FileInputStream(exportFileTempPath);
-        final var workBook = new XSSFWorkbook(fis);
-        fis.close();
+    protected List<String> getSheetHeaders() {
+        return TemplateSheetHeader.headers;
+    }
 
-        final var currentSheet = workBook.getSheet(ExportFile.TEMPLATE_SHEET.getValue());
-        var lastRowNum = currentSheet.getLastRowNum();
+    @Override
+    protected String getSheetName() {
+        return ExportFile.TEMPLATE_SHEET.getValue();
+    }
 
-        if (currentSheet.getLastRowNum() == -1 && currentSheet.getRow(0) == null) {
-            final var headersRow = currentSheet.createRow(++lastRowNum);
-            var cellNum = 0;
-            for (var header : TemplateSheetHeader.headers) {
-                var cell = headersRow.createCell(cellNum++, CellType.STRING);
-                cell.setCellValue(header);
-            }
-        }
+    @Override
+    protected String getFilePath() {
+        return exportFileTempPath;
+    }
 
-        final var excelLines = (List<TemplateExcelLine>) chunk.getItems();
-        for (var excelLine : excelLines) {
-            final var row = currentSheet.createRow(++lastRowNum);
-            var nameCell = row.createCell(0, CellType.STRING);
-            nameCell.setCellValue(excelLine.name());
-            var descCell = row.createCell(1, CellType.STRING);
-            descCell.setCellValue(excelLine.description());
-            var codeCell = row.createCell(2, CellType.NUMERIC);
-            codeCell.setCellValue(excelLine.code());
-            var enabledCell = row.createCell(3, CellType.BOOLEAN);
-            enabledCell.setCellValue(excelLine.enabled());
-        }
-
-        final var fos = new FileOutputStream(exportFileTempPath);
-        workBook.write(fos);
-        workBook.close();
-        fos.close();
+    @Override
+    protected void fillInCells(TemplateExcelLine item, XSSFRow row) {
+        final var nameCell = row.createCell(0, CellType.STRING);
+        nameCell.setCellValue(item.name());
+        final var descCell = row.createCell(1, CellType.STRING);
+        descCell.setCellValue(item.description());
+        final var codeCell = row.createCell(2, CellType.NUMERIC);
+        codeCell.setCellValue(item.code());
+        final var enabledCell = row.createCell(3, CellType.BOOLEAN);
+        enabledCell.setCellValue(item.enabled());
     }
 }
