@@ -13,12 +13,11 @@
 
     <groupId>com.gmail.apach.dima</groupId>
     <artifactId>batch-demo</artifactId>
-    <version>${application.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>batch-demo</name>
     <description>Batch application</description>
 
     <properties>
-        <application.version>0.0.1-SNAPSHOT</application.version>
         <java.version>21</java.version>
         <batch.extensions.version>0.1.1</batch.extensions.version>
         <poi.version>5.4.0</poi.version>
