@@ -11,8 +11,8 @@ public enum ImportXmlZipToExcelStep {
     UNPACK_ZIP_STEP("unpack-zip-step"),
     CREATE_EXCEL("create-excel-step"),
     PROCESS_TEMPLATE("process-template-step"),
-    PROCESS_SETTING("process-template-step"),
-    PROCESS_CONFIG("process-template-step"),
+    PROCESS_SETTING("process-setting-step"),
+    PROCESS_CONFIG("process-config-step"),
     EXPORT_EXCEL("export-excel-step");
 
     private final String name;

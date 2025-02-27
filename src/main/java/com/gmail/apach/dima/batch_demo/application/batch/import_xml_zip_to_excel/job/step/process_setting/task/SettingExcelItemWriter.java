@@ -5,8 +5,8 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingExcelLine;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.Chunk;
@@ -39,13 +39,13 @@ public class SettingExcelItemWriter implements ItemWriter<SettingExcelLine>, Ste
     @SuppressWarnings("unchecked")
     public void write(@NonNull Chunk<? extends SettingExcelLine> chunk) throws Exception {
         final var fis = new FileInputStream(exportFileTempPath);
-        final var workBook = new HSSFWorkbook(fis);
+        final var workBook = new XSSFWorkbook(fis);
         fis.close();
 
         final var currentSheet = workBook.getSheet(ExportFile.SETTING_SHEET.getValue());
         var lastRowNum = currentSheet.getLastRowNum();
 
-        if (currentSheet.getLastRowNum() == 0 && currentSheet.getRow(0) == null) {
+        if (currentSheet.getLastRowNum() == -1 && currentSheet.getRow(0) == null) {
             final var headersRow = currentSheet.createRow(++lastRowNum);
             var cellNum = 0;
             for (var header : SettingSheetHeader.headers) {
