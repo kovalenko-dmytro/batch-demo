@@ -27,3 +27,5 @@ build/
 /mvnw.cmd
 /logs/
 /.gitattributes
+/batch-demo.log
+/spring-shell.log

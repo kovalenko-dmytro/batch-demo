@@ -1,0 +1,8 @@
+spring:
+  shell:
+    history:
+      enabled: false
+    noninteractive:
+      enabled: true
+    interactive:
+      enabled: true
