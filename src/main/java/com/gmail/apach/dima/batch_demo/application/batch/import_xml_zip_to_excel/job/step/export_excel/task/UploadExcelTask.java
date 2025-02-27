@@ -60,7 +60,7 @@ public class UploadExcelTask implements Tasklet, StepExecutionListener {
             .getJobExecution()
             .getExecutionContext()
             .get(JobExecutionContextKey.TEMP_DIR_PATH);
-        FileUtil.deleteTempFile(xmlTempDirPath);
+        FileUtil.deleteTempDir(xmlTempDirPath);
 
         final var exceptions = stepExecution.getFailureExceptions();
         return exceptions.isEmpty() ? ExitStatus.COMPLETED : ExitStatus.FAILED;

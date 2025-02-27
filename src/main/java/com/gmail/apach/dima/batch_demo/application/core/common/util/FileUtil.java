@@ -39,6 +39,14 @@ public final class FileUtil {
         }
     }
 
+    public static void deleteTempDir(@NonNull String exportFileTempPath) {
+        try {
+            FileUtils.deleteDirectory(Path.of(exportFileTempPath).toFile());
+        } catch (IOException e) {
+            throw new ApplicationServerException(e.getMessage());
+        }
+    }
+
     public static String unpackZip(StoredResource storedResource) throws IOException {
         final var zipFileTempPath = createTempFile(storedResource.getFileName(), Extension.ZIP);
         Files.write(Path.of(zipFileTempPath), storedResource.getPayload());
