@@ -31,7 +31,7 @@ public class CsvItemWriter extends CsvFileItemWriter<CsvLine> implements StepExe
             .getJobExecution()
             .getExecutionContext()
             .get(JobExecutionContextKey.STORED_RESOURCE);
-        this.exportFileTempPath = FileUtil.getFileTempPath(storedResource.getFileName(), Extension.CSV);
+        this.exportFileTempPath = FileUtil.createTempFile(storedResource.getFileName(), Extension.CSV);
         stepExecution
             .getJobExecution()
             .getExecutionContext()
