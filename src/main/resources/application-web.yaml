@@ -1,6 +1,10 @@
 spring:
   main:
     web-application-type: servlet
+  servlet:
+    multipart:
+      max-file-size: ${IMPORT_FILE_MAX_SIZE}
+      max-request-size: ${IMPORT_FILE_MAX_SIZE}
 
 springdoc:
   api-docs:
