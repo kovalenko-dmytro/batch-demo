@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.mapper;
 
-import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkModel;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
 import jakarta.validation.Valid;
 import org.mapstruct.InjectionStrategy;
@@ -17,5 +17,5 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface WorkMapper {
 
-    WorkTableEntity toWorkTableEntity(@Valid WorkLine workLine);
+    WorkTableEntity toWorkTableEntity(@Valid WorkModel workModel);
 }

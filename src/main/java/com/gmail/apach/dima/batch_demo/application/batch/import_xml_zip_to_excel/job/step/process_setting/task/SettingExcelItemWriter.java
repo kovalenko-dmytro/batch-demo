@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_exce
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ExportFile;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.SettingSheetHeader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingExcelLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.writer.ExcelFileItemWriter;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class SettingExcelItemWriter
-    extends ExcelFileItemWriter<SettingExcelLine> implements StepExecutionListener {
+    extends ExcelFileItemWriter<SettingExcelLineModel> implements StepExecutionListener {
 
     private String exportFileTempPath;
 
@@ -49,7 +49,7 @@ public class SettingExcelItemWriter
     }
 
     @Override
-    protected void fillInCells(SettingExcelLine item, XSSFRow row) {
+    protected void fillInCells(SettingExcelLineModel item, XSSFRow row) {
         final var activeFlagCell = row.createCell(0, CellType.BOOLEAN);
         activeFlagCell.setCellValue(item.activeFlag());
         final var approveFlagCell = row.createCell(1, CellType.BOOLEAN);

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SettingXmlLine {
+public class SettingXmlLineModel {
 
     @XmlElement(name = "active-flag")
     Boolean activeFlag;

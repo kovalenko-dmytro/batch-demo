@@ -6,15 +6,18 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 @Builder
-public record CsvLine(
+public record ExcelLineModel(
 
     @NotBlank
-    @Size(max = 70)
-    String fullName,
+    @Size(max = 20)
+    String firstName,
 
+    @NotBlank
+    @Size(max = 50)
+    String lastName,
     @Max(150)
     Integer age,
 
-    Boolean enabled
+    Boolean active
 ) {
 }

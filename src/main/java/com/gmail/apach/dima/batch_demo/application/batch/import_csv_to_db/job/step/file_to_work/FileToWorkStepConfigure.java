@@ -4,7 +4,7 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.FileItemReader;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.FileToWorkItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.WorkItemWriter;
-import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
@@ -34,7 +34,7 @@ public class FileToWorkStepConfigure {
     @SuppressWarnings("unused")
     public Step fileToWorkStep() {
         return new StepBuilder(ImportCsvToDbStep.FILE_TO_WORK_STEP.getName(), jobRepository)
-            .<WorkLine, WorkTableEntity>chunk(batchConfigProperties.getBatchSize(), transactionManager)
+            .<WorkModel, WorkTableEntity>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(fileItemReader)
             .processor(fileToWorkItemProcessor)
             .writer(workItemWriter)

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record SettingExcelLine(
+public record SettingExcelLineModel(
 
     @NotNull
     Boolean activeFlag,

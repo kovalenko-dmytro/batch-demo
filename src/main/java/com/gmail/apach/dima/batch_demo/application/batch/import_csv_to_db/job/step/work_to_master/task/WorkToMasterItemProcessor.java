@@ -20,6 +20,7 @@ public class WorkToMasterItemProcessor implements ItemProcessor<WorkTableEntity,
     @NonNull
     @Override
     public MasterTableEntity process(@NonNull WorkTableEntity work) {
-        return masterMapper.toMasterTableEntity(work);
+        final var masterModel = masterMapper.toMasterModel(work);
+        return masterMapper.toMasterTableEntity(masterModel);
     }
 }

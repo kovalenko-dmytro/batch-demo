@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TemplateXmlLine {
+public class TemplateXmlLineModel {
 
     @XmlElement(name = "name")
     String name;
