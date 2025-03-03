@@ -11,7 +11,7 @@ Features
 * Transaction management
 * Chunk based processing
 * Ability to process different files - **csv**, **excel**, **xm**l both input and output
-* Ability to read/write process from/ti database 
+* Ability to read/write process from/to database 
 
 ## Application architecture
 
