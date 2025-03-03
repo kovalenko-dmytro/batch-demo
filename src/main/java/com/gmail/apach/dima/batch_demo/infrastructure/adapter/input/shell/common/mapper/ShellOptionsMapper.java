@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Component
-public class ShellMapper {
+public class ShellOptionsMapper {
 
     public RequestParameters toParameters(@NonNull ExecuteJobShellArgsWrapper wrapper) {
         final var result = new HashMap<RequestParameter, String>();

@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebAppli
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.CompletableFuture;
+
 @Profile(ActiveProfile.CLI)
 @ConditionalOnNotWebApplication
 @Component
@@ -25,7 +27,7 @@ public class CliModeRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         final var parameters = cliMapper.toParameters(args);
         cliRequestValidator.validate(parameters);
-        jobExecutionInputPort.execute(parameters);
+        CompletableFuture.runAsync(() -> jobExecutionInputPort.execute(parameters)).join();
         System.exit(0);
     }
 }

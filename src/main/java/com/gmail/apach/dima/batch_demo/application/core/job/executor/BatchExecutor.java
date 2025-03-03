@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -25,7 +24,6 @@ public class BatchExecutor implements JobExecutionInputPort {
     private final JobLauncher jobLauncher;
     private final MessageUtil messageUtil;
 
-    @Async
     @Override
     public void execute(RequestParameters parameters) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);

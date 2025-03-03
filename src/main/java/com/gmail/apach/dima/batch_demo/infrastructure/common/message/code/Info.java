@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public enum Info {
 
+    JOB_SHELL_COMMAND_STARTED("info.job.shell.command.started"),
     JOB_INITIALIZED("info.job.initialized"),
     JOB_EXEC_MARK("info.job.execution.mark"),
     JOB_STEP_STARTED("info.job.step.started"),

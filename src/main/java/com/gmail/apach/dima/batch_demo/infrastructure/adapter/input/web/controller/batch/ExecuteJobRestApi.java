@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URISyntaxException;
+import java.util.concurrent.CompletableFuture;
 
 @Tag(name = OpenApiTag.BATCH_API)
 @RestController
@@ -24,7 +25,7 @@ import java.net.URISyntaxException;
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")
-public class JobExecutionRestAdapter {
+public class ExecuteJobRestApi {
 
     private final BatchRestMapper batchRESTMapper;
     private final JobExecutionInputPort jobExecutionInputPort;
@@ -32,7 +33,7 @@ public class JobExecutionRestAdapter {
     @PostMapping
     public ResponseEntity<Void> execute(@Valid @RequestBody JobExecutionRequest request) throws URISyntaxException {
         final var requestParameters = batchRESTMapper.toRequestParameters(request);
-        jobExecutionInputPort.execute(requestParameters);
+        CompletableFuture.runAsync(() -> jobExecutionInputPort.execute(requestParameters));
         final var location = RestUriUtil.location(requestParameters);
         return ResponseEntity.created(location).build();
     }
