@@ -51,7 +51,7 @@ The application supports the following env profiles:
 ### <ins>**local**</ins> profile
 1. Create a file **.env** under **dev-tools** directory using example **dev-tools/.env-example**
 2. Fill in  **.env** file using your preferred configurations
-3. Run your Docker (wor windows: Docker Desktop)
+3. Run your Docker (for windows: Docker Desktop)
 4. Run command **<application-directory-destination>\dev-tools>** **docker compose up**
 5. Set in your IDE env variable **APPLICATION_PROFILE**=**local,[web/cli/shell]**
    - **web** - web startup mode - open api will be available at **http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/swagger-ui/index.html**
