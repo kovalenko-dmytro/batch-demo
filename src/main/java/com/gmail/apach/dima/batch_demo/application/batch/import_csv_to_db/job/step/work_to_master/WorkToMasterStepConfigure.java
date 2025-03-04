@@ -4,9 +4,9 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.MasterItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.WorkItemReader;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.WorkToMasterItemProcessor;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.MasterModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master.entity.MasterTableEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.batch.BatchConfigProperties;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class WorkToMasterStepConfigure {
     @SuppressWarnings("unused")
     public Step workToMasterStep() {
         return new StepBuilder(ImportCsvToDbStep.WORK_TO_MASTER_STEP.getName(), jobRepository)
-            .<WorkTableEntity, MasterTableEntity>chunk(batchConfigProperties.getBatchSize(), transactionManager)
+            .<WorkTableEntity, MasterModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(workItemReader)
             .processor(workToMasterItemProcessor)
             .writer(masterItemWriter)

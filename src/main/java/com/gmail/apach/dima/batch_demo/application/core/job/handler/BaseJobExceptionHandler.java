@@ -21,7 +21,6 @@ public class BaseJobExceptionHandler implements ExceptionHandler {
     @Override
     public void handleException(@NonNull RepeatContext context, @NonNull Throwable throwable) throws Throwable {
         throw new JobInterruptedException(
-            messageUtil.getMessage(Error.JOB_INTERRUPTED, throwable.getMessage()),
-            BatchStatus.FAILED);
+            messageUtil.getMessage(Error.JOB_INTERRUPTED, throwable.getMessage()), BatchStatus.FAILED);
     }
 }

@@ -10,13 +10,10 @@ public enum Error {
     BATCH_NAME_NOT_DEFINED("error.batch.name.not.defined"),
     FILE_STORAGE_RESOURCE_MISSING("error.file.storage.resource.parameter.missing"),
     FILE_UNABLE_UPLOAD("error.file.storage.unable.upload"),
-    FILE_UNABLE_READ("error.file.storage.unable.read"),
     FILE_ZIP_CONTENT_MISSING("error.file.zip.content.missing"),
     JOB_INTERRUPTED("error.job.interrupted"),
     JOB_FAILED("error.job.failed"),
 
-    ENTITY_NOT_FOUND("error.entity.not.found"),
-    ENTITY_CREATION_EXCEPTION("error.entity.created"),
     VALIDATION_REQUEST("error.validation.request"),
     MISSING_REQUEST_PARAMETER("error.missing.request.parameter"),
     NO_HANDLER_FOUND("error.no.handler.found"),

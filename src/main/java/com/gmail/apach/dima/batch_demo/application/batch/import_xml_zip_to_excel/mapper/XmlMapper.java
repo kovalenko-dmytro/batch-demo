@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface XmlMapper {
 
-    TemplateExcelLine toTemplateExcelLine(@Valid TemplateXmlLine templateXmlLine);
-    SettingExcelLine toSettingExcelLine(@Valid SettingXmlLine settingXmlLine);
-    ConfigExcelLine toConfigExcelLine(@Valid ConfigXmlLine configXmlLine);
+    TemplateExcelLineModel toTemplateExcelLine(@Valid TemplateXmlLineModel templateXmlLineModel);
+    SettingExcelLineModel toSettingExcelLine(@Valid SettingXmlLineModel settingXmlLineModel);
+    ConfigExcelLineModel toConfigExcelLine(@Valid ConfigXmlLineModel configXmlLineModel);
 }

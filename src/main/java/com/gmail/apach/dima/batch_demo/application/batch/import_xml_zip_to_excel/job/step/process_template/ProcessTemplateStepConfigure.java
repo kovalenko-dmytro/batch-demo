@@ -4,8 +4,8 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateExcelItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateXmlItemReader;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateXmlToExcelItemProcessor;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateExcelLine;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateXmlLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateExcelLineModel;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateXmlLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.batch.BatchConfigProperties;
@@ -34,7 +34,7 @@ public class ProcessTemplateStepConfigure {
     @SuppressWarnings("unused")
     protected Step processTemplateStep() {
         return new StepBuilder(ImportXmlZipToExcelStep.PROCESS_TEMPLATE.getName(), jobRepository)
-            .<TemplateXmlLine, TemplateExcelLine>chunk(batchConfigProperties.getBatchSize(), transactionManager)
+            .<TemplateXmlLineModel, TemplateExcelLineModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(templateXmlItemReader)
             .processor(templateXmlToExcelItemProcessor)
             .writer(csvItemWriter)

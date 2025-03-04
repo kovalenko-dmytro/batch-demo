@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.ExcelFileHeaders;
-import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.ExcelLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.ExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.reader.ExcelFileItemReader;
@@ -21,7 +21,7 @@ import java.io.ByteArrayInputStream;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class ExcelItemReader extends ExcelFileItemReader<ExcelLine> implements StepExecutionListener {
+public class ExcelItemReader extends ExcelFileItemReader<ExcelLineModel> implements StepExecutionListener {
 
     private StoredResource storedResource;
 
@@ -39,8 +39,8 @@ public class ExcelItemReader extends ExcelFileItemReader<ExcelLine> implements S
     }
 
     @Override
-    protected RowMapper<ExcelLine> getRowMapper() {
-        return rowSet -> ExcelLine.builder()
+    protected RowMapper<ExcelLineModel> getRowMapper() {
+        return rowSet -> ExcelLineModel.builder()
             .firstName(rowSet.getProperties().getProperty(ExcelFileHeaders.FIRST_NAME.getName()))
             .lastName(rowSet.getProperties().getProperty(ExcelFileHeaders.LAST_NAME.getName()))
             .age(Integer.valueOf(rowSet.getProperties().getProperty(ExcelFileHeaders.AGE.getName())))

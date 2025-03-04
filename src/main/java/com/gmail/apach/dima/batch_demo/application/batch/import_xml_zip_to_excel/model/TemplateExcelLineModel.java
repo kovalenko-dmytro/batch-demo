@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 @Builder
-public record TemplateExcelLine(
+public record TemplateExcelLineModel(
     @NotBlank
     @Size(max = 100)
     String name,

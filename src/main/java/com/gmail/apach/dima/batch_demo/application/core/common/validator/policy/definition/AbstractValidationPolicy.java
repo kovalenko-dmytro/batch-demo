@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.application.core.common.validator.definition;
+package com.gmail.apach.dima.batch_demo.application.core.common.validator.policy.definition;
 
 import org.springframework.lang.NonNull;
 

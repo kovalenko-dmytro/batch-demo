@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_exce
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ConfigSheetHeader;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ExportFile;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.ConfigExcelLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.ConfigExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.writer.ExcelFileItemWriter;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class ConfigExcelItemWriter
-    extends ExcelFileItemWriter<ConfigExcelLine> implements StepExecutionListener {
+    extends ExcelFileItemWriter<ConfigExcelLineModel> implements StepExecutionListener {
 
     private String exportFileTempPath;
 
@@ -49,7 +49,7 @@ public class ConfigExcelItemWriter
     }
 
     @Override
-    protected void fillInCells(ConfigExcelLine item, XSSFRow row) {
+    protected void fillInCells(ConfigExcelLineModel item, XSSFRow row) {
         final var localeCell = row.createCell(0, CellType.STRING);
         localeCell.setCellValue(item.locale());
         final var versionCell = row.createCell(1, CellType.STRING);

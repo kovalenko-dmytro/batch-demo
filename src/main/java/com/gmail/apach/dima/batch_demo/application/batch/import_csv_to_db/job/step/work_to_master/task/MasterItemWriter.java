@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task;
 
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.MasterModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master.entity.MasterTableEntity;
 import com.gmail.apach.dima.batch_demo.port.output.db.MasterTableOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
@@ -20,8 +20,7 @@ import java.util.List;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class MasterItemWriter
-    implements ItemWriter<MasterTableEntity>, StepExecutionListener {
+public class MasterItemWriter implements ItemWriter<MasterModel>, StepExecutionListener {
 
     private final MasterTableOutputPort masterTableOutputPort;
 
@@ -36,12 +35,9 @@ public class MasterItemWriter
 
     @Override
     @SuppressWarnings("unchecked")
-    public void write(@NonNull Chunk<? extends MasterTableEntity> chunk) {
-        final var items = chunk.getItems().stream()
-            .map(item -> (MasterTableEntity) item)
-            .toList();
-        final var inserted = masterTableOutputPort.save(items);
-        final var insertedIds = inserted.stream().map(MasterTableEntity::getId).toList();
+    public void write(@NonNull Chunk<? extends MasterModel> chunk) {
+        final var inserted = masterTableOutputPort.save((List<MasterModel>) chunk.getItems());
+        final var insertedIds = inserted.stream().map(MasterModel::id).toList();
 
         final var heldIds = (List<String>) this.executionContext.get(JobExecutionContextKey.INSERTED_IDS);
         heldIds.addAll(insertedIds);
