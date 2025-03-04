@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task;
 
-import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.mapper.WorkMapper;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkModel;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
+import com.gmail.apach.dima.batch_demo.application.core.common.validator.FieldValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -13,13 +13,19 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class FileToWorkItemProcessor implements ItemProcessor<WorkModel, WorkTableEntity> {
+public class FileToWorkItemProcessor implements ItemProcessor<CsvLineModel, WorkModel> {
 
-    private final WorkMapper workMapper;
+    private final FieldValidator<CsvLineModel> validator;
 
     @NonNull
     @Override
-    public WorkTableEntity process(@NonNull WorkModel workModel) {
-        return workMapper.toWorkTableEntity(workModel);
+    public WorkModel process(@NonNull CsvLineModel csvLineModel) throws Exception {
+        validator.validate(csvLineModel);
+        return WorkModel.builder()
+            .fieldParam1(csvLineModel.fieldParam1())
+            .fieldParam2(csvLineModel.fieldParam2())
+            .fieldParam3(csvLineModel.fieldParam3())
+            .fieldParam4(csvLineModel.fieldParam4())
+            .build();
     }
 }

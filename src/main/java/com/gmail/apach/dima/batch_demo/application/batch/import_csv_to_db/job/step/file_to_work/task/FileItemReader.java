@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common.ImportCsvToDbFileHeaders;
-import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkModel;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.common.util.DateUtil;
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class FileItemReader extends CsvFileItemReader<WorkModel> implements StepExecutionListener {
+public class FileItemReader extends CsvFileItemReader<CsvLineModel> implements StepExecutionListener {
 
     private StoredResource storedResource;
 
@@ -36,8 +36,8 @@ public class FileItemReader extends CsvFileItemReader<WorkModel> implements Step
     }
 
     @Override
-    protected FieldSetMapper<WorkModel> fieldSetMapper() {
-        return fieldSet -> WorkModel.builder()
+    protected FieldSetMapper<CsvLineModel> fieldSetMapper() {
+        return fieldSet -> CsvLineModel.builder()
             .fieldParam1(fieldSet.readString(ImportCsvToDbFileHeaders.FIELD_PARAM_1.getName()))
             .fieldParam2(fieldSet.readInt(ImportCsvToDbFileHeaders.FIELD_PARAM_2.getName()))
             .fieldParam3(
