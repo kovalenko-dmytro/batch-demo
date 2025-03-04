@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ZippedFileName;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingXmlLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingXmlLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.reader.XmlFileItemReader;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.nio.file.Path;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class SettingXmlItemReader extends XmlFileItemReader<SettingXmlLine> implements StepExecutionListener {
+public class SettingXmlItemReader extends XmlFileItemReader<SettingXmlLineModel> implements StepExecutionListener {
 
     private String sourceFilePath;
 
@@ -34,7 +34,7 @@ public class SettingXmlItemReader extends XmlFileItemReader<SettingXmlLine> impl
 
     @Override
     protected Class<?> getBoundedClass() {
-        return SettingXmlLine.class;
+        return SettingXmlLineModel.class;
     }
 
     @Override

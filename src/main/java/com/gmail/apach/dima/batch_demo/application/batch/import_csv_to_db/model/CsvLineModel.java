@@ -9,8 +9,7 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record WorkLine(
-
+public record CsvLineModel(
     @NotBlank
     @Size(max = 20)
     String fieldParam1,

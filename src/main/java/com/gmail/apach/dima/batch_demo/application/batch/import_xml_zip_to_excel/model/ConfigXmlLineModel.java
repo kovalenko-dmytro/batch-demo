@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ConfigXmlLine {
+public class ConfigXmlLineModel {
 
     @XmlElement(name = "locale")
     String locale;

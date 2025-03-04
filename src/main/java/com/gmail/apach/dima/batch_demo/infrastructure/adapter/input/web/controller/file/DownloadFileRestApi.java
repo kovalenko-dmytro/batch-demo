@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")
-public class DownloadFileRestAdapter {
+public class DownloadFileRestApi {
 
     private final DownloadFileInputPort downloadFileInputPort;
 

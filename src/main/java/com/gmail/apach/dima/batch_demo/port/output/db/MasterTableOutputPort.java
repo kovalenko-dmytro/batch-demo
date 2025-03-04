@@ -1,11 +1,11 @@
 package com.gmail.apach.dima.batch_demo.port.output.db;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master.entity.MasterTableEntity;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.MasterModel;
 
 import java.util.List;
 
 public interface MasterTableOutputPort {
-    List<MasterTableEntity> save(List<MasterTableEntity> masterTableEntities);
+    List<MasterModel> save(List<MasterModel> masterModels);
 
     void delete(List<String> ids);
 }

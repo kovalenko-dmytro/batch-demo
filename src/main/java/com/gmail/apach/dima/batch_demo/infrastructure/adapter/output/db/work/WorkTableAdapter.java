@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkModel;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.mapper.WorkEntityMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.repository.WorkTableRepository;
 import com.gmail.apach.dima.batch_demo.port.output.db.WorkTableOutputPort;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 public class WorkTableAdapter implements WorkTableOutputPort {
 
     private final WorkTableRepository workTableRepository;
+    private final WorkEntityMapper workEntityMapper;
 
     @Override
     public void truncate() {
@@ -20,8 +22,9 @@ public class WorkTableAdapter implements WorkTableOutputPort {
     }
 
     @Override
-    public void save(List<WorkTableEntity> workTableEntities) {
-        workTableRepository.saveAll(workTableEntities);
+    public void save(List<WorkModel> workModels) {
+        final var entities = workModels.stream().map(workEntityMapper::toWorkTableEntity).toList();
+        workTableRepository.saveAll(entities);
     }
 
     @Override

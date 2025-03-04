@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.jo
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.CsvFileFieldNames;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.CsvFileHeaders;
-import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.common.util.FileUtil;
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class CsvItemWriter extends CsvFileItemWriter<CsvLine> implements StepExecutionListener {
+public class CsvItemWriter extends CsvFileItemWriter<CsvLineModel> implements StepExecutionListener {
 
     private String exportFileTempPath;
 

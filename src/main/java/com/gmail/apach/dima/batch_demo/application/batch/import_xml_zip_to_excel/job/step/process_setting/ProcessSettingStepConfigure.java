@@ -4,8 +4,8 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingExcelItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingXmlItemReader;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingXmlToExcelItemProcessor;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingExcelLine;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingXmlLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingExcelLineModel;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingXmlLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.batch.BatchConfigProperties;
@@ -34,7 +34,7 @@ public class ProcessSettingStepConfigure {
     @SuppressWarnings("unused")
     protected Step processSettingStep() {
         return new StepBuilder(ImportXmlZipToExcelStep.PROCESS_SETTING.getName(), jobRepository)
-            .<SettingXmlLine, SettingExcelLine>chunk(batchConfigProperties.getBatchSize(), transactionManager)
+            .<SettingXmlLineModel, SettingExcelLineModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(settingXmlItemReader)
             .processor(settingXmlToExcelItemProcessor)
             .writer(settingExcelItemWriter)

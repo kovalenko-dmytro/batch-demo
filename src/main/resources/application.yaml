@@ -16,7 +16,7 @@ spring:
         generate_statistics: false
         order_inserts: true
         jdbc:
-          batch_size: 10
+          batch_size: ${BATCH_SIZE}
   batch:
     job:
       enabled: false

@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")
-public class UploadFileRestAdapter {
+public class UploadFileRestApi {
 
     private final UploadFileInputPort uploadFileInputPort;
     private final FileRestMapper fileRestMapper;

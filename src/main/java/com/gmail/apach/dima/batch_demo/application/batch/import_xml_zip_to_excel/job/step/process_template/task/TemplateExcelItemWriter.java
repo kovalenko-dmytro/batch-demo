@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_exce
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ExportFile;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.TemplateSheetHeader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateExcelLine;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.writer.ExcelFileItemWriter;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.List;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class TemplateExcelItemWriter
-    extends ExcelFileItemWriter<TemplateExcelLine> implements StepExecutionListener {
+    extends ExcelFileItemWriter<TemplateExcelLineModel> implements StepExecutionListener {
 
     private String exportFileTempPath;
 
@@ -49,7 +49,7 @@ public class TemplateExcelItemWriter
     }
 
     @Override
-    protected void fillInCells(TemplateExcelLine item, XSSFRow row) {
+    protected void fillInCells(TemplateExcelLineModel item, XSSFRow row) {
         final var nameCell = row.createCell(0, CellType.STRING);
         nameCell.setCellValue(item.name());
         final var descCell = row.createCell(1, CellType.STRING);

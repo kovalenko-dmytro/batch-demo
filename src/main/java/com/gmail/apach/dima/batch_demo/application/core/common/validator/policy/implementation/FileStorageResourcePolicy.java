@@ -1,6 +1,6 @@
-package com.gmail.apach.dima.batch_demo.application.core.common.validator.implementation;
+package com.gmail.apach.dima.batch_demo.application.core.common.validator.policy.implementation;
 
-import com.gmail.apach.dima.batch_demo.application.core.common.validator.definition.AbstractValidationPolicy;
+import com.gmail.apach.dima.batch_demo.application.core.common.validator.policy.definition.AbstractValidationPolicy;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import org.apache.commons.lang3.StringUtils;
