@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.jo
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.ImportExcelToCsvStep;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task.CsvItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task.ExcelItemReader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task.ExcelToCsvItemProcessor;
+import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task.ExcelToCsvCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.ExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
@@ -25,7 +25,7 @@ public class ExcelToCsvStepConfigure {
     private final PlatformTransactionManager transactionManager;
     private final BatchConfigProperties batchConfigProperties;
     private final ExcelItemReader excelItemReader;
-    private final ExcelToCsvItemProcessor excelToCsvItemProcessor;
+    private final ExcelToCsvCompositeItemProcessor compositeItemProcessor;
     private final CsvItemWriter csvItemWriter;
     private final LogStepExecutionListener logStepExecutionListener;
     private final BaseJobExceptionHandler exceptionHandler;
@@ -36,7 +36,7 @@ public class ExcelToCsvStepConfigure {
         return new StepBuilder(ImportExcelToCsvStep.EXCEL_TO_CSV_STEP.getName(), jobRepository)
             .<ExcelLineModel, CsvLineModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(excelItemReader)
-            .processor(excelToCsvItemProcessor)
+            .processor(compositeItemProcessor)
             .writer(csvItemWriter)
             .listener(logStepExecutionListener)
             .exceptionHandler(exceptionHandler)

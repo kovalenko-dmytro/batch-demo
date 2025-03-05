@@ -10,14 +10,11 @@ public record TemplateExcelLineModel(
     @NotBlank
     @Size(max = 100)
     String name,
-
     @NotNull
     @Size(max = 500)
     String description,
-
     @NotNull
     Integer code,
-
     Boolean enabled
 ) {
 }

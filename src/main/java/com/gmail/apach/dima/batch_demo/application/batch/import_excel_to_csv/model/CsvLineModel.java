@@ -7,14 +7,11 @@ import lombok.Builder;
 
 @Builder
 public record CsvLineModel(
-
     @NotBlank
     @Size(max = 70)
     String fullName,
-
     @Max(150)
     Integer age,
-
     Boolean enabled
 ) {
 }

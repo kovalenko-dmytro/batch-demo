@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.s
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common.ImportCsvToDbStep;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.MasterItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.WorkItemReader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.WorkToMasterItemProcessor;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.WorkToMasterCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.MasterModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
@@ -25,7 +25,7 @@ public class WorkToMasterStepConfigure {
     private final PlatformTransactionManager transactionManager;
     private final BatchConfigProperties batchConfigProperties;
     private final WorkItemReader workItemReader;
-    private final WorkToMasterItemProcessor workToMasterItemProcessor;
+    private final WorkToMasterCompositeItemProcessor compositeItemProcessor;
     private final MasterItemWriter masterItemWriter;
     private final LogStepExecutionListener logStepExecutionListener;
     private final BaseJobExceptionHandler exceptionHandler;
@@ -36,7 +36,7 @@ public class WorkToMasterStepConfigure {
         return new StepBuilder(ImportCsvToDbStep.WORK_TO_MASTER_STEP.getName(), jobRepository)
             .<WorkTableEntity, MasterModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(workItemReader)
-            .processor(workToMasterItemProcessor)
+            .processor(compositeItemProcessor)
             .writer(masterItemWriter)
             .listener(logStepExecutionListener)
             .exceptionHandler(exceptionHandler)

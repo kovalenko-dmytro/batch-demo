@@ -5,10 +5,8 @@ import lombok.Builder;
 
 @Builder
 public record SettingExcelLineModel(
-
     @NotNull
     Boolean activeFlag,
-
     @NotNull
     Boolean approveFlag
 ) {
