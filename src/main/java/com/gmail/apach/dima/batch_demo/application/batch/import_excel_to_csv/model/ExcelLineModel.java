@@ -7,17 +7,14 @@ import lombok.Builder;
 
 @Builder
 public record ExcelLineModel(
-
     @NotBlank
     @Size(max = 20)
     String firstName,
-
     @NotBlank
     @Size(max = 50)
     String lastName,
     @Max(150)
     Integer age,
-
     Boolean active
 ) {
 }

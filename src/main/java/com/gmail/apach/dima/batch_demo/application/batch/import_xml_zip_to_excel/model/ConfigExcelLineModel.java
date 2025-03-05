@@ -5,10 +5,8 @@ import lombok.Builder;
 
 @Builder
 public record ConfigExcelLineModel(
-
     @NotBlank
     String locale,
-
     @NotBlank
     String version
 ) {

@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ImportXmlZipToExcelStep;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingExcelItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingXmlItemReader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_setting.task.SettingXmlToExcelItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.SettingXmlLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
@@ -25,7 +25,7 @@ public class ProcessSettingStepConfigure {
     private final PlatformTransactionManager transactionManager;
     private final BatchConfigProperties batchConfigProperties;
     private final SettingXmlItemReader settingXmlItemReader;
-    private final SettingXmlToExcelItemProcessor settingXmlToExcelItemProcessor;
+    private final SettingCompositeItemProcessor settingCompositeItemProcessor;
     private final SettingExcelItemWriter settingExcelItemWriter;
     private final LogStepExecutionListener logStepExecutionListener;
     private final BaseJobExceptionHandler exceptionHandler;
@@ -36,7 +36,7 @@ public class ProcessSettingStepConfigure {
         return new StepBuilder(ImportXmlZipToExcelStep.PROCESS_SETTING.getName(), jobRepository)
             .<SettingXmlLineModel, SettingExcelLineModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(settingXmlItemReader)
-            .processor(settingXmlToExcelItemProcessor)
+            .processor(settingCompositeItemProcessor)
             .writer(settingExcelItemWriter)
             .listener(logStepExecutionListener)
             .exceptionHandler(exceptionHandler)

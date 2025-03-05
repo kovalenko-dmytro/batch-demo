@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.s
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common.ImportCsvToDbStep;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.FileItemReader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.FileToWorkItemProcessor;
+import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.FileToWorkCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.file_to_work.task.WorkItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.WorkModel;
@@ -25,7 +25,7 @@ public class FileToWorkStepConfigure {
     private final PlatformTransactionManager transactionManager;
     private final BatchConfigProperties batchConfigProperties;
     private final FileItemReader fileItemReader;
-    private final FileToWorkItemProcessor fileToWorkItemProcessor;
+    private final FileToWorkCompositeItemProcessor compositeItemProcessor;
     private final WorkItemWriter workItemWriter;
     private final BaseJobExceptionHandler exceptionHandler;
     private final LogStepExecutionListener logStepExecutionListener;
@@ -36,7 +36,7 @@ public class FileToWorkStepConfigure {
         return new StepBuilder(ImportCsvToDbStep.FILE_TO_WORK_STEP.getName(), jobRepository)
             .<CsvLineModel, WorkModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(fileItemReader)
-            .processor(fileToWorkItemProcessor)
+            .processor(compositeItemProcessor)
             .writer(workItemWriter)
             .exceptionHandler(exceptionHandler)
             .listener(logStepExecutionListener)

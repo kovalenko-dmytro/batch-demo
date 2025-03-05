@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ImportXmlZipToExcelStep;
+import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateExcelItemWriter;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateXmlItemReader;
-import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.process_template.task.TemplateXmlToExcelItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateExcelLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.model.TemplateXmlLineModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
@@ -25,7 +25,7 @@ public class ProcessTemplateStepConfigure {
     private final PlatformTransactionManager transactionManager;
     private final BatchConfigProperties batchConfigProperties;
     private final TemplateXmlItemReader templateXmlItemReader;
-    private final TemplateXmlToExcelItemProcessor templateXmlToExcelItemProcessor;
+    private final TemplateCompositeItemProcessor templateCompositeItemProcessor;
     private final TemplateExcelItemWriter csvItemWriter;
     private final LogStepExecutionListener logStepExecutionListener;
     private final BaseJobExceptionHandler exceptionHandler;
@@ -36,7 +36,7 @@ public class ProcessTemplateStepConfigure {
         return new StepBuilder(ImportXmlZipToExcelStep.PROCESS_TEMPLATE.getName(), jobRepository)
             .<TemplateXmlLineModel, TemplateExcelLineModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
             .reader(templateXmlItemReader)
-            .processor(templateXmlToExcelItemProcessor)
+            .processor(templateCompositeItemProcessor)
             .writer(csvItemWriter)
             .listener(logStepExecutionListener)
             .exceptionHandler(exceptionHandler)
