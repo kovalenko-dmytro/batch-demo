@@ -1,6 +1,5 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job;
 
-import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.validator.ExcelToCsvJobParametersValidator;
 import com.gmail.apach.dima.batch_demo.application.core.job.configure.BaseBatchConfigure;
 import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +14,14 @@ import org.springframework.context.annotation.Configuration;
 public class ImportExcelToCsvJobConfigure {
 
     private final BaseBatchConfigure configure;
-
     private final Step importExcelStep;
     private final Step excelToCsvStep;
     private final Step exportCsvStep;
-    private final ExcelToCsvJobParametersValidator jobParametersValidator;
 
     @Bean(name = JobRegistry.IMPORT_EXCEL_TO_CSV)
     public Job job() {
         return new JobBuilder(JobRegistry.IMPORT_EXCEL_TO_CSV, configure.getJobRepository())
-            .validator(jobParametersValidator)
+            .validator(configure.getFileResourceValidator())
             .listener(configure.getLogJobFailuresListener())
             .start(importExcelStep)
             .next(excelToCsvStep)

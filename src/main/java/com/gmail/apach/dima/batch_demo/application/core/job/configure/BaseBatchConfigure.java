@@ -3,6 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.core.job.configure;
 import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogJobFailuresListener;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
+import com.gmail.apach.dima.batch_demo.application.core.job.validator.FileResourceValidator;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.batch.BatchConfigProperties;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,6 @@ public class BaseBatchConfigure {
     private final BaseJobExceptionHandler baseJobExceptionHandler;
     private final LogStepExecutionListener logStepExecutionListener;
     private final LogJobFailuresListener logJobFailuresListener;
+    private final FileResourceValidator fileResourceValidator;
 
 }
