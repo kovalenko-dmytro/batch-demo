@@ -7,7 +7,7 @@ import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common
 import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.ActiveProfile;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
-import com.gmail.apach.dima.batch_demo.port.input.job.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.port.input.job.ExecuteJobInputPort;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 public class ExecuteJobCommand {
 
     private final ShellOptionsMapper shellOptionsMapper;
-    private final JobExecutionInputPort jobExecutionInputPort;
+    private final ExecuteJobInputPort executeJobInputPort;
     private final MessageUtil messageUtil;
 
     @ShellMethod(key = ShellCommand.EXECUTE_JOB)
@@ -39,7 +39,7 @@ public class ExecuteJobCommand {
     ) {
         final var wrapper = new ExecuteJobShellArgsWrapper(jobName, fileStorageResource);
         final var requestParameters = shellOptionsMapper.toParameters(wrapper);
-        CompletableFuture.runAsync(() -> jobExecutionInputPort.execute(requestParameters));
+        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters));
         return messageUtil.getMessage(Info.JOB_SHELL_COMMAND_STARTED);
     }
 }

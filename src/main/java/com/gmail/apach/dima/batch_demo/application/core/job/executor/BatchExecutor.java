@@ -6,7 +6,7 @@ import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParamet
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
-import com.gmail.apach.dima.batch_demo.port.input.job.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.port.input.job.ExecuteJobInputPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class BatchExecutor implements JobExecutionInputPort {
+public class BatchExecutor implements ExecuteJobInputPort {
 
     private final JobStatusValidator jobStatusValidator;
     private final ApplicationContext context;
