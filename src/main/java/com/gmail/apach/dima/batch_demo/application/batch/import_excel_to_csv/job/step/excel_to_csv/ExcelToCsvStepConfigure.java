@@ -6,40 +6,36 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job.step.excel_to_csv.task.ExcelToCsvCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.ExcelLineModel;
-import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExceptionHandler;
-import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.batch.BatchConfigProperties;
+import com.gmail.apach.dima.batch_demo.application.core.job.configure.BaseBatchConfigure;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
 public class ExcelToCsvStepConfigure {
 
-    private final JobRepository jobRepository;
-    private final PlatformTransactionManager transactionManager;
-    private final BatchConfigProperties batchConfigProperties;
+    private final BaseBatchConfigure configure;
+
     private final ExcelItemReader excelItemReader;
     private final ExcelToCsvCompositeItemProcessor compositeItemProcessor;
     private final CsvItemWriter csvItemWriter;
-    private final LogStepExecutionListener logStepExecutionListener;
-    private final BaseJobExceptionHandler exceptionHandler;
 
     @Bean
     @SuppressWarnings("unused")
     protected Step excelToCsvStep() {
-        return new StepBuilder(ImportExcelToCsvStep.EXCEL_TO_CSV_STEP.getName(), jobRepository)
-            .<ExcelLineModel, CsvLineModel>chunk(batchConfigProperties.getBatchSize(), transactionManager)
+        return new StepBuilder(ImportExcelToCsvStep.EXCEL_TO_CSV_STEP.getName(), configure.getJobRepository())
+            .<ExcelLineModel, CsvLineModel>chunk(
+                configure.getBatchConfigProperties().getBatchSize(),
+                configure.getPlatformTransactionManager()
+            )
             .reader(excelItemReader)
             .processor(compositeItemProcessor)
             .writer(csvItemWriter)
-            .listener(logStepExecutionListener)
-            .exceptionHandler(exceptionHandler)
+            .listener(configure.getLogStepExecutionListener())
+            .exceptionHandler(configure.getBaseJobExceptionHandler())
             .build();
     }
 }
