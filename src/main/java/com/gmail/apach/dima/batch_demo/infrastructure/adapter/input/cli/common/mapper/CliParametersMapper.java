@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @Component
-public class CliMapper {
+public class CliParametersMapper {
 
     public RequestParameters toParameters(@NonNull ApplicationArguments args) {
         final var result = new HashMap<RequestParameter, String>();

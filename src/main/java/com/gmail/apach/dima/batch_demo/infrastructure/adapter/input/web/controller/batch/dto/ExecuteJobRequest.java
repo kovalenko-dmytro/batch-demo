@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.control
 
 import jakarta.validation.constraints.NotBlank;
 
-public record JobExecutionRequest(
+public record ExecuteJobRequest(
     @NotBlank
     String jobName,
     String fileStorageResource
