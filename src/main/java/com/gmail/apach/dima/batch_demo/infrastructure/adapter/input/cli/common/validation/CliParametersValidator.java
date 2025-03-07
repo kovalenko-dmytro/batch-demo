@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CliRequestValidator implements Validator<RequestParameters> {
+public class CliParametersValidator implements Validator<RequestParameters> {
 
     private final MessageUtil messageUtil;
 

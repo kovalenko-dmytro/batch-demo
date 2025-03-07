@@ -4,8 +4,8 @@ import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.c
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.mapper.JobRestMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.swagger.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.common.util.RestUriUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.batch.dto.JobExecutionRequest;
-import com.gmail.apach.dima.batch_demo.port.input.job.JobExecutionInputPort;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.web.controller.batch.dto.ExecuteJobRequest;
+import com.gmail.apach.dima.batch_demo.port.input.job.ExecuteJobInputPort;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +27,12 @@ import java.util.concurrent.CompletableFuture;
 public class ExecuteJobRestApi {
 
     private final JobRestMapper jobRestMapper;
-    private final JobExecutionInputPort jobExecutionInputPort;
+    private final ExecuteJobInputPort executeJobInputPort;
 
     @PostMapping
-    public ResponseEntity<Void> execute(@Valid @RequestBody JobExecutionRequest request) {
+    public ResponseEntity<Void> execute(@Valid @RequestBody ExecuteJobRequest request) {
         final var requestParameters = jobRestMapper.toRequestParameters(request);
-        CompletableFuture.runAsync(() -> jobExecutionInputPort.execute(requestParameters));
+        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters));
         final var location = RestUriUtil.location(requestParameters);
         return ResponseEntity.created(location).build();
     }
