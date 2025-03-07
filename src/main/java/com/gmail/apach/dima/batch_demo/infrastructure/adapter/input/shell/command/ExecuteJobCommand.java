@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.command;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.constant.ShellArgument;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.constant.ShellCommand;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.dto.ExecuteJobShellArgsWrapper;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.mapper.ShellOptionsMapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.constant.Command;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.constant.CommandOption;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.dto.ExecuteJobOptionsWrapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.shell.common.mapper.CommandOptionsMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.ActiveProfile;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
@@ -23,22 +23,22 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("unused")
 public class ExecuteJobCommand {
 
-    private final ShellOptionsMapper shellOptionsMapper;
+    private final CommandOptionsMapper commandOptionsMapper;
     private final ExecuteJobInputPort executeJobInputPort;
     private final MessageUtil messageUtil;
 
-    @ShellMethod(key = ShellCommand.EXECUTE_JOB)
+    @ShellMethod(key = Command.EXECUTE_JOB)
     public String executeJob(
         @ShellOption(
-            value = ShellArgument.JobName.NAME,
-            help = ShellArgument.JobName.HELP) @NotBlank String jobName,
+            value = CommandOption.JobName.NAME,
+            help = CommandOption.JobName.HELP) @NotBlank String jobName,
         @ShellOption(
-            value = ShellArgument.FileStorageResource.NAME,
-            help = ShellArgument.FileStorageResource.HELP,
+            value = CommandOption.FileStorageResource.NAME,
+            help = CommandOption.FileStorageResource.HELP,
             defaultValue = ShellOption.NULL) String fileStorageResource
     ) {
-        final var wrapper = new ExecuteJobShellArgsWrapper(jobName, fileStorageResource);
-        final var requestParameters = shellOptionsMapper.toParameters(wrapper);
+        final var wrapper = new ExecuteJobOptionsWrapper(jobName, fileStorageResource);
+        final var requestParameters = commandOptionsMapper.toParameters(wrapper);
         CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters));
         return messageUtil.getMessage(Info.JOB_SHELL_COMMAND_STARTED);
     }

@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ShellCommand {
+public final class Command {
 
     public static final String EXECUTE_JOB = "execute-job";
 }

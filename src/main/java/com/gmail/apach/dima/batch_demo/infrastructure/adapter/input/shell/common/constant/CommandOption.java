@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ShellArgument {
+public final class CommandOption {
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class JobName {
