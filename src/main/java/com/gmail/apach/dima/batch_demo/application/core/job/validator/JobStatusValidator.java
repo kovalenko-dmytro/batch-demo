@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.validator;
 
-import com.gmail.apach.dima.batch_demo.application.core.common.validator.Validator;
-import com.gmail.apach.dima.batch_demo.application.core.common.validator.policy.implementation.BatchStatusNotStartPolicy;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
+import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
+import com.gmail.apach.dima.batch_demo.common.validator.Validator;
+import com.gmail.apach.dima.batch_demo.common.validator.policy.implementation.BatchStatusNotStartPolicy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;

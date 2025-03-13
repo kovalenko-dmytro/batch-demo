@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.service;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.model.ExecutedJob;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.exception.ResourceNotFoundException;
+import com.gmail.apach.dima.batch_demo.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.port.output.db.GetJobOutputPort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

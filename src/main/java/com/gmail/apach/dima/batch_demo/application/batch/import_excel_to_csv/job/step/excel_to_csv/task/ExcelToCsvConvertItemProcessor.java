@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.jo
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLineModel;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.ExcelLineModel;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;

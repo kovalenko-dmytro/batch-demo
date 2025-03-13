@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.reader.JpaCursorDbItemReader;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.work.entity.WorkTableEntity;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
