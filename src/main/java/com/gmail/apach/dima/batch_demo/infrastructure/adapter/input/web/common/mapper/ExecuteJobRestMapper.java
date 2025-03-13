@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Component
-public class JobRestMapper {
+public class ExecuteJobRestMapper {
 
     public RequestParameters toRequestParameters(ExecuteJobRequest request) {
         final var result = new HashMap<RequestParameter, String>();

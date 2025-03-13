@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.application.core.job.executor.validator;
+package com.gmail.apach.dima.batch_demo.application.core.job.validator;
 
 import com.gmail.apach.dima.batch_demo.application.core.common.validator.Validator;
 import com.gmail.apach.dima.batch_demo.application.core.common.validator.policy.implementation.BatchStatusNotStartPolicy;

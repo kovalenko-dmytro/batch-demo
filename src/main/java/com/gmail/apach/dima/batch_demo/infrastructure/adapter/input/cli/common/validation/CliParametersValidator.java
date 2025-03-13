@@ -2,6 +2,7 @@ package com.gmail.apach.dima.batch_demo.infrastructure.adapter.input.cli.common.
 
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
+import com.gmail.apach.dima.batch_demo.infrastructure.common.exception.ValidationException;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,11 @@ public class CliParametersValidator implements Validator<RequestParameters> {
 
     public void validate(RequestParameters value) {
         try {
-            Assert.isTrue(
+            Assert.state(
                 StringUtils.isNoneBlank(value.get(RequestParameter.JOB_NAME)),
-                messageUtil.getMessage(Error.BATCH_NAME_NOT_DEFINED, RequestParameter.JOB_NAME.getArg()));
+                messageUtil.getMessage(Error.JOB_NAME_NOT_DEFINED, RequestParameter.JOB_NAME.getArg()));
         } catch (IllegalArgumentException e) {
-            log.error(e.getMessage());
+            throw new ValidationException(e.getMessage());
         }
     }
 }

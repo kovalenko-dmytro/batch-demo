@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -35,7 +36,8 @@ import java.nio.file.Files;
 @SpringBatchTest
 @TestExecutionListeners({
     DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class
+    DirtiesContextTestExecutionListener.class,
+    SqlScriptsTestExecutionListener.class
 })
 public abstract class AbstractIntegrationTest {
 

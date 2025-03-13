@@ -1,8 +1,8 @@
-package com.gmail.apach.dima.batch_demo.application.core.job.executor;
+package com.gmail.apach.dima.batch_demo.application.core.job.service;
 
-import com.gmail.apach.dima.batch_demo.application.core.job.executor.validator.JobStatusValidator;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
+import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobStatusValidator;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
 import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class BatchExecutor implements ExecuteJobInputPort {
+public class ExecuteJobService implements ExecuteJobInputPort {
 
     private final JobStatusValidator jobStatusValidator;
     private final ApplicationContext context;
@@ -27,17 +27,18 @@ public class BatchExecutor implements ExecuteJobInputPort {
     @Override
     public void execute(RequestParameters parameters) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
+        final var jobExecutionMark = parameters.get(RequestParameter.JOB_EXEC_MARK);
+
         try {
             jobStatusValidator.validate(jobName);
 
             final var job = context.getBean(jobName, Job.class);
-            log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, job.getName()));
-            log.info(messageUtil.getMessage(Info.JOB_EXEC_MARK, parameters.get(RequestParameter.JOB_EXEC_MARK)));
+            log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMark));
 
             final var execution = jobLauncher.run(job, parameters.toJobParameters());
-            log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, execution.getStatus().name()));
+            log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, jobExecutionMark, execution.getStatus()));
         } catch (Exception e) {
-            log.error(messageUtil.getMessage(Error.JOB_FAILED, jobName, e.getMessage()));
+            log.error(messageUtil.getMessage(Error.JOB_FAILED, jobName, jobExecutionMark, e.getMessage()));
         }
     }
 }

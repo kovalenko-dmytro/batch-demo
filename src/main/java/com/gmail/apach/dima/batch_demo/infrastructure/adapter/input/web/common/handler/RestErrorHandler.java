@@ -80,7 +80,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
         @NonNull HttpStatusCode status,
         @NonNull WebRequest request) {
         final var param = String.join(Delimiter.SPACE, ex.getHttpMethod(), ex.getRequestURL());
-        final var error = messageUtil.getMessage(Error.NO_HANDLER_FOUND, param);
+        final var error = messageUtil.getMessage(Error.REQUEST_HANDLER_NOT_FOUND, param);
         final var response = buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND, List.of(error));
         return createResponseEntity(response);
     }
