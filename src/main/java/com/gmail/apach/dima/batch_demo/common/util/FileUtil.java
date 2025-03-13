@@ -1,6 +1,5 @@
 package com.gmail.apach.dima.batch_demo.common.util;
 
-import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.common.constant.Extension;
 import com.gmail.apach.dima.batch_demo.common.exception.ApplicationServerException;
@@ -31,25 +30,25 @@ public final class FileUtil {
         }
     }
 
-    public static void deleteTempFile(@NonNull String exportFileTempPath) {
+    public static void deleteTempFile(@NonNull String tempFilePath) {
         try {
-            FileUtils.deleteDirectory(Path.of(exportFileTempPath).getParent().toFile());
+            FileUtils.deleteDirectory(Path.of(tempFilePath).getParent().toFile());
         } catch (IOException e) {
             throw new ApplicationServerException(e.getMessage());
         }
     }
 
-    public static void deleteTempDir(@NonNull String exportFileTempPath) {
+    public static void deleteTempDir(@NonNull String tempPath) {
         try {
-            FileUtils.deleteDirectory(Path.of(exportFileTempPath).toFile());
+            FileUtils.deleteDirectory(Path.of(tempPath).toFile());
         } catch (IOException e) {
             throw new ApplicationServerException(e.getMessage());
         }
     }
 
-    public static String unpackZip(StoredResource storedResource) throws IOException {
-        final var zipFileTempPath = createTempFile(storedResource.getFileName(), Extension.ZIP);
-        Files.write(Path.of(zipFileTempPath), storedResource.getPayload());
+    public static String unpackZip(byte[] payload) throws IOException {
+        final var zipFileTempPath = createTempFile(UUID.randomUUID().toString(), Extension.ZIP);
+        Files.write(Path.of(zipFileTempPath), payload);
 
         final var tempDirPath = Files.createTempDirectory(UUID.randomUUID().toString()).toString();
         final var zipFile = new ZipFile(zipFileTempPath);

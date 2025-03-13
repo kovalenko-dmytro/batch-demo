@@ -50,7 +50,7 @@ public class UnpackZipTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) throws Exception {
-        final var tempDirPath = FileUtil.unpackZip(storedResource);
+        final var tempDirPath = FileUtil.unpackZip(storedResource.getPayload());
 
         final var pathsStream = Files.list(Paths.get(tempDirPath));
         final var unpackedFileNames = pathsStream
