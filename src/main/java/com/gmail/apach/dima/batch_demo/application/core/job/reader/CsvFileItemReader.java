@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.reader;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;

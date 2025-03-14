@@ -3,11 +3,11 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.jo
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.CsvFileFieldNames;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common.CsvFileHeaders;
 import com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.model.CsvLineModel;
-import com.gmail.apach.dima.batch_demo.application.core.common.util.FileUtil;
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.writer.CsvFileItemWriter;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Extension;
+import com.gmail.apach.dima.batch_demo.common.constant.Extension;
+import com.gmail.apach.dima.batch_demo.common.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;

@@ -4,7 +4,7 @@ import com.gmail.apach.dima.batch_demo.application.core.job.handler.BaseJobExcep
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogJobFailuresListener;
 import com.gmail.apach.dima.batch_demo.application.core.job.listener.LogStepExecutionListener;
 import com.gmail.apach.dima.batch_demo.application.core.job.validator.FileResourceValidator;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.batch.BatchConfigProperties;
+import com.gmail.apach.dima.batch_demo.common.config.batch.BatchConfigProperties;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.repository.JobRepository;

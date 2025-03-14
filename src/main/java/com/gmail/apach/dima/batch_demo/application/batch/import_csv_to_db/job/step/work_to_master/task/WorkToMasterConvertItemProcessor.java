@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.MasterModel;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.work.entity.WorkTableEntity;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;

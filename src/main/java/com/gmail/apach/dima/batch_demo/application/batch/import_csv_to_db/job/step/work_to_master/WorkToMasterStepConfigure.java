@@ -6,7 +6,7 @@ import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.st
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.step.work_to_master.task.WorkToMasterCompositeItemProcessor;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.MasterModel;
 import com.gmail.apach.dima.batch_demo.application.core.job.configure.BaseBatchConfigure;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.work.entity.WorkTableEntity;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.work.entity.WorkTableEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.step.builder.StepBuilder;

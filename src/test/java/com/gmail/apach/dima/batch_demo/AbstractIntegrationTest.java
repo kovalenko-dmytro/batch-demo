@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo;
 
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.oss.AwsS3Adapter;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.AwsS3Adapter;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -35,7 +36,8 @@ import java.nio.file.Files;
 @SpringBatchTest
 @TestExecutionListeners({
     DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class
+    DirtiesContextTestExecutionListener.class,
+    SqlScriptsTestExecutionListener.class
 })
 public abstract class AbstractIntegrationTest {
 

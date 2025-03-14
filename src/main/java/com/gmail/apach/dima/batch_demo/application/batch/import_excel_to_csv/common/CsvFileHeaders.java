@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.common;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

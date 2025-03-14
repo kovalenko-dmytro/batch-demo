@@ -1,8 +1,8 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.validator;
 
-import com.gmail.apach.dima.batch_demo.application.core.common.validator.policy.implementation.FileStorageResourcePolicy;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
+import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
+import com.gmail.apach.dima.batch_demo.common.validator.policy.implementation.FileStorageResourcePolicy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
