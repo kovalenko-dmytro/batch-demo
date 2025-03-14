@@ -1,10 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.util;
 
-import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
-import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.common.exception.ApplicationServerException;
-import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.constant.RequestPath;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -12,15 +9,20 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RestUriUtil {
 
-    public static URI location(RequestParameters params) {
+    public static URI location(String rootPath, String ... paths) {
         final var request = ((ServletRequestAttributes)
             RequestContextHolder.currentRequestAttributes()).getRequest();
 
-        final var joined = String.join(
+        final var resourcePath = Objects.nonNull(paths)
+            ? String.join(Delimiter.SLASH, paths)
+            : Delimiter.EMPTY;
+
+        final var url = String.join(
             Delimiter.EMPTY,
             request.getScheme(),
             Delimiter.COLON,
@@ -28,12 +30,12 @@ public final class RestUriUtil {
             request.getServerName(),
             Delimiter.COLON,
             String.valueOf(request.getServerPort()),
-            RequestPath.BATCH_API_ROOT_PATH,
+            rootPath,
             Delimiter.SLASH,
-            params.get(RequestParameter.JOB_EXEC_MARK));
+            resourcePath);
 
         try {
-            return new URI(joined);
+            return new URI(url);
         } catch (URISyntaxException e) {
             throw new ApplicationServerException(e.getMessage());
         }

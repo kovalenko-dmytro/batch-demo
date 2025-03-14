@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.UUID;
 
 @Component
 public class ExecuteJobRestMapper {
@@ -18,7 +17,6 @@ public class ExecuteJobRestMapper {
         if (Objects.nonNull(request.fileStorageResource())) {
             result.put(RequestParameter.FILE_STORAGE_RESOURCE, request.fileStorageResource());
         }
-        result.put(RequestParameter.JOB_EXEC_MARK, UUID.randomUUID().toString());
         return new RequestParameters(result);
     }
 }

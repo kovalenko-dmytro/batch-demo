@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Tag(name = OpenApiTag.BATCH_API)
@@ -32,8 +33,9 @@ public class ExecuteJobRestApi {
     @PostMapping
     public ResponseEntity<Void> execute(@Valid @RequestBody ExecuteJobRequest request) {
         final var requestParameters = executeJobRestMapper.toRequestParameters(request);
-        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters));
-        final var location = RestUriUtil.location(requestParameters);
+        final var jobExecutionMarker = UUID.randomUUID().toString();
+        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters, jobExecutionMarker));
+        final var location = RestUriUtil.location(RequestPath.BATCH_API_ROOT_PATH, jobExecutionMarker);
         return ResponseEntity.created(location).build();
     }
 }

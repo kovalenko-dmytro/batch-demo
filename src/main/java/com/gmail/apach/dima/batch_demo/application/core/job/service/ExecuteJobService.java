@@ -1,5 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.service;
 
+import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobStatusValidator;
@@ -25,20 +26,21 @@ public class ExecuteJobService implements ExecuteJobInputPort {
     private final MessageUtil messageUtil;
 
     @Override
-    public void execute(RequestParameters parameters) {
+    public void execute(RequestParameters parameters, String jobExecutionMarker) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
-        final var jobExecutionMark = parameters.get(RequestParameter.JOB_EXEC_MARK);
-
         try {
             jobStatusValidator.validate(jobName);
 
             final var job = context.getBean(jobName, Job.class);
-            log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMark));
+            log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMarker));
 
-            final var execution = jobLauncher.run(job, parameters.toJobParameters());
-            log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, jobExecutionMark, execution.getStatus()));
+            final var jobParametersBuilder = parameters.toJobParameters();
+            jobParametersBuilder.addString(JobParameter.JOB_EXECUTION_MARKER, jobExecutionMarker);
+
+            final var execution = jobLauncher.run(job, jobParametersBuilder.toJobParameters());
+            log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, jobExecutionMarker, execution.getStatus()));
         } catch (Exception e) {
-            log.error(messageUtil.getMessage(Error.JOB_FAILED, jobName, jobExecutionMark, e.getMessage()));
+            log.error(messageUtil.getMessage(Error.JOB_FAILED, jobName, jobExecutionMarker, e.getMessage()));
         }
     }
 }
