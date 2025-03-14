@@ -27,7 +27,9 @@ public class GetJobRestApi {
     private final GetJobRestMapper getJobRestMapper;
 
     @GetMapping
-    public ResponseEntity<GetJobResponse> getJob(@PathVariable @NotBlank String jobExecutionMarker) {
+    public ResponseEntity<GetJobResponse> getJob(
+        @PathVariable("job-execution-marker") @NotBlank String jobExecutionMarker
+    ) {
         final var job = getJobInputPort.get(jobExecutionMarker);
         final var response = getJobRestMapper.toGetJobResponse(job);
         return ResponseEntity.ok().body(response);

@@ -24,7 +24,7 @@ public class DownloadFileRestApi {
     private final DownloadFileInputPort downloadFileInputPort;
 
     @GetMapping
-    public ResponseEntity<byte[]> download(@PathVariable("fileStorageKey") String fileStorageKey) {
+    public ResponseEntity<byte[]> download(@PathVariable("file-storage-key") String fileStorageKey) {
         final var storedResource = downloadFileInputPort.download(fileStorageKey);
         final var headerValues = "attachment; filename=\"" + storedResource.getFileName() + "\"";
         return ResponseEntity.ok()
