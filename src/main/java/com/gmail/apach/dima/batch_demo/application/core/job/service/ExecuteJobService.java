@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ExecuteJobService implements ExecuteJobInputPort {
 
+    private final CheckRegisteredJobService checkRegisteredJobService;
     private final JobStatusValidator jobStatusValidator;
     private final ApplicationContext context;
     private final JobLauncher jobLauncher;
@@ -29,7 +30,8 @@ public class ExecuteJobService implements ExecuteJobInputPort {
     public void execute(RequestParameters parameters, String jobExecutionMarker) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
         try {
-            jobStatusValidator.validate(jobName);
+            checkRegisteredJobService.checkRegistration(jobName);
+            jobStatusValidator.checkStatus(jobName);
 
             final var job = context.getBean(jobName, Job.class);
             log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMarker));

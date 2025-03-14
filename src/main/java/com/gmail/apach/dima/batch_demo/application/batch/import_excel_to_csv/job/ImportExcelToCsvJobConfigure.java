@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.configure.BaseBatchConfigure;
-import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
+import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -18,9 +18,9 @@ public class ImportExcelToCsvJobConfigure {
     private final Step excelToCsvStep;
     private final Step exportCsvStep;
 
-    @Bean(name = JobRegistry.IMPORT_EXCEL_TO_CSV)
+    @Bean(name = JobName.IMPORT_EXCEL_TO_CSV)
     public Job job() {
-        return new JobBuilder(JobRegistry.IMPORT_EXCEL_TO_CSV, configure.getJobRepository())
+        return new JobBuilder(JobName.IMPORT_EXCEL_TO_CSV, configure.getJobRepository())
             .validator(configure.getFileResourceValidator())
             .listener(configure.getLogJobFailuresListener())
             .start(importExcelStep)

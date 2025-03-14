@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.listener.CleanupOnFailureJobListener;
 import com.gmail.apach.dima.batch_demo.application.core.job.configure.BaseBatchConfigure;
-import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
+import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -21,9 +21,9 @@ public class ImportCsvToDbJobConfigure {
     private final Step workToMasterStep;
     private final CleanupOnFailureJobListener cleanupOnFailureJobListener;
 
-    @Bean(name = JobRegistry.IMPORT_CSV_TO_DB)
+    @Bean(name = JobName.IMPORT_CSV_TO_DB)
     public Job job() {
-        return new JobBuilder(JobRegistry.IMPORT_CSV_TO_DB, configure.getJobRepository())
+        return new JobBuilder(JobName.IMPORT_CSV_TO_DB, configure.getJobRepository())
             .validator(configure.getFileResourceValidator())
             .listener(configure.getLogJobFailuresListener())
             .listener(cleanupOnFailureJobListener)

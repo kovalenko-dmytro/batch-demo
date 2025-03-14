@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public enum Error {
 
+    JOB_NOT_REGISTERED("error.job.not.registered"),
     JOB_NAME_NOT_DEFINED("error.job.name.not.defined"),
     FILE_STORAGE_RESOURCE_MISSING("error.file.storage.resource.parameter.missing"),
     FILE_UNABLE_UPLOAD("error.file.storage.unable.upload"),

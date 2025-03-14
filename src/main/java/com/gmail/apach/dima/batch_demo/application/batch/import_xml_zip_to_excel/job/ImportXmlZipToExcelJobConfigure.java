@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.configure.BaseBatchConfigure;
-import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
+import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -22,9 +22,9 @@ public class ImportXmlZipToExcelJobConfigure {
     private final Step processConfigStep;
     private final Step exportExcelStep;
 
-    @Bean(name = JobRegistry.IMPORT_XML_ZIP_TO_EXCEL)
+    @Bean(name = JobName.IMPORT_XML_ZIP_TO_EXCEL)
     public Job job() {
-        return new JobBuilder(JobRegistry.IMPORT_XML_ZIP_TO_EXCEL, configure.getJobRepository())
+        return new JobBuilder(JobName.IMPORT_XML_ZIP_TO_EXCEL, configure.getJobRepository())
             .validator(configure.getFileResourceValidator())
             .listener(configure.getLogJobFailuresListener())
             .start(importlZipStep)

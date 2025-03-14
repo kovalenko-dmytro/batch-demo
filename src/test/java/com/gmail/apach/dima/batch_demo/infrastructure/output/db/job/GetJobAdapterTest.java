@@ -5,9 +5,10 @@ import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Resource;
 import com.gmail.apach.dima.batch_demo.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.mapper.JobMapper;
-import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.repository.JobExecutionRepository;
-import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.view.JobView;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.GetExecutedJobAdapter;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.mapper.JobMapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.repository.JobExecutionRepository;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.view.JobView;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +26,7 @@ class GetJobAdapterTest {
     private static final String EXEC_UNIQUE_MARK = "5a8d68c8-2f28-4b53-ac5a-2db586512440" ;
 
     @InjectMocks
-    private GetJobAdapter getJobAdapter;
+    private GetExecutedJobAdapter getJobAdapter;
     @Mock
     private JobExecutionRepository jobExecutionRepository;
     @Mock

@@ -1,0 +1,41 @@
+package com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.mapper;
+
+import com.gmail.apach.dima.batch_demo.application.core.job.model.BatchStatus;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.ExecutedJob;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.ExitCode;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.RegisteredJob;
+import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.GetExecutedJobResponse;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
+import org.springframework.lang.NonNull;
+
+import java.util.List;
+import java.util.Optional;
+
+@Mapper(
+    componentModel = "spring",
+    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL,
+    unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@SuppressWarnings("unused")
+public interface JobRestMapper {
+    GetExecutedJobResponse toGetExecutedJobResponse(ExecutedJob executedJob);
+
+    default String toBatchStatus(BatchStatus status) {
+        return Optional.ofNullable(status)
+            .map(BatchStatus::name)
+            .orElse(BatchStatus.UNKNOWN.name());
+    }
+
+    default String toExitCode(ExitCode exitCode) {
+        return Optional.ofNullable(exitCode)
+            .map(ExitCode::name)
+            .orElse(ExitCode.UNKNOWN.name());
+    }
+
+    default List<String> toRegisteredJobNames(@NonNull List<RegisteredJob> registeredJobs) {
+        return registeredJobs.stream().map(RegisteredJob::getName).toList();
+    }
+}
