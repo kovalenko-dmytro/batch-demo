@@ -2,11 +2,11 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.s
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common.ImportCsvToDbFileHeaders;
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.model.CsvLineModel;
-import com.gmail.apach.dima.batch_demo.application.core.common.util.DateUtil;
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.reader.CsvFileItemReader;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Format;
+import com.gmail.apach.dima.batch_demo.common.constant.Format;
+import com.gmail.apach.dima.batch_demo.common.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;

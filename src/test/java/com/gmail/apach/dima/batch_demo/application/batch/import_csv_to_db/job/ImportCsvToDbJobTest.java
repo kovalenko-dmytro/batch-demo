@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job;
 import com.gmail.apach.dima.batch_demo.AbstractIntegrationTest;
 import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
 import com.gmail.apach.dima.batch_demo.application.receiver.JobParametersReceiver;
-import com.gmail.apach.dima.batch_demo.infrastructure.adapter.output.db.master.repository.MasterTableRepository;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.master.repository.MasterTableRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.beans.factory.annotation.Autowired;

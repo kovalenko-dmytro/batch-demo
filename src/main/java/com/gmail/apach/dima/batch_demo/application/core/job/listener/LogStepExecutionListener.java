@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.listener;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
+import com.gmail.apach.dima.batch_demo.common.constant.Info;
+import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;

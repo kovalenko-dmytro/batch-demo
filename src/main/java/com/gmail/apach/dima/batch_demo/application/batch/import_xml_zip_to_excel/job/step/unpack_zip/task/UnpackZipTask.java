@@ -1,12 +1,12 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.job.step.unpack_zip.task;
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_excel.common.ZippedFileName;
-import com.gmail.apach.dima.batch_demo.application.core.common.util.FileUtil;
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Error;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.common.constant.Error;
+import com.gmail.apach.dima.batch_demo.common.util.FileUtil;
+import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
@@ -50,7 +50,7 @@ public class UnpackZipTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) throws Exception {
-        final var tempDirPath = FileUtil.unpackZip(storedResource);
+        final var tempDirPath = FileUtil.unpackZip(storedResource.getPayload());
 
         final var pathsStream = Files.list(Paths.get(tempDirPath));
         final var unpackedFileNames = pathsStream

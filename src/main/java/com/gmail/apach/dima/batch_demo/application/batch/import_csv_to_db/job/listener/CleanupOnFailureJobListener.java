@@ -2,8 +2,8 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.l
 
 import com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.common.ImportCsvToDbTable;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.common.message.code.Info;
+import com.gmail.apach.dima.batch_demo.common.constant.Info;
+import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import com.gmail.apach.dima.batch_demo.port.output.db.MasterTableOutputPort;
 import com.gmail.apach.dima.batch_demo.port.output.db.WorkTableOutputPort;
 import lombok.RequiredArgsConstructor;

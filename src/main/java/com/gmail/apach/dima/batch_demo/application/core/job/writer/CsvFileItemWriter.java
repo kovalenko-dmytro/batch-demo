@@ -1,6 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.writer;
 
-import com.gmail.apach.dima.batch_demo.infrastructure.common.constant.Delimiter;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.file.FlatFileHeaderCallback;
