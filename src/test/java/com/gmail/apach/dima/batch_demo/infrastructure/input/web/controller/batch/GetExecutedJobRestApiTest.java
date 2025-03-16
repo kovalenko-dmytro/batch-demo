@@ -14,12 +14,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @Sql({"classpath:sql/get_job.sql"})
 class GetExecutedJobRestApiTest extends AbstractRestApiIntegrationTest {
 
-    private static final String BASE_PATH = "/api/v1/batches/" ;
-    private static final String CORRECT_EXEC_UNIQUE_MARK = "f8ec8765-308a-4c26-9543-a84a369ba81f" ;
-    private static final String INCORRECT_EXEC_UNIQUE_MARK = "f8ec8765-308a-4c26-9543-a84a369ba812" ;
+    private static final String BASE_PATH = "/api/v1/batches/";
+    private static final String CORRECT_EXEC_UNIQUE_MARK = "f8ec8765-308a-4c26-9543-a84a369ba81f";
+    private static final String INCORRECT_EXEC_UNIQUE_MARK = "f8ec8765-308a-4c26-9543-a84a369ba812";
 
     @Test
-    void getBJob_success() throws Exception {
+    void getExecutedJob_success() throws Exception {
         final var result = mvc.perform(
                 get(BASE_PATH + CORRECT_EXEC_UNIQUE_MARK)
                     .contentType(MediaType.APPLICATION_JSON))
@@ -30,14 +30,14 @@ class GetExecutedJobRestApiTest extends AbstractRestApiIntegrationTest {
 
         assertNotNull(content);
 
-        final var jobResponse = objectMapper.readValue(content, GetExecutedJobResponse.class);
+        final var response = objectMapper.readValue(content, GetExecutedJobResponse.class);
 
-        assertNotNull(jobResponse);
-        assertEquals(CORRECT_EXEC_UNIQUE_MARK, jobResponse.jobExecutionMarker());
+        assertNotNull(response);
+        assertEquals(CORRECT_EXEC_UNIQUE_MARK, response.jobExecutionMarker());
     }
 
     @Test
-    void getJob_notFound() throws Exception {
+    void getExecutedJob_notFound() throws Exception {
         final var result = mvc.perform(
                 get(BASE_PATH + INCORRECT_EXEC_UNIQUE_MARK)
                     .contentType(MediaType.APPLICATION_JSON))

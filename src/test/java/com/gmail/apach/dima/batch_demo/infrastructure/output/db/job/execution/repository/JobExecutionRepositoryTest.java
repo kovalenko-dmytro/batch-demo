@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Sql({"classpath:sql/get_job.sql"})
 class JobExecutionRepositoryTest extends AbstractIntegrationTest {
 
-    private static final String EXEC_UNIQUE_MARK = "f8ec8765-308a-4c26-9543-a84a369ba81f" ;
+    private static final String EXEC_UNIQUE_MARK = "f8ec8765-308a-4c26-9543-a84a369ba81f";
 
     @Autowired
     private JobExecutionRepository jobExecutionRepository;
