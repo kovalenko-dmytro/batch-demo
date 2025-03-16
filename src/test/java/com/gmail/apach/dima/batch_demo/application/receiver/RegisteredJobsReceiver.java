@@ -19,4 +19,8 @@ public final class RegisteredJobsReceiver {
                 .build()
         );
     }
+
+    public static List<String> registeredJobsNames() {
+        return List.of("job", "another-job");
+    }
 }
