@@ -1,11 +1,10 @@
-package com.gmail.apach.dima.batch_demo.infrastructure.output.db.job;
+package com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.model.ExecutedJob;
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Resource;
 import com.gmail.apach.dima.batch_demo.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.GetExecutedJobAdapter;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.mapper.JobMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.repository.JobExecutionRepository;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.view.JobView;
@@ -21,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class GetJobAdapterTest {
+class GetExecutedJobAdapterTest {
 
     private static final String EXEC_UNIQUE_MARK = "5a8d68c8-2f28-4b53-ac5a-2db586512440" ;
 
     @InjectMocks
-    private GetExecutedJobAdapter getJobAdapter;
+    private GetExecutedJobAdapter getExecutedJobAdapter;
     @Mock
     private JobExecutionRepository jobExecutionRepository;
     @Mock
@@ -46,7 +45,7 @@ class GetJobAdapterTest {
         when(jobExecutionRepository.get(EXEC_UNIQUE_MARK)).thenReturn(Optional.of(jobView));
         when(jobMapper.toExecutedJob(jobView)).thenReturn(executedJob);
 
-        final var actual = getJobAdapter.get(EXEC_UNIQUE_MARK);
+        final var actual = getExecutedJobAdapter.get(EXEC_UNIQUE_MARK);
 
         assertNotNull(actual);
         assertEquals(EXEC_UNIQUE_MARK, actual.getJobExecutionMarker());
@@ -56,7 +55,7 @@ class GetJobAdapterTest {
     void getJob_fail() {
         when(jobExecutionRepository.get(EXEC_UNIQUE_MARK)).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> getJobAdapter.get(EXEC_UNIQUE_MARK));
+        assertThrows(ResourceNotFoundException.class, () -> getExecutedJobAdapter.get(EXEC_UNIQUE_MARK));
         verify(messageUtil, times(1))
             .getMessage(
                 Error.RESOURCE_NOT_FOUND,
