@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job;
 
 import com.gmail.apach.dima.batch_demo.AbstractIntegrationTest;
-import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
+import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobName;
 import com.gmail.apach.dima.batch_demo.application.receiver.JobParametersReceiver;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.db.master.repository.MasterTableRepository;
 import org.junit.jupiter.api.Test;
@@ -21,9 +21,9 @@ class ImportCsvToDbJobTest extends AbstractIntegrationTest {
     void execute_success() throws Exception {
         final var storedResource = uploadFile(FILE_PATH);
         final var jobParameters = JobParametersReceiver.importCsvToD(storedResource.getStorageKey());
-        final var execution = launchJob(JobRegistry.IMPORT_CSV_TO_DB, jobParameters);
+        final var execution = launchJob(JobName.IMPORT_CSV_TO_DB, jobParameters);
 
-        assertEquals(JobRegistry.IMPORT_CSV_TO_DB, execution.getJobInstance().getJobName());
+        assertEquals(JobName.IMPORT_CSV_TO_DB, execution.getJobInstance().getJobName());
         assertEquals(ExitStatus.COMPLETED, execution.getExitStatus());
 
         final var rows = masterTableRepository.findAll();
