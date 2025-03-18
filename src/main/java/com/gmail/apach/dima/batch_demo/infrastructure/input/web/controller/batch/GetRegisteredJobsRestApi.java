@@ -26,7 +26,7 @@ public class GetRegisteredJobsRestApi {
 
     @GetMapping
     public ResponseEntity<GetRegisteredJobsResponse> getRegisteredJobs() {
-        final var jobs = getRegisteredJobsInputPort.get();
+        final var jobs = getRegisteredJobsInputPort.getAll();
         final var response = new GetRegisteredJobsResponse(jobRestMapper.toRegisteredJobNames(jobs));
         return ResponseEntity.ok().body(response);
     }

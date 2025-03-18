@@ -21,7 +21,7 @@ class CheckRegisteredJobServiceTest {
     private static final String JOB_NAME = "some-job";
 
     @InjectMocks
-    private CheckRegisteredJobService checkRegisteredJobService;
+    private CheckJobRegistrationService checkRegisteredJobService;
     @Mock
     private RegisteredJobExistsOutputPort registeredJobExistsOutputPort;
     @Mock
@@ -31,7 +31,7 @@ class CheckRegisteredJobServiceTest {
     void checkRegistration_success() {
         when(registeredJobExistsOutputPort.exist(JOB_NAME)).thenReturn(true);
 
-        assertDoesNotThrow(() -> checkRegisteredJobService.checkRegistration(JOB_NAME));
+        assertDoesNotThrow(() -> checkRegisteredJobService.check(JOB_NAME));
         verify(messageUtil, times(0))
             .getMessage(Error.JOB_NOT_REGISTERED, Resource.Attribute.NAME.getName(), JOB_NAME);
     }
@@ -40,7 +40,7 @@ class CheckRegisteredJobServiceTest {
     void checkRegistration_fail() {
         when(registeredJobExistsOutputPort.exist(JOB_NAME)).thenReturn(false);
 
-        assertThrows(ResourceNotFoundException.class, () -> checkRegisteredJobService.checkRegistration(JOB_NAME));
+        assertThrows(ResourceNotFoundException.class, () -> checkRegisteredJobService.check(JOB_NAME));
         verify(messageUtil, times(1))
             .getMessage(Error.JOB_NOT_REGISTERED, Resource.Attribute.NAME.getName(), JOB_NAME);
     }

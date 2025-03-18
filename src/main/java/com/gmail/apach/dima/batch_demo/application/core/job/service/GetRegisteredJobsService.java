@@ -15,7 +15,7 @@ public class GetRegisteredJobsService implements GetRegisteredJobsInputPort {
     private final GetRegisteredJobsOutputPort getRegisteredJobsOutputPort;
 
     @Override
-    public List<RegisteredJob> get() {
-        return getRegisteredJobsOutputPort.get();
+    public List<RegisteredJob> getAll() {
+        return getRegisteredJobsOutputPort.getAll();
     }
 }

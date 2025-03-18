@@ -32,7 +32,7 @@ class GetRegisteredJobsAdapterTest {
         when(registeredJobMapper.toRegisteredJob(RegisteredJobsReceiver.registeredJobsNames().get(1)))
             .thenReturn(RegisteredJobsReceiver.registeredJobs().get(1));
 
-        final var actual = getRegisteredJobsAdapter.get();
+        final var actual = getRegisteredJobsAdapter.getAll();
 
         assertNotNull(actual);
         assertFalse(actual.isEmpty());

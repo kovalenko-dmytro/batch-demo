@@ -22,9 +22,9 @@ class GetRegisteredJobsServiceTest {
 
     @Test
     void getRegisteredJobs_success() {
-        when(getRegisteredJobsOutputPort.get()).thenReturn(RegisteredJobsReceiver.registeredJobs());
+        when(getRegisteredJobsOutputPort.getAll()).thenReturn(RegisteredJobsReceiver.registeredJobs());
 
-        final var actual = getRegisteredJobsService.get();
+        final var actual = getRegisteredJobsService.getAll();
 
         assertNotNull(actual);
         assertFalse(actual.isEmpty());

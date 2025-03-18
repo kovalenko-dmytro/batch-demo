@@ -17,7 +17,7 @@ public class GetRegisteredJobsAdapter implements GetRegisteredJobsOutputPort {
     private final RegisteredJobMapper registeredJobMapper;
 
     @Override
-    public List<RegisteredJob> get() {
+    public List<RegisteredJob> getAll() {
         final var registeredJobNames = jobRegistryRepository.getRegisteredJobs();
         return registeredJobNames.stream().map(registeredJobMapper::toRegisteredJob).toList();
     }
