@@ -1,0 +1,1 @@
+INSERT INTO job_registry (job_name) VALUES ('import-xml-zip-to-excel');

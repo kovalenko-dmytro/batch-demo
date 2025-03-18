@@ -42,5 +42,20 @@
         <sqlFile path="sql/2025-02-05-1915_create_table_master_table.sql"/>
     </changeSet>
 
+    <changeSet id="db-change-set-10" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-03-14-0815_create_table_job_registry.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-11" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-03-14-0915_job_registry_insert_import_csv_do_db.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-12" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-03-14-1015_job_registry_insert_import_excel_to_csv.sql"/>
+    </changeSet>
+
+    <changeSet id="db-change-set-13" author="import-data-batch-demo">
+        <sqlFile path="sql/2025-03-14-1115_job_registry_insert_import_xml_zip_to_excel.sql"/>
+    </changeSet>
 
 </databaseChangeLog>

@@ -18,7 +18,7 @@ public class WorkTableAdapter implements WorkTableOutputPort {
 
     @Override
     public void truncate() {
-        workTableRepository.deleteAll();
+        workTableRepository.truncate();
     }
 
     @Override

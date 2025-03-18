@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.batch.import_excel_to_csv.job;
 
 import com.gmail.apach.dima.batch_demo.AbstractIntegrationTest;
-import com.gmail.apach.dima.batch_demo.application.core.job.registry.JobRegistry;
+import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobName;
 import com.gmail.apach.dima.batch_demo.application.receiver.JobParametersReceiver;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.ExitStatus;
@@ -16,9 +16,9 @@ class ImportExcelToCsvJobTest extends AbstractIntegrationTest {
     void execute_success() throws Exception {
         final var storedResource = uploadFile(FILE_PATH);
         final var jobParameters = JobParametersReceiver.importExcelToCsv(storedResource.getStorageKey());
-        final var execution = launchJob(JobRegistry.IMPORT_EXCEL_TO_CSV, jobParameters);
+        final var execution = launchJob(JobName.IMPORT_EXCEL_TO_CSV, jobParameters);
 
-        assertEquals(JobRegistry.IMPORT_EXCEL_TO_CSV, execution.getJobInstance().getJobName());
+        assertEquals(JobName.IMPORT_EXCEL_TO_CSV, execution.getJobInstance().getJobName());
         assertEquals(ExitStatus.COMPLETED, execution.getExitStatus());
 
         final var exportedCsvFile = awsS3Adapter.get("excel_to_csv_test.csv");
