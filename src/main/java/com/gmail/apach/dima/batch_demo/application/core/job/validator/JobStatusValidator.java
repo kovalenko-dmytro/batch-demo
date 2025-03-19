@@ -35,7 +35,7 @@ public class JobStatusValidator {
             Assert.state(
                 policy.satisfy(batchStatus),
                 messageUtil.getMessage(policy.errorCode(), MessageFormat.format(ERROR, jobName, batchStatus)));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException e) {
             throw new JobInterruptedException(e.getMessage(), BatchStatus.FAILED);
         }
     }

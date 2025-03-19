@@ -48,14 +48,34 @@ The application supports the following env profiles:
 * **production**
 
 ## Run application
-### <ins>**local**</ins> profile
+### Active profile \<local\>
 1. Create a file **.env** under **dev-tools** directory using example **dev-tools/.env-example**
 2. Fill in  **.env** file using your preferred configurations
 3. Run your Docker (for windows: Docker Desktop)
 4. Run command **application-directory-destination>/dev-tools>** **docker compose up**
-5. Set in your IDE env variable **APPLICATION_PROFILE**=**local,[web/cli/shell]**
-   - **web** - web startup mode - open api will be available at **http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/swagger-ui/index.html**
-   - **cli** - cli startup mode - add needed program args, example: **job-name=import-csv-to-db file-storage-resource=example.csv**
-   - **shell** - shell startup mode - after application running input command, example: **execute-job --job-name import-csv-to-db --file-storage-resource example.csv**
+5. Set up active profiles as environment variable **APPLICATION_PROFILE**=**local,[web/cli/shell]**   
 6. Launch the application using main class
 
+#### - Startup mode \<web\>
+Open api documentation will be available at:  
+**http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/swagger-ui/index.html**  
+
+To upload source file for batch processing:  
+POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/files
+
+To see available jobs:  
+GET http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/registered-jobs
+
+To execute the batch:  
+POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/batches
+
+To control executed batch status:  
+GET http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/batches/{job-execution-marker}
+
+#### - Startup mode \<cli\>
+Add needed program args before running application, example:  
+**job-name=import-csv-to-db file-storage-resource=example.csv**
+
+#### - Startup mode \<shell\>
+Input  shell command to execute required job, example:  
+**execute-job --job-name import-csv-to-db --file-storage-resource example.csv**

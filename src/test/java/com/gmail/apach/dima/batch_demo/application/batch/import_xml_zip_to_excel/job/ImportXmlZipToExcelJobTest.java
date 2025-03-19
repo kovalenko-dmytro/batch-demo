@@ -22,7 +22,7 @@ class ImportXmlZipToExcelJobTest extends AbstractIntegrationTest {
         assertEquals(JobName.IMPORT_XML_ZIP_TO_EXCEL, execution.getJobInstance().getJobName());
         assertEquals(ExitStatus.COMPLETED, execution.getExitStatus());
 
-        final var exportedExcelFile = awsS3Adapter.get("export_file.xlsx");
+        final var exportedExcelFile = awsS3Service.get("export_file.xlsx");
 
         assertNotNull(exportedExcelFile);
         assertTrue(exportedExcelFile.getPayload().length > 0);

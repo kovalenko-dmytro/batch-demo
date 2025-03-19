@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class GetRegisteredJobsAdapter implements GetRegisteredJobsOutputPort {
+public class GetRegisteredJobsDbService implements GetRegisteredJobsOutputPort {
 
     private final JobRegistryRepository jobRegistryRepository;
     private final RegisteredJobMapper registeredJobMapper;

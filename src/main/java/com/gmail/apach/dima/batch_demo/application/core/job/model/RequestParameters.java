@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.model;
 
 import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.lang.NonNull;
 
@@ -18,9 +19,14 @@ public record RequestParameters(
             .orElse(Delimiter.EMPTY);
     }
 
-    public JobParametersBuilder toJobParameters() {
+    public JobParametersBuilder toJobParametersBuilder() {
         final var builder = new JobParametersBuilder();
-        parameters.forEach((name, value) -> builder.addString(RequestParameter.from(name), value));
+        parameters.forEach((name, value) ->
+            builder.addString(
+                RequestParameter.from(name),
+                StringUtils.isNoneBlank(value) ? value : Delimiter.EMPTY
+            )
+        );
         return builder;
     }
 }

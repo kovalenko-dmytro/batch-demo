@@ -1,7 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch;
 
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.constant.RequestPath;
-import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.mapper.ExecuteJobRestMapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.mapper.JobRestMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.swagger.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.util.RestUriUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.ExecuteJobRequest;
@@ -27,12 +27,12 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("unused")
 public class ExecuteJobRestApi {
 
-    private final ExecuteJobRestMapper executeJobRestMapper;
+    private final JobRestMapper jobRestMapper;
     private final ExecuteJobInputPort executeJobInputPort;
 
     @PostMapping
     public ResponseEntity<Void> execute(@Valid @RequestBody ExecuteJobRequest request) {
-        final var requestParameters = executeJobRestMapper.toRequestParameters(request);
+        final var requestParameters = jobRestMapper.toRequestParameters(request);
         final var jobExecutionMarker = UUID.randomUUID().toString();
         CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters, jobExecutionMarker));
         final var location = RestUriUtil.location(RequestPath.BATCH_API_ROOT_PATH, jobExecutionMarker);

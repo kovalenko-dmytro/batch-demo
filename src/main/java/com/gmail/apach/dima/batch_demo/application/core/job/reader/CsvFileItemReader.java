@@ -1,7 +1,6 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.reader;
 
 import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -10,7 +9,6 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.core.io.Resource;
 
-@Slf4j
 public abstract class CsvFileItemReader<T> extends FlatFileItemReader<T> {
 
     protected LineMapper<T> lineMapper() {

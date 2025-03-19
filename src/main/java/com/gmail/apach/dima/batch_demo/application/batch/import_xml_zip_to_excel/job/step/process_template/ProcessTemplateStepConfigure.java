@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 public class ProcessTemplateStepConfigure {
 
     private final BaseBatchConfigure configure;
-
     private final TemplateXmlItemReader templateXmlItemReader;
     private final TemplateCompositeItemProcessor templateCompositeItemProcessor;
     private final TemplateExcelItemWriter csvItemWriter;
