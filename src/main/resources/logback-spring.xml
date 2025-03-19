@@ -14,33 +14,31 @@
         <root level="info">
             <appender-ref ref="STDOUT" />
         </root>
-        <logger name="com.gmail.apach.dima.batch_demo" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-        </logger>>
+        <logger name="com.gmail.apach.dima.batch_demo" level="info" />
     </springProfile>
-    <springProfile name="test,develop">
+    <springProfile name="test">
+        <root level="error">
+            <appender-ref ref="STDOUT" />
+        </root>
+        <logger name="com.gmail.apach.dima.batch_demo" level="info" />
+    </springProfile>
+    <springProfile name="develop">
         <root level="info">
             <appender-ref ref="STDOUT" />
         </root>
-        <logger name="com.gmail.apach.dima.batch_demo" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-        </logger>>
+        <logger name="com.gmail.apach.dima.batch_demo" level="info" />
     </springProfile>
     <springProfile name="staging">
         <root level="info">
             <appender-ref ref="STDOUT" />
         </root>
-        <logger name="com.gmail.apach.dima.batch_demo" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-        </logger>
+        <logger name="com.gmail.apach.dima.batch_demo" level="info" />
     </springProfile>
     <springProfile name="production">
         <root level="info">
             <appender-ref ref="STDOUT" />
         </root>
-        <logger name="com.gmail.apach.dima.batch_demo" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-        </logger>
+        <logger name="com.gmail.apach.dima.batch_demo" level="info" />
     </springProfile>
 
 </configuration>

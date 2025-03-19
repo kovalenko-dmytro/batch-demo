@@ -12,9 +12,4 @@ spring:
 
 logging:
   level:
-    org:
-      springframework: OFF
-      hibernate: OFF
-    com:
-      zaxxer:
-        hikari: OFF
+    root: OFF
