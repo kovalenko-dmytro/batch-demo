@@ -36,7 +36,7 @@ public class ExecuteJobService implements ExecuteJobInputPort {
             final var job = context.getBean(jobName, Job.class);
             log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMarker));
 
-            final var jobParametersBuilder = parameters.toJobParameters();
+            final var jobParametersBuilder = parameters.toJobParametersBuilder();
             jobParametersBuilder.addString(JobParameter.JOB_EXECUTION_MARKER, jobExecutionMarker);
 
             final var execution = jobLauncher.run(job, jobParametersBuilder.toJobParameters());

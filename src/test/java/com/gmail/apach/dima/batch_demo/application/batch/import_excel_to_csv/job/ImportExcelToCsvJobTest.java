@@ -21,7 +21,7 @@ class ImportExcelToCsvJobTest extends AbstractIntegrationTest {
         assertEquals(JobName.IMPORT_EXCEL_TO_CSV, execution.getJobInstance().getJobName());
         assertEquals(ExitStatus.COMPLETED, execution.getExitStatus());
 
-        final var exportedCsvFile = awsS3Adapter.get("excel_to_csv_test.csv");
+        final var exportedCsvFile = awsS3Service.get("excel_to_csv_test.csv");
 
         assertNotNull(exportedCsvFile);
         assertTrue(exportedCsvFile.getPayload().length > 0);

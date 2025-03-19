@@ -26,7 +26,7 @@ public class ExecuteJobCliRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        final var parameters = cliParametersMapper.toParameters(args);
+        final var parameters = cliParametersMapper.toRequestParameters(args);
         cliParametersValidator.validate(parameters);
         final var jobExecutionMarker = UUID.randomUUID().toString();
         CompletableFuture.runAsync(() -> executeJobInputPort.execute(parameters, jobExecutionMarker)).join();

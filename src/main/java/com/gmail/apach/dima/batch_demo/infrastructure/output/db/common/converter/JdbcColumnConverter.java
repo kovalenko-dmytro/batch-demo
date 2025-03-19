@@ -13,10 +13,8 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JdbcColumnConverter {
 
-    public static LocalDateTime toLocalDateTime(
-        @NonNull ResultSet rs,
-        @NonNull String columnName
-    ) throws SQLException {
+    public static LocalDateTime toLocalDateTime(@NonNull ResultSet rs, @NonNull String columnName)
+        throws SQLException {
         return Optional
             .ofNullable(rs.getTimestamp(columnName))
             .map(Timestamp::toLocalDateTime)

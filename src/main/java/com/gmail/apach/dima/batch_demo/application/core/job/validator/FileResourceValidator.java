@@ -27,7 +27,7 @@ public class FileResourceValidator implements JobParametersValidator {
             Assert.state(
                 policy.satisfy(resource),
                 messageUtil.getMessage(policy.errorCode(), policy.errorParams()));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException e) {
             throw new JobParametersInvalidException(e.getMessage());
         }
     }

@@ -17,8 +17,12 @@ public enum CsvFileHeaders {
 
     private final String name;
 
-    public static final String headersRow =
-        Arrays.stream(CsvFileHeaders.values())
+    public static final String headersRow;
+
+    static {
+        headersRow = Arrays
+            .stream(CsvFileHeaders.values())
             .map(CsvFileHeaders::getName)
             .collect(Collectors.joining(Delimiter.COMMA));
+    }
 }

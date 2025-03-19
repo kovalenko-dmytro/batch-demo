@@ -47,6 +47,7 @@ logging:
         data: WARN
         batch: WARN
       hibernate: WARN
+      jline: OFF
     com:
       zaxxer:
         hikari: WARN

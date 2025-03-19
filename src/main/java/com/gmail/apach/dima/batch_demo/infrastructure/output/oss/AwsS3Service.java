@@ -21,7 +21,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AwsS3Adapter implements AwsS3OutputPort {
+public class AwsS3Service implements AwsS3OutputPort {
 
     private final S3Template s3Template;
     private final AwsS3Properties properties;

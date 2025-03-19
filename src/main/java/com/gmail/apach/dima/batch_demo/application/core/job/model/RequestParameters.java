@@ -18,7 +18,7 @@ public record RequestParameters(
             .orElse(Delimiter.EMPTY);
     }
 
-    public JobParametersBuilder toJobParameters() {
+    public JobParametersBuilder toJobParametersBuilder() {
         final var builder = new JobParametersBuilder();
         parameters.forEach((name, value) -> builder.addString(RequestParameter.from(name), value));
         return builder;

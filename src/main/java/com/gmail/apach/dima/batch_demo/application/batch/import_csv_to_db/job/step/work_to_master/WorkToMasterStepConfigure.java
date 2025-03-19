@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 public class WorkToMasterStepConfigure {
 
     private final BaseBatchConfigure configure;
-
     private final WorkItemReader workItemReader;
     private final WorkToMasterCompositeItemProcessor compositeItemProcessor;
     private final MasterItemWriter masterItemWriter;

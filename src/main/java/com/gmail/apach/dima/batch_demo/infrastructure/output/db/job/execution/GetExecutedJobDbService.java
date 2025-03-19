@@ -5,7 +5,7 @@ import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Resource;
 import com.gmail.apach.dima.batch_demo.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.mapper.JobMapper;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.mapper.ExecutedJobMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.db.job.execution.repository.JobExecutionRepository;
 import com.gmail.apach.dima.batch_demo.port.output.db.job.GetExecutedJobOutputPort;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class GetExecutedJobAdapter implements GetExecutedJobOutputPort {
+public class GetExecutedJobDbService implements GetExecutedJobOutputPort {
 
     private final JobExecutionRepository jobExecutionRepository;
-    private final JobMapper jobMapper;
+    private final ExecutedJobMapper executedJobMapper;
     private final MessageUtil messageUtil;
 
     @Override
     public ExecutedJob get(String jobExecutionMarker) {
         final var job = jobExecutionRepository.get(jobExecutionMarker)
             .orElseThrow(() -> new ResourceNotFoundException(buildErrorMessage(jobExecutionMarker)));
-        return jobMapper.toExecutedJob(job);
+        return executedJobMapper.toExecutedJob(job);
     }
 
     private String buildErrorMessage(String jobExecutionMarker) {
