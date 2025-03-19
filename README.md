@@ -59,6 +59,7 @@ The application supports the following env profiles:
 #### - Startup mode \<web\>
 Open api documentation will be available at:  
 **http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/swagger-ui/index.html**  
+
 To upload source file for batch processing:  
 POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/files
 
