@@ -42,12 +42,6 @@ spring:
 
 logging:
   level:
+    root: WARN
     org:
-      springframework:
-        data: WARN
-        batch: WARN
-      hibernate: WARN
       jline: OFF
-    com:
-      zaxxer:
-        hikari: WARN

@@ -9,7 +9,3 @@ spring:
       enabled: false
     interactive:
       enabled: false
-
-logging:
-  level:
-    root: OFF
