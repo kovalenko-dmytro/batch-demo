@@ -12,7 +12,7 @@ import java.util.HashMap;
 @Component
 public class CliParametersMapper {
 
-    public RequestParameters toParameters(@NonNull ApplicationArguments args) {
+    public RequestParameters toRequestParameters(@NonNull ApplicationArguments args) {
         final var result = new HashMap<RequestParameter, String>();
         final var sourceArgs = args.getSourceArgs();
         for (var sourceArg : sourceArgs) {

@@ -1,6 +1,8 @@
 package com.gmail.apach.dima.batch_demo.common.validator;
 
-public interface Validator<I> {
+import com.gmail.apach.dima.batch_demo.common.exception.ValidationException;
 
-    void validate(I input) throws Exception;
+public interface Validator<T> {
+
+    void validate(T target) throws ValidationException;
 }

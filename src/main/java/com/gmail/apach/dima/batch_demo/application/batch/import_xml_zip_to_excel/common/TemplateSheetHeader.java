@@ -3,6 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_exce
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -14,12 +15,14 @@ public enum TemplateSheetHeader {
     CODE("Code"),
     ENABLED("Enabled");
 
-    public static final List<String> headers = List.of(
-        TemplateSheetHeader.NAME.getName(),
-        TemplateSheetHeader.DESCRIPTION.getName(),
-        TemplateSheetHeader.CODE.getName(),
-        TemplateSheetHeader.ENABLED.getName()
-    );
-
     private final String name;
+
+    public static final List<String> headers;
+
+    static {
+        headers = Arrays
+            .stream(TemplateSheetHeader.values())
+            .map(TemplateSheetHeader::getName)
+            .toList();
+    }
 }

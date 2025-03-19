@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 public class FileToWorkStepConfigure {
 
     private final BaseBatchConfigure configure;
-
     private final FileItemReader fileItemReader;
     private final FileToWorkCompositeItemProcessor compositeItemProcessor;
     private final WorkItemWriter workItemWriter;

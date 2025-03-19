@@ -15,6 +15,12 @@ public enum CsvFileFieldNames {
 
     private final String name;
 
-    public static final String[] names =
-        Arrays.stream(CsvFileFieldNames.values()).map(CsvFileFieldNames::getName).toArray(String[]::new);
+    public static final String[] names;
+
+    static {
+        names = Arrays
+            .stream(CsvFileFieldNames.values())
+            .map(CsvFileFieldNames::getName)
+            .toArray(String[]::new);
+    }
 }

@@ -15,8 +15,14 @@ public enum ZippedFileName {
     SETTING("setting.xml"),
     CONFIG("config.xml");
 
-    public static final Set<String> zippedFileNames =
-        Arrays.stream(ZippedFileName.values()).map(ZippedFileName::getName).collect(Collectors.toSet());
-
     private final String name;
+
+    public static final Set<String> zippedFileNames;
+
+    static {
+        zippedFileNames = Arrays
+            .stream(ZippedFileName.values())
+            .map(ZippedFileName::getName)
+            .collect(Collectors.toSet());
+    }
 }

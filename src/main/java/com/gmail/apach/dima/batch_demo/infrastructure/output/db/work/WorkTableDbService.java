@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class WorkTableAdapter implements WorkTableOutputPort {
+public class WorkTableDbService implements WorkTableOutputPort {
 
     private final WorkTableRepository workTableRepository;
     private final WorkEntityMapper workEntityMapper;

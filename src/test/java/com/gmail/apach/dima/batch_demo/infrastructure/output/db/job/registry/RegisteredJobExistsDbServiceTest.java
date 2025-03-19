@@ -11,26 +11,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RegisteredJobExistsAdapterTest {
+class RegisteredJobExistsDbServiceTest {
 
     private static final String JOB_NAME = "some-job";
 
     @InjectMocks
-    private RegisteredJobExistsAdapter registeredJobExistsAdapter;
+    private RegisteredJobExistsDbService registeredJobExistsDbService;
     @Mock
     private JobRegistryRepository jobRegistryRepository;
 
     @Test
     void exist_true() {
         when(jobRegistryRepository.exist(JOB_NAME)).thenReturn(true);
-        final var actual = registeredJobExistsAdapter.exist(JOB_NAME);
+        final var actual = registeredJobExistsDbService.exist(JOB_NAME);
         assertEquals(Boolean.TRUE, actual);
     }
 
     @Test
     void exist_false() {
         when(jobRegistryRepository.exist(JOB_NAME)).thenReturn(false);
-        final var actual = registeredJobExistsAdapter.exist(JOB_NAME);
+        final var actual = registeredJobExistsDbService.exist(JOB_NAME);
         assertEquals(Boolean.FALSE, actual);
     }
 }

@@ -2,7 +2,7 @@ package com.gmail.apach.dima.batch_demo;
 
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
-import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.AwsS3Adapter;
+import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.AwsS3Service;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -64,7 +64,7 @@ public abstract class AbstractIntegrationTest {
     @Autowired
     protected JobRepositoryTestUtils jobRepositoryTestUtils;
     @Autowired
-    protected AwsS3Adapter awsS3Adapter;
+    protected AwsS3Service awsS3Service;
     @Autowired
     private JobLauncher jobLauncher;
     @Autowired
@@ -102,6 +102,6 @@ public abstract class AbstractIntegrationTest {
                 originalFileName,
                 MediaType.TEXT_PLAIN_VALUE,
                 Files.readAllBytes(file.toPath()));
-        return awsS3Adapter.save(multipartFile);
+        return awsS3Service.save(multipartFile);
     }
 }

@@ -14,7 +14,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class GetExecutedJobServiceTest {
+class GetExecutedJobDbServiceTest {
 
     private static final String EXEC_UNIQUE_MARK = "5a8d68c8-2f28-4b53-ac5a-2db586512440";
 

@@ -1,9 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.mapper;
 
-import com.gmail.apach.dima.batch_demo.application.core.job.model.BatchStatus;
-import com.gmail.apach.dima.batch_demo.application.core.job.model.ExecutedJob;
-import com.gmail.apach.dima.batch_demo.application.core.job.model.ExitCode;
-import com.gmail.apach.dima.batch_demo.application.core.job.model.RegisteredJob;
+import com.gmail.apach.dima.batch_demo.application.core.job.model.*;
+import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.ExecuteJobRequest;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.GetExecutedJobResponse;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -11,7 +9,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.lang.NonNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Mapper(
@@ -37,5 +37,14 @@ public interface JobRestMapper {
 
     default List<String> toRegisteredJobNames(@NonNull List<RegisteredJob> registeredJobs) {
         return registeredJobs.stream().map(RegisteredJob::getName).toList();
+    }
+
+    default RequestParameters toRequestParameters(ExecuteJobRequest request) {
+        final var result = new HashMap<RequestParameter, String>();
+        result.put(RequestParameter.JOB_NAME, request.jobName());
+        if (Objects.nonNull(request.fileStorageResource())) {
+            result.put(RequestParameter.FILE_STORAGE_RESOURCE, request.fileStorageResource());
+        }
+        return new RequestParameters(result);
     }
 }

@@ -5,7 +5,7 @@ import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.exception.ApplicationServerException;
 import com.gmail.apach.dima.batch_demo.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
-import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.dto.ErrorResponse;
+import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.dto.RestApiErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 @SuppressWarnings("unused")
-public class RestErrorHandler extends ResponseEntityExceptionHandler {
+public class RestApiErrorHandler extends ResponseEntityExceptionHandler {
 
     @Autowired
     private MessageUtil messageUtil;
@@ -128,14 +128,14 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
         return createResponseEntity(response);
     }
 
-    private ResponseEntity<Object> createResponseEntity(ErrorResponse response) {
+    private ResponseEntity<Object> createResponseEntity(RestApiErrorResponse response) {
         return new ResponseEntity<>(response, new HttpHeaders(), response.status());
     }
 
-    private ErrorResponse buildResponse(String exceptionMessage, HttpStatus httpStatus, List<String> errors) {
-        return ErrorResponse.builder()
-            .status(httpStatus)
-            .message(exceptionMessage)
+    private RestApiErrorResponse buildResponse(String message, HttpStatus status, List<String> errors) {
+        return RestApiErrorResponse.builder()
+            .status(status)
+            .message(message)
             .errors(errors)
             .timestamp(LocalDateTime.now().toString())
             .build();

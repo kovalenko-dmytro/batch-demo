@@ -16,7 +16,7 @@ import org.mapstruct.ReportingPolicy;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL,
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 @SuppressWarnings("unused")
-public interface JobMapper {
+public interface ExecutedJobMapper {
 
     ExecutedJob toExecutedJob(JobView view);
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MasterTableAdapter implements MasterTableOutputPort {
+public class MasterTableDbService implements MasterTableOutputPort {
 
     private final MasterTableRepository masterTableRepository;
     private final MasterEntityMapper masterEntityMapper;

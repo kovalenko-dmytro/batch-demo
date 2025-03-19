@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.validator;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.common.constant.Delimiter;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import com.gmail.apach.dima.batch_demo.common.validator.policy.implementation.FileStorageResourcePolicy;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class FileResourceValidator implements JobParametersValidator {
@@ -19,15 +22,16 @@ public class FileResourceValidator implements JobParametersValidator {
 
     @Override
     public void validate(@NonNull JobParameters parameters) throws JobParametersInvalidException {
-        final var resource = (String) parameters
-            .getParameter(RequestParameter.FILE_STORAGE_RESOURCE.getArg())
-            .getValue();
+        final var resource = Optional
+            .ofNullable(parameters.getParameters().get(RequestParameter.FILE_STORAGE_RESOURCE.getArg()))
+            .map(parameter -> (String) parameter.getValue())
+            .orElse(Delimiter.EMPTY);
         final var policy = new FileStorageResourcePolicy();
         try {
             Assert.state(
                 policy.satisfy(resource),
                 messageUtil.getMessage(policy.errorCode(), policy.errorParams()));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException e) {
             throw new JobParametersInvalidException(e.getMessage());
         }
     }

@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 public class ProcessSettingStepConfigure {
 
     private final BaseBatchConfigure configure;
-
     private final SettingXmlItemReader settingXmlItemReader;
     private final SettingCompositeItemProcessor settingCompositeItemProcessor;
     private final SettingExcelItemWriter settingExcelItemWriter;

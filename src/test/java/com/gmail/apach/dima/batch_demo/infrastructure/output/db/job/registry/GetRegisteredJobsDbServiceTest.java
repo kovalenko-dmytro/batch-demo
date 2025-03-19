@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class GetRegisteredJobsAdapterTest {
+class GetRegisteredJobsDbServiceTest {
 
     @InjectMocks
-    private GetRegisteredJobsAdapter getRegisteredJobsAdapter;
+    private GetRegisteredJobsDbService getRegisteredJobsDbService;
     @Mock
     private JobRegistryRepository jobRegistryRepository;
     @Mock
@@ -32,7 +32,7 @@ class GetRegisteredJobsAdapterTest {
         when(registeredJobMapper.toRegisteredJob(RegisteredJobsReceiver.registeredJobsNames().get(1)))
             .thenReturn(RegisteredJobsReceiver.registeredJobs().get(1));
 
-        final var actual = getRegisteredJobsAdapter.getAll();
+        final var actual = getRegisteredJobsDbService.getAll();
 
         assertNotNull(actual);
         assertFalse(actual.isEmpty());

@@ -16,6 +16,12 @@ public enum ImportCsvToDbFileHeaders {
 
     private final String name;
 
-    public static final String[] headers =
-        Arrays.stream(ImportCsvToDbFileHeaders.values()).map(ImportCsvToDbFileHeaders::getName).toArray(String[]::new);
+    public static final String[] headers;
+
+    static {
+        headers = Arrays
+            .stream(ImportCsvToDbFileHeaders.values())
+            .map(ImportCsvToDbFileHeaders::getName)
+            .toArray(String[]::new);
+    }
 }

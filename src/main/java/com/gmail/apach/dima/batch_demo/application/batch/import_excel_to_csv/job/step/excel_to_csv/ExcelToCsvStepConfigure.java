@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 public class ExcelToCsvStepConfigure {
 
     private final BaseBatchConfigure configure;
-
     private final ExcelItemReader excelItemReader;
     private final ExcelToCsvCompositeItemProcessor compositeItemProcessor;
     private final CsvItemWriter csvItemWriter;
