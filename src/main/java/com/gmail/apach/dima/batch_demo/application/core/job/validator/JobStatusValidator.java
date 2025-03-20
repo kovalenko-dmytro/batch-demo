@@ -10,14 +10,11 @@ import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import java.text.MessageFormat;
 import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class JobStatusValidator {
-
-    private static final String ERROR = "Job: <{0}> previous execution still has status: <{1}>";
 
     private final JobExplorer jobExplorer;
     private final MessageUtil messageUtil;
@@ -34,7 +31,7 @@ public class JobStatusValidator {
         try {
             Assert.state(
                 policy.satisfy(batchStatus),
-                messageUtil.getMessage(policy.errorCode(), MessageFormat.format(ERROR, jobName, batchStatus)));
+                messageUtil.getMessage(policy.errorCode(), policy.errorParams()));
         } catch (IllegalStateException e) {
             throw new JobInterruptedException(e.getMessage(), BatchStatus.FAILED);
         }

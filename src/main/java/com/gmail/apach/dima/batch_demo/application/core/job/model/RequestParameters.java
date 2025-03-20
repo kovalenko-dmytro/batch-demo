@@ -21,11 +21,10 @@ public record RequestParameters(
 
     public JobParametersBuilder toJobParametersBuilder() {
         final var builder = new JobParametersBuilder();
-        parameters.forEach((name, value) ->
+        parameters.forEach((parameter, value) ->
             builder.addString(
-                RequestParameter.from(name),
-                StringUtils.isNoneBlank(value) ? value : Delimiter.EMPTY
-            )
+                parameter.getName(),
+                StringUtils.isNoneBlank(value) ? value : Delimiter.EMPTY)
         );
         return builder;
     }

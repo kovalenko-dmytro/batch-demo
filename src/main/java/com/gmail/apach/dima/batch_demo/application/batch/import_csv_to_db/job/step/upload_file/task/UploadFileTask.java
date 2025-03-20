@@ -29,9 +29,10 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
 
     @Override
     public void beforeStep(@NonNull StepExecution stepExecution) {
-        final var jobExecution = stepExecution.getJobExecution();
-        this.fileStorageResource = jobExecution
-            .getJobParameters().getString(RequestParameter.FILE_STORAGE_RESOURCE.getArg());
+        this.fileStorageResource = stepExecution
+            .getJobExecution()
+            .getJobParameters()
+            .getString(RequestParameter.FILE_STORAGE_RESOURCE.getName());
     }
 
     @NonNull
