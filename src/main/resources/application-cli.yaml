@@ -1,7 +1,6 @@
 spring:
   main:
     web-application-type: none
-    banner-mode: off
   shell:
     history:
       enabled: false
@@ -9,3 +8,7 @@ spring:
       enabled: false
     interactive:
       enabled: false
+
+logging:
+  level:
+    root: WARN

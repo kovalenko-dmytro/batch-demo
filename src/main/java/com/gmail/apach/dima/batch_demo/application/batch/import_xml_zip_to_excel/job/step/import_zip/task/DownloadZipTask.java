@@ -32,7 +32,7 @@ public class DownloadZipTask implements Tasklet, StepExecutionListener {
         this.fileStorageResource = stepExecution
             .getJobExecution()
             .getJobParameters()
-            .getString(RequestParameter.FILE_STORAGE_RESOURCE.getArg());
+            .getString(RequestParameter.FILE_STORAGE_RESOURCE.getName());
     }
 
     @NonNull

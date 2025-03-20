@@ -23,7 +23,7 @@ public class CliParametersValidator implements Validator<RequestParameters> {
         try {
             Assert.state(
                 StringUtils.isNoneBlank(target.get(RequestParameter.JOB_NAME)),
-                messageUtil.getMessage(Error.JOB_NAME_NOT_DEFINED, RequestParameter.JOB_NAME.getArg()));
+                messageUtil.getMessage(Error.JOB_NAME_NOT_DEFINED, RequestParameter.JOB_NAME.getName()));
         } catch (IllegalStateException e) {
             log.error(e.getMessage());
             System.exit(0);

@@ -1,7 +1,6 @@
 package com.gmail.apach.dima.batch_demo.common.validator.policy.definition;
 
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
-import org.springframework.lang.NonNull;
 
 public class NextValidationPolicy<I> extends AbstractValidationPolicy<I> {
 
@@ -12,7 +11,7 @@ public class NextValidationPolicy<I> extends AbstractValidationPolicy<I> {
     }
 
     @Override
-    public boolean satisfy(@NonNull I input) {
+    public boolean satisfy(I input) {
         return next.satisfy(input);
     }
 

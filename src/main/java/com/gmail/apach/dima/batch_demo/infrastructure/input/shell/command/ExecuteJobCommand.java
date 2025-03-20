@@ -39,7 +39,7 @@ public class ExecuteJobCommand {
             defaultValue = ShellOption.NULL) String fileStorageResource
     ) {
         final var wrapper = new ExecuteJobOptionsWrapper(jobName, fileStorageResource);
-        final var requestParameters = commandOptionsMapper.toParameters(wrapper);
+        final var requestParameters = commandOptionsMapper.toRequestParameters(wrapper);
         final var jobExecutionMarker = UUID.randomUUID().toString();
         CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters, jobExecutionMarker));
         return messageUtil.getMessage(Info.JOB_SHELL_COMMAND_STARTED);
