@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 @SuppressWarnings("unused")
 public interface ValidationPolicy<I> {
 
-    boolean satisfy(@NonNull I input);
+    boolean satisfy(I input);
 
     Error errorCode();
 

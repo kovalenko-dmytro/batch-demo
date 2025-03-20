@@ -23,7 +23,7 @@ public class FileResourceValidator implements JobParametersValidator {
     @Override
     public void validate(@NonNull JobParameters parameters) throws JobParametersInvalidException {
         final var resource = Optional
-            .ofNullable(parameters.getParameters().get(RequestParameter.FILE_STORAGE_RESOURCE.getArg()))
+            .ofNullable(parameters.getParameters().get(RequestParameter.FILE_STORAGE_RESOURCE.getName()))
             .map(parameter -> (String) parameter.getValue())
             .orElse(Delimiter.EMPTY);
         final var policy = new FileStorageResourcePolicy();

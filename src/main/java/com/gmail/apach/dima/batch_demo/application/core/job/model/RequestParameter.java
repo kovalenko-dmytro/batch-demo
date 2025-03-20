@@ -14,24 +14,19 @@ public enum RequestParameter {
     JOB_NAME("job-name"),
     FILE_STORAGE_RESOURCE("file-storage-resource");
 
-    private final String arg;
+    private final String name;
 
     private static final Map<String, RequestParameter> CACHE = new HashMap<>();
 
     static {
         for (var parameter : RequestParameter.values()) {
-            CACHE.put(parameter.getArg(), parameter);
+            CACHE.put(parameter.getName(), parameter);
         }
     }
 
-    public static RequestParameter from(String value) {
+    public static RequestParameter from(String name) {
         return Optional
-            .ofNullable(CACHE.get(value))
-            .orElseThrow(() ->
-                new IllegalArgumentException("There id no request parameters with value: " + value));
-    }
-
-    public static String from(RequestParameter requestParameter) {
-        return requestParameter.arg;
+            .ofNullable(CACHE.get(name))
+            .orElseThrow(() -> new IllegalArgumentException("There is no request parameter: " + name));
     }
 }

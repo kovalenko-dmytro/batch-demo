@@ -19,11 +19,11 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FileUtil {
 
-    public static String createTempFile(@NonNull String fileName, @NonNull String suffix) {
+    public static String createTempFile(@NonNull String fileName, @NonNull String extension) {
         final var prefix = FilenameUtils.removeExtension(fileName);
         try {
             final var tmpdir = Files.createTempDirectory(UUID.randomUUID().toString()).toString();
-            final var preparedFileName = String.join(Delimiter.EMPTY, prefix, suffix);
+            final var preparedFileName = String.join(Delimiter.EMPTY, prefix, extension);
             return Files.createFile(Paths.get(tmpdir, preparedFileName)).toString();
         } catch (IOException e) {
             throw new ApplicationServerException(e.getMessage());

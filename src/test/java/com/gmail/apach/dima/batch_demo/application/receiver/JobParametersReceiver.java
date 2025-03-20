@@ -12,22 +12,22 @@ public final class JobParametersReceiver {
 
     public static JobParameters importCsvToD(String resourceKey) {
         final var paramsBuilder = new JobParametersBuilder();
-        paramsBuilder.addString(RequestParameter.JOB_NAME.getArg(), JobName.IMPORT_CSV_TO_DB);
-        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getArg(), resourceKey);
+        paramsBuilder.addString(RequestParameter.JOB_NAME.getName(), JobName.IMPORT_CSV_TO_DB);
+        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getName(), resourceKey);
         return paramsBuilder.toJobParameters();
     }
 
     public static JobParameters importXmlZipToExcel(String resourceKey) {
         final var paramsBuilder = new JobParametersBuilder();
-        paramsBuilder.addString(RequestParameter.JOB_NAME.getArg(), JobName.IMPORT_XML_ZIP_TO_EXCEL);
-        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getArg(), resourceKey);
+        paramsBuilder.addString(RequestParameter.JOB_NAME.getName(), JobName.IMPORT_XML_ZIP_TO_EXCEL);
+        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getName(), resourceKey);
         return paramsBuilder.toJobParameters();
     }
 
     public static JobParameters importExcelToCsv(String resourceKey) {
         final var paramsBuilder = new JobParametersBuilder();
-        paramsBuilder.addString(RequestParameter.JOB_NAME.getArg(), JobName.IMPORT_EXCEL_TO_CSV);
-        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getArg(), resourceKey);
+        paramsBuilder.addString(RequestParameter.JOB_NAME.getName(), JobName.IMPORT_EXCEL_TO_CSV);
+        paramsBuilder.addString(RequestParameter.FILE_STORAGE_RESOURCE.getName(), resourceKey);
         return paramsBuilder.toJobParameters();
     }
 }
