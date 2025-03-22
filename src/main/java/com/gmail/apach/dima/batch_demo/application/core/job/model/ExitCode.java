@@ -30,6 +30,7 @@ public enum ExitCode {
     public static ExitCode from(String value) {
         return Optional
             .ofNullable(CACHE.get(value))
-            .orElseThrow(() -> new IllegalArgumentException("Exit code " + value + "hasn't supported yet"));
+            .orElseThrow(() ->
+                new IllegalArgumentException("Exit code <%s> hasn't supported yet".formatted(value)));
     }
 }

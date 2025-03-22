@@ -32,6 +32,7 @@ public enum BatchStatus {
     public static BatchStatus from(String value) {
         return Optional
             .ofNullable(CACHE.get(value))
-            .orElseThrow(() -> new IllegalArgumentException("ExecutedJob status " + value + "hasn't supported yet"));
+            .orElseThrow(() ->
+                new IllegalArgumentException("Batch status <%s> hasn't supported yet".formatted(value)));
     }
 }
