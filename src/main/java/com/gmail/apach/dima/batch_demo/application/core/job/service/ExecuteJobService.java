@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.core.job.service;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
-import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobStatusValidator;
+import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobExecutionValidator;
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
@@ -21,7 +21,8 @@ import org.springframework.stereotype.Component;
 public class ExecuteJobService implements ExecuteJobInputPort {
 
     private final CheckJobRegistrationService checkJobRegistrationService;
-    private final JobStatusValidator jobStatusValidator;
+    private final JobExecutionService jobExecutionService;
+    private final JobExecutionValidator jobExecutionValidator;
     private final ApplicationContext context;
     private final JobLauncher jobLauncher;
     private final MessageUtil messageUtil;
@@ -31,7 +32,8 @@ public class ExecuteJobService implements ExecuteJobInputPort {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
         try {
             checkJobRegistrationService.check(jobName);
-            jobStatusValidator.checkStatus(jobName);
+            jobExecutionService.getLastJobExecution(jobName)
+                .ifPresent(jobExecution -> jobExecutionValidator.checkNotStarted(jobExecution.getStatus()));
 
             final var job = context.getBean(jobName, Job.class);
             log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMarker));

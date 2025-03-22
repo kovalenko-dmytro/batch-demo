@@ -27,6 +27,7 @@ public enum RequestParameter {
     public static RequestParameter from(String name) {
         return Optional
             .ofNullable(CACHE.get(name))
-            .orElseThrow(() -> new IllegalArgumentException("There is no request parameter: " + name));
+            .orElseThrow(() ->
+                new IllegalArgumentException("There is no request parameter: <%s>".formatted(name)));
     }
 }
