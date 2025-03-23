@@ -88,8 +88,8 @@ GET http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/batches
 
 #### - Startup mode \<cli\>
 Add needed program args before running application, example:  
-**job-name=import-csv-to-db file-storage-resource=example.csv**
+**job-name=import-csv-to-db file-storage-resource=import_csv_to_db.csv**
 
 #### - Startup mode \<shell\>
 Input  shell command to execute required job, example:  
-**execute-job --job-name import-csv-to-db --file-storage-resource example.csv**
+**execute-job --job-name import-csv-to-db --file-storage-resource import_csv_to_db.csv**
