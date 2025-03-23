@@ -51,9 +51,9 @@ The application supports the following env profiles:
 
 ### Demo files
 Demo import files are located in:  
-**<application-directory-destination>/demo-files**  
+**\<application-directory-destination\>/demo-files**  
 These files can be uploaded to local object storage using running application under profiles **local** and **web** and calling REST API:  
-POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/files  
+**POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/files**  
 
 **Jobs -> Files**:  
 * import-csv-to-db -> import_csv_to_db.csv
