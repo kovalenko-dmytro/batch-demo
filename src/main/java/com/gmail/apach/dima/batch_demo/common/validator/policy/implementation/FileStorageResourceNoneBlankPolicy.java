@@ -5,7 +5,7 @@ import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.validator.policy.definition.AbstractValidationPolicy;
 import org.apache.commons.lang3.StringUtils;
 
-public class FileStorageResourcePolicy extends AbstractValidationPolicy<String> {
+public class FileStorageResourceNoneBlankPolicy extends AbstractValidationPolicy<String> {
 
     @Override
     public boolean satisfy(String fileResource) {

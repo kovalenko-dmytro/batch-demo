@@ -4,7 +4,7 @@ import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.validator.policy.definition.AbstractValidationPolicy;
 import org.springframework.batch.core.BatchStatus;
 
-public class BatchStatusNotStartPolicy extends AbstractValidationPolicy<BatchStatus> {
+public class BatchStatusNotEqualsStartedPolicy extends AbstractValidationPolicy<BatchStatus> {
 
     private static final String ERROR_PARAM = "The previous job execution is still running";
 
