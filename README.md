@@ -48,11 +48,24 @@ The application supports the following env profiles:
 * **production**
 
 ## Run application
+
+### Demo files
+Demo import files are located in:  
+**<application-directory-destination>/demo-files**  
+These files can be uploaded to local object storage using running application under profiles **local** and **web** and calling REST API:  
+POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/files  
+
+**Jobs -> Files**:  
+* import-csv-to-db -> import_csv_to_db.csv
+* import-excel-to-csv -> import_excel_to_csv.xlsx
+* import-xml-zip-to-excel -> import_xml_zip_to_excel.zip
+
+
 ### Active profile \<local\>
 1. Create a file **.env** under **dev-tools** directory using example **dev-tools/.env-example**
 2. Fill in  **.env** file using your preferred configurations
 3. Run your Docker (for windows: Docker Desktop)
-4. Run command **application-directory-destination>/dev-tools>** **docker compose up**
+4. Run command **<application-directory-destination>/dev-tools** **docker compose up**
 5. Set up active profiles as environment variable **APPLICATION_PROFILE**=**local,[web/cli/shell]**   
 6. Launch the application using main class
 
