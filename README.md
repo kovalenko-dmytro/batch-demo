@@ -65,7 +65,7 @@ POST http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/files
 1. Create a file **.env** under **dev-tools** directory using example **dev-tools/.env-example**
 2. Fill in  **.env** file using your preferred configurations
 3. Run your Docker (for windows: Docker Desktop)
-4. Run command **<application-directory-destination>/dev-tools** **docker compose up**
+4. Run command **\<application-directory-destination\>/dev-tools** **docker compose up**
 5. Set up active profiles as environment variable **APPLICATION_PROFILE**=**local,[web/cli/shell]**   
 6. Launch the application using main class
 
