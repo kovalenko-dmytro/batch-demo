@@ -6,15 +6,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 
-public interface AwsS3OutputPort extends BaseOssOutputPort<MultipartFile, String> {
-    @Override
+@SuppressWarnings("unused")
+public interface OssOutputPort {
     StoredResource save(MultipartFile file);
 
     StoredResource save(@NotNull File file);
 
-    @Override
-    StoredResource get(String key);
+    StoredResource get(@NotNull String key);
 
-    @Override
-    void delete(String key);
+    void delete(@NotNull String key);
 }

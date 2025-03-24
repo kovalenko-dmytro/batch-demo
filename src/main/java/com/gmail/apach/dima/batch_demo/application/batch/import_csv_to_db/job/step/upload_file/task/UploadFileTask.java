@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_csv_to_db.job.s
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
-import com.gmail.apach.dima.batch_demo.port.output.oss.AwsS3OutputPort;
+import com.gmail.apach.dima.batch_demo.port.output.oss.OssOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UploadFileTask implements Tasklet, StepExecutionListener {
 
-    private final AwsS3OutputPort awsS3OutputPort;
+    private final OssOutputPort ossOutputPort;
 
     private String fileStorageResource;
     private StoredResource storedResource;
@@ -41,7 +41,7 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        this.storedResource = awsS3OutputPort.get(fileStorageResource);
+        this.storedResource = ossOutputPort.get(fileStorageResource);
         return RepeatStatus.FINISHED;
     }
 
@@ -50,7 +50,9 @@ public class UploadFileTask implements Tasklet, StepExecutionListener {
     public ExitStatus afterStep(@NonNull StepExecution stepExecution) {
         final var exceptions = stepExecution.getFailureExceptions();
         if (exceptions.isEmpty()) {
-            stepExecution.getJobExecution().getExecutionContext()
+            stepExecution
+                .getJobExecution()
+                .getExecutionContext()
                 .put(JobExecutionContextKey.STORED_RESOURCE, storedResource);
             return ExitStatus.COMPLETED;
         }

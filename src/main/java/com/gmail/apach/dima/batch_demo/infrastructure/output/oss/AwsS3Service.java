@@ -6,7 +6,7 @@ import com.gmail.apach.dima.batch_demo.common.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.config.AwsS3Properties;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.mapper.AwsS3Mapper;
-import com.gmail.apach.dima.batch_demo.port.output.oss.AwsS3OutputPort;
+import com.gmail.apach.dima.batch_demo.port.output.oss.OssOutputPort;
 import io.awspring.cloud.s3.S3Template;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AwsS3Service implements AwsS3OutputPort {
+public class AwsS3Service implements OssOutputPort {
 
     private final S3Template s3Template;
     private final AwsS3Properties properties;
@@ -35,7 +35,7 @@ public class AwsS3Service implements AwsS3OutputPort {
             final var resource = s3Template.upload(properties.getS3().getBucket(), objectKey, file.getInputStream());
             return awsS3Mapper.toStoredResource(resource);
         } catch (IOException e) {
-            log.error(messageUtil.getMessage(Error.FILE_UNABLE_UPLOAD, file.getOriginalFilename(), e.getMessage()));
+            log.error(messageUtil.getMessage(Error.FILE_UNABLE_UPLOAD, objectKey, e.getMessage()));
             return new StoredResource();
         }
     }
