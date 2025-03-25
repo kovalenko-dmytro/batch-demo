@@ -1,4 +1,4 @@
-package com.gmail.apach.dima.batch_demo.application.core.job.service;
+package com.gmail.apach.dima.batch_demo.application.core.job.validator;
 
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Resource;
@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CheckRegisteredJobServiceTest {
+class JobRegistrationValidatorTest {
 
     private static final String JOB_NAME = "some-job";
 
     @InjectMocks
-    private CheckJobRegistrationService checkRegisteredJobService;
+    private JobRegistrationValidator checkRegisteredJobService;
     @Mock
     private RegisteredJobExistsOutputPort registeredJobExistsOutputPort;
     @Mock
@@ -30,17 +30,15 @@ class CheckRegisteredJobServiceTest {
     @Test
     void checkRegistration_success() {
         when(registeredJobExistsOutputPort.exist(JOB_NAME)).thenReturn(true);
-
-        assertDoesNotThrow(() -> checkRegisteredJobService.check(JOB_NAME));
-        verify(messageUtil, times(0))
-            .getMessage(Error.JOB_NOT_REGISTERED, Resource.Attribute.NAME.getName(), JOB_NAME);
+        assertDoesNotThrow(() -> checkRegisteredJobService.checkRegistration(JOB_NAME));
     }
 
     @Test
     void checkRegistration_fail() {
         when(registeredJobExistsOutputPort.exist(JOB_NAME)).thenReturn(false);
 
-        assertThrows(ResourceNotFoundException.class, () -> checkRegisteredJobService.check(JOB_NAME));
+        assertThrows(ResourceNotFoundException.class,
+            () -> checkRegisteredJobService.checkRegistration(JOB_NAME));
         verify(messageUtil, times(1))
             .getMessage(Error.JOB_NOT_REGISTERED, Resource.Attribute.NAME.getName(), JOB_NAME);
     }

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class OpenApiTag {
 
-    public static final String BATCH_API = "Batch API";
-    public static final String JOB_REGISTRY_API = "Job registry API";
+    public static final String BATCH_EXECUTION_API = "Batch execution API";
+    public static final String BATCH_REGISTRY_API = "Batch registry API";
     public static final String FILE_API = "File API";
 }

@@ -15,7 +15,6 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Profile(ActiveProfile.SHELL)
@@ -34,14 +33,17 @@ public class ExecuteJobCommand {
             value = CommandOption.JobName.NAME,
             help = CommandOption.JobName.HELP) @NotBlank String jobName,
         @ShellOption(
+            value = CommandOption.JobExecutionMarker.NAME,
+            help = CommandOption.JobExecutionMarker.HELP,
+            defaultValue = ShellOption.NULL) String jobExecutionMarker,
+        @ShellOption(
             value = CommandOption.FileStorageResource.NAME,
             help = CommandOption.FileStorageResource.HELP,
             defaultValue = ShellOption.NULL) String fileStorageResource
     ) {
-        final var wrapper = new ExecuteJobOptionsWrapper(jobName, fileStorageResource);
+        final var wrapper = new ExecuteJobOptionsWrapper(jobName, jobExecutionMarker, fileStorageResource);
         final var requestParameters = commandOptionsMapper.toRequestParameters(wrapper);
-        final var jobExecutionMarker = UUID.randomUUID().toString();
-        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters, jobExecutionMarker));
+        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters));
         return messageUtil.getMessage(Info.JOB_SHELL_COMMAND_STARTED);
     }
 }

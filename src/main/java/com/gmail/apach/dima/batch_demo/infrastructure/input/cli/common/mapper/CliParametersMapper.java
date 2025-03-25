@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 @Component
 public class CliParametersMapper {
@@ -16,12 +17,13 @@ public class CliParametersMapper {
         final var result = new HashMap<RequestParameter, String>();
         final var sourceArgs = args.getSourceArgs();
         for (var sourceArg : sourceArgs) {
-            final var argPair = sourceArg.split(Delimiter.EQUAL);
+            final var keyValue = sourceArg.split(Delimiter.EQUAL);
             result.put(
-                RequestParameter.from(argPair[0]),
-                argPair.length == 2 ? argPair[1] : Delimiter.EMPTY
+                RequestParameter.from(keyValue[0]),
+                keyValue.length == 2 ? keyValue[1] : Delimiter.EMPTY
             );
         }
+        result.putIfAbsent(RequestParameter.JOB_EXECUTION_MARKER, UUID.randomUUID().toString());
         return new RequestParameters(result);
     }
 }

@@ -12,6 +12,7 @@ import java.util.Optional;
 public enum RequestParameter {
 
     JOB_NAME("job-name"),
+    JOB_EXECUTION_MARKER("job-execution-marker"),
     FILE_STORAGE_RESOURCE("file-storage-resource");
 
     private final String name;

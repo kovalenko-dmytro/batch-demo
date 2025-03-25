@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = OpenApiTag.JOB_REGISTRY_API)
+@Tag(name = OpenApiTag.BATCH_REGISTRY_API)
 @RestController
-@RequestMapping(value = RequestPath.JOB_REGISTRY_ROOT_PATH)
+@RequestMapping(value = RequestPath.BatchRegistryApi.ROOT_PATH)
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")

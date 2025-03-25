@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = OpenApiTag.FILE_API)
 @RestController
-@RequestMapping(value = RequestPath.FILE_API_BY_STORAGE_KEY_PATH)
+@RequestMapping(value = RequestPath.FileApi.DOWNLOAD_PATH)
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")

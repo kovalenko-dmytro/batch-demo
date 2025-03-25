@@ -6,7 +6,7 @@ import com.gmail.apach.dima.batch_demo.common.exception.ObjectStorageException;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.config.AwsS3Properties;
 import com.gmail.apach.dima.batch_demo.infrastructure.output.oss.mapper.AwsS3Mapper;
-import com.gmail.apach.dima.batch_demo.port.output.oss.OssOutputPort;
+import com.gmail.apach.dima.batch_demo.port.output.oss.ObjectStorageServiceOutputPort;
 import io.awspring.cloud.s3.S3Template;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AwsS3Service implements OssOutputPort {
+public class AwsS3Service implements ObjectStorageServiceOutputPort {
 
     private final S3Template s3Template;
     private final AwsS3Properties properties;

@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch;
 
 import com.gmail.apach.dima.batch_demo.AbstractRestApiIntegrationTest;
+import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.GetRegisteredJobsResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @Sql({"classpath:sql/job_registry.sql"})
 class GetRegisteredJobsRestApiTest extends AbstractRestApiIntegrationTest {
 
-    private static final String BASE_PATH = "/api/v1/registered-jobs";
-
     @Test
     void getRegisteredJobs_success() throws Exception {
         final var result = mvc.perform(
-                get(BASE_PATH).contentType(MediaType.APPLICATION_JSON))
+                get(RequestPath.BatchRegistryApi.ROOT_PATH).contentType(MediaType.APPLICATION_JSON))
             .andReturn();
 
         assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
