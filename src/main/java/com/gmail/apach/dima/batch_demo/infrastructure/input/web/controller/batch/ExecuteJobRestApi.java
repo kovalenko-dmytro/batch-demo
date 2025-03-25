@@ -1,5 +1,6 @@
 package com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch;
 
+import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.mapper.JobRestMapper;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.swagger.OpenApiTag;
@@ -16,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-@Tag(name = OpenApiTag.BATCH_API)
+@Tag(name = OpenApiTag.BATCH_EXECUTION_API)
 @RestController
-@RequestMapping(value = RequestPath.BATCH_API_ROOT_PATH)
+@RequestMapping(value = RequestPath.BatchExecutionApi.ROOT_PATH)
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")
@@ -33,9 +33,9 @@ public class ExecuteJobRestApi {
     @PostMapping
     public ResponseEntity<Void> execute(@Valid @RequestBody ExecuteJobRequest request) {
         final var requestParameters = jobRestMapper.toRequestParameters(request);
-        final var jobExecutionMarker = UUID.randomUUID().toString();
-        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters, jobExecutionMarker));
-        final var location = RestUriUtil.location(RequestPath.BATCH_API_ROOT_PATH, jobExecutionMarker);
+        CompletableFuture.runAsync(() -> executeJobInputPort.execute(requestParameters));
+        final var jobExecutionMarker = requestParameters.get(RequestParameter.JOB_EXECUTION_MARKER);
+        final var location = RestUriUtil.location(RequestPath.BatchExecutionApi.ROOT_PATH, jobExecutionMarker);
         return ResponseEntity.created(location).build();
     }
 }

@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.application.core.job.service;
 
-import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobExecutionValidator;
+import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobRegistrationValidator;
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ExecuteJobService implements ExecuteJobInputPort {
 
-    private final CheckJobRegistrationService checkJobRegistrationService;
+    private final JobRegistrationValidator jobRegistrationValidator;
     private final JobExecutionService jobExecutionService;
     private final JobExecutionValidator jobExecutionValidator;
     private final ApplicationContext context;
@@ -28,20 +28,18 @@ public class ExecuteJobService implements ExecuteJobInputPort {
     private final MessageUtil messageUtil;
 
     @Override
-    public void execute(RequestParameters parameters, String jobExecutionMarker) {
+    public void execute(RequestParameters parameters) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
+        final var jobExecutionMarker = parameters.get(RequestParameter.JOB_EXECUTION_MARKER);
         try {
-            checkJobRegistrationService.check(jobName);
+            jobRegistrationValidator.checkRegistration(jobName);
             jobExecutionService.getLastJobExecution(jobName)
                 .ifPresent(jobExecution -> jobExecutionValidator.checkNotStarted(jobExecution.getStatus()));
 
             final var job = context.getBean(jobName, Job.class);
             log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, jobExecutionMarker));
 
-            final var jobParametersBuilder = parameters.toJobParametersBuilder();
-            jobParametersBuilder.addString(JobParameter.JOB_EXECUTION_MARKER, jobExecutionMarker);
-
-            final var execution = jobLauncher.run(job, jobParametersBuilder.toJobParameters());
+            final var execution = jobLauncher.run(job, parameters.toJobParameters());
             log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, jobExecutionMarker, execution.getStatus()));
         } catch (Exception e) {
             log.error(messageUtil.getMessage(Error.JOB_FAILED, jobName, jobExecutionMarker, e.getMessage()));

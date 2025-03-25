@@ -15,7 +15,7 @@ public enum Resource {
     @Getter
     public enum Attribute {
 
-        JOB_EXEC_MARK("job-exec-mark"),
+        JOB_EXEC_MARK("job-execution-marker"),
         NAME("name");
 
         private final String name;

@@ -11,9 +11,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebAppli
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-
 @Profile(ActiveProfile.CLI)
 @ConditionalOnNotWebApplication
 @Component
@@ -28,8 +25,7 @@ public class ExecuteJobCliRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         final var parameters = cliParametersMapper.toRequestParameters(args);
         cliParametersValidator.validate(parameters);
-        final var jobExecutionMarker = UUID.randomUUID().toString();
-        CompletableFuture.runAsync(() -> executeJobInputPort.execute(parameters, jobExecutionMarker)).join();
+        executeJobInputPort.execute(parameters);
         System.exit(0);
     }
 }

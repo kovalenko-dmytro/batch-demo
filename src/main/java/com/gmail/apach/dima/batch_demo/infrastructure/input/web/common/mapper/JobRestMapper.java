@@ -3,7 +3,6 @@ package com.gmail.apach.dima.batch_demo.infrastructure.input.web.common.mapper;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.*;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.ExecuteJobRequest;
 import com.gmail.apach.dima.batch_demo.infrastructure.input.web.controller.batch.dto.GetExecutedJobResponse;
-import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -41,10 +40,13 @@ public interface JobRestMapper {
 
     default RequestParameters toRequestParameters(ExecuteJobRequest request) {
         final var result = new HashMap<RequestParameter, String>();
+
         result.put(RequestParameter.JOB_NAME, request.jobName());
-        if (StringUtils.isNoneBlank(request.fileStorageResource())) {
-            result.put(RequestParameter.FILE_STORAGE_RESOURCE, request.fileStorageResource());
-        }
+        result.put(RequestParameter.JOB_EXECUTION_MARKER, request.defineJobExecutionMarker());
+
+        Optional.ofNullable(request.fileStorageResource())
+            .ifPresent(resource -> result.put(RequestParameter.FILE_STORAGE_RESOURCE, resource.trim()));
+
         return new RequestParameters(result);
     }
 }

@@ -3,7 +3,7 @@ package com.gmail.apach.dima.batch_demo.application.batch.import_xml_zip_to_exce
 import com.gmail.apach.dima.batch_demo.application.core.file.model.StoredResource;
 import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutionContextKey;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
-import com.gmail.apach.dima.batch_demo.port.output.oss.OssOutputPort;
+import com.gmail.apach.dima.batch_demo.port.output.oss.ObjectStorageServiceOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DownloadZipTask implements Tasklet, StepExecutionListener {
 
-    private final OssOutputPort ossOutputPort;
+    private final ObjectStorageServiceOutputPort objectStorageServiceOutputPort;
 
     private String fileStorageResource;
     private StoredResource storedResource;
@@ -41,7 +41,7 @@ public class DownloadZipTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        this.storedResource = ossOutputPort.get(fileStorageResource);
+        this.storedResource = objectStorageServiceOutputPort.get(fileStorageResource);
         return RepeatStatus.FINISHED;
     }
 

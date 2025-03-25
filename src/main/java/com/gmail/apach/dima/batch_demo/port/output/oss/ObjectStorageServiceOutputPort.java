@@ -7,8 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 @SuppressWarnings("unused")
-public interface OssOutputPort {
-    StoredResource save(MultipartFile file);
+public interface ObjectStorageServiceOutputPort {
+    StoredResource save(@NotNull MultipartFile file);
 
     StoredResource save(@NotNull File file);
 

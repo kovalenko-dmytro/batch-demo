@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = OpenApiTag.FILE_API)
 @RestController
-@RequestMapping(value = RequestPath.FILE_API_ROOT_PATH)
+@RequestMapping(value = RequestPath.FileApi.ROOT_PATH)
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")

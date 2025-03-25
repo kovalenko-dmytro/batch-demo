@@ -13,6 +13,12 @@ public final class CommandOption {
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class JobExecutionMarker {
+        public static final String NAME = "job-execution-marker";
+        public static final String HELP = "Provide unique job marker, can be optional (random value will be used)";
+    }
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class FileStorageResource {
         public static final String NAME = "file-storage-resource";
         public static final String HELP = "Provide file storage resource key, can be optional if not required";
