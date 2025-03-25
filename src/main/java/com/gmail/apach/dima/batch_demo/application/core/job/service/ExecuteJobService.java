@@ -4,6 +4,7 @@ import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobParamete
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobExecutionValidator;
+import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobRegistrationValidator;
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ExecuteJobService implements ExecuteJobInputPort {
 
-    private final CheckJobRegistrationService checkJobRegistrationService;
+    private final JobRegistrationValidator jobRegistrationValidator;
     private final JobExecutionService jobExecutionService;
     private final JobExecutionValidator jobExecutionValidator;
     private final ApplicationContext context;
@@ -31,7 +32,7 @@ public class ExecuteJobService implements ExecuteJobInputPort {
     public void execute(RequestParameters parameters, String jobExecutionMarker) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
         try {
-            checkJobRegistrationService.check(jobName);
+            jobRegistrationValidator.checkRegistration(jobName);
             jobExecutionService.getLastJobExecution(jobName)
                 .ifPresent(jobExecution -> jobExecutionValidator.checkNotStarted(jobExecution.getStatus()));
 

@@ -2,6 +2,7 @@ package com.gmail.apach.dima.batch_demo.application.core.job.service;
 
 import com.gmail.apach.dima.batch_demo.application.core.job.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobExecutionValidator;
+import com.gmail.apach.dima.batch_demo.application.core.job.validator.JobRegistrationValidator;
 import com.gmail.apach.dima.batch_demo.application.receiver.RequestParametersReceiver;
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
@@ -32,7 +33,7 @@ class ExecuteJobServiceTest {
     @InjectMocks
     private ExecuteJobService executeJobService;
     @Mock
-    private CheckJobRegistrationService checkJobRegistrationService;
+    private JobRegistrationValidator jobRegistrationValidator;
     @Mock
     private JobExecutionService jobExecutionService;
     @Mock
@@ -51,7 +52,7 @@ class ExecuteJobServiceTest {
         final var errorMessage = "jobNotRegistered";
 
         doThrow(new ResourceNotFoundException(errorMessage))
-            .when(checkJobRegistrationService).check(jobName);
+            .when(jobRegistrationValidator).checkRegistration(jobName);
 
         executeJobService.execute(requestParameters, EXEC_UNIQUE_MARK);
 
@@ -75,7 +76,7 @@ class ExecuteJobServiceTest {
         final var jobName = requestParameters.get(RequestParameter.JOB_NAME);
         final var errorMessage = "jobHasAlreadyStarted";
 
-        doNothing().when(checkJobRegistrationService).check(jobName);
+        doNothing().when(jobRegistrationValidator).checkRegistration(jobName);
         when(jobExecutionService.getLastJobExecution(jobName)).thenReturn(Optional.of(jobExecution));
         when(jobExecution.getStatus()).thenReturn(batchStatus);
         doThrow(new IllegalStateException(errorMessage))
@@ -83,8 +84,8 @@ class ExecuteJobServiceTest {
 
         executeJobService.execute(requestParameters, EXEC_UNIQUE_MARK);
 
-        verify(checkJobRegistrationService, times(1))
-            .check(jobName);
+        verify(jobRegistrationValidator, times(1))
+            .checkRegistration(jobName);
         verify(jobExecutionService, times(1))
             .getLastJobExecution(jobName);
         verify(jobExecutionValidator, times(1))
@@ -104,8 +105,8 @@ class ExecuteJobServiceTest {
         final var jobName = requestParameters.get(RequestParameter.JOB_NAME);
         final var errorMessage = "No bean named '%s' available".formatted(jobName);
 
-        doNothing().when(checkJobRegistrationService)
-            .check(jobName);
+        doNothing().when(jobRegistrationValidator)
+            .checkRegistration(jobName);
         when(jobExecutionService.getLastJobExecution(jobName))
             .thenReturn(Optional.of(jobExecution));
         when(jobExecution.getStatus())
@@ -115,8 +116,8 @@ class ExecuteJobServiceTest {
 
         executeJobService.execute(requestParameters, EXEC_UNIQUE_MARK);
 
-        verify(checkJobRegistrationService, times(1))
-            .check(jobName);
+        verify(jobRegistrationValidator, times(1))
+            .checkRegistration(jobName);
         verify(jobExecutionService, times(1))
             .getLastJobExecution(jobName);
         verify(jobExecutionValidator, times(1))
@@ -138,8 +139,8 @@ class ExecuteJobServiceTest {
         final var jobExecution = mock(JobExecution.class);
         final var batchStatus = BatchStatus.COMPLETED;
 
-        doNothing().when(checkJobRegistrationService)
-            .check(jobName);
+        doNothing().when(jobRegistrationValidator)
+            .checkRegistration(jobName);
         when(jobExecutionService.getLastJobExecution(jobName))
             .thenReturn(Optional.of(lastJobExecution));
         when(lastJobExecution.getStatus())
@@ -153,8 +154,8 @@ class ExecuteJobServiceTest {
 
         executeJobService.execute(requestParameters, EXEC_UNIQUE_MARK);
 
-        verify(checkJobRegistrationService, times(1))
-            .check(jobName);
+        verify(jobRegistrationValidator, times(1))
+            .checkRegistration(jobName);
         verify(jobExecutionService, times(1))
             .getLastJobExecution(jobName);
         verify(jobExecutionValidator, times(1))
