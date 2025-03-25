@@ -4,6 +4,7 @@ import com.gmail.apach.dima.batch_demo.application.core.job.model.ExecutedJob;
 import com.gmail.apach.dima.batch_demo.port.input.job.GetExecutedJobInputPort;
 import com.gmail.apach.dima.batch_demo.port.output.db.job.GetExecutedJobOutputPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,7 @@ public class GetExecutedJobService implements GetExecutedJobInputPort {
     private final GetExecutedJobOutputPort getExecutedJobOutputPort;
 
     @Override
-    public ExecutedJob get(String jobExecutionMarker) {
+    public ExecutedJob get(@NonNull String jobExecutionMarker) {
         return getExecutedJobOutputPort.get(jobExecutionMarker);
     }
 }

@@ -4,7 +4,7 @@ import com.gmail.apach.dima.batch_demo.application.core.job.constant.JobExecutio
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
 import com.gmail.apach.dima.batch_demo.common.util.FileUtil;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
-import com.gmail.apach.dima.batch_demo.port.output.oss.OssOutputPort;
+import com.gmail.apach.dima.batch_demo.port.output.oss.ObjectStorageServiceOutputPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
@@ -27,7 +27,7 @@ import java.io.File;
 @RequiredArgsConstructor
 public class UploadCsvTask implements Tasklet, StepExecutionListener {
 
-    private final OssOutputPort ossOutputPort;
+    private final ObjectStorageServiceOutputPort objectStorageServiceOutputPort;
     private final MessageUtil messageUtil;
 
     private String exportFileTempPath;
@@ -46,7 +46,7 @@ public class UploadCsvTask implements Tasklet, StepExecutionListener {
         @NonNull StepContribution contribution,
         @NonNull ChunkContext chunkContext
     ) {
-        final var storedResource = ossOutputPort.save(new File(exportFileTempPath));
+        final var storedResource = objectStorageServiceOutputPort.save(new File(exportFileTempPath));
         log.info(messageUtil.getMessage(Info.JOB_STEP_EXPORT_FILE_UPLOADED, storedResource.getStorageKey()));
         return RepeatStatus.FINISHED;
     }

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = OpenApiTag.BATCH_API)
+@Tag(name = OpenApiTag.BATCH_EXECUTION_API)
 @RestController
-@RequestMapping(value = RequestPath.GET_JOB_PATH)
+@RequestMapping(value = RequestPath.BatchExecutionApi.GET_BY_JOB_EXECUTION_MARKER_PATH)
 @RequiredArgsConstructor
 @Validated
 @SuppressWarnings("unused")
@@ -27,7 +27,7 @@ public class GetExecutedJobRestApi {
     private final JobRestMapper jobRestMapper;
 
     @GetMapping
-    public ResponseEntity<GetExecutedJobResponse> getJob(
+    public ResponseEntity<GetExecutedJobResponse> getExecutedJob(
         @PathVariable("job-execution-marker") @NotBlank String jobExecutionMarker
     ) {
         final var job = getExecutedJobInputPort.get(jobExecutionMarker);

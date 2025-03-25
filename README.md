@@ -87,9 +87,21 @@ To control executed batch status:
 GET http://<i></i>localhost:${SERVER_PORT}/${SERVER_CONTEXT_PATH}/api/v1/batches/{job-execution-marker}
 
 #### - Startup mode \<cli\>
+**Program arguments:**  
+job-name=specify  
+job-execution-marker=specify  
+file-storage-resource=specify  
+
 Add needed program args before running application, example:  
 **job-name=import-csv-to-db file-storage-resource=import_csv_to_db.csv**
 
 #### - Startup mode \<shell\>
+Shell command to execute batch: **execute-job** 
+
+**Shell option arguments:**  
+--job-name specify  
+--job-execution-marker specify  
+--file-storage-resource specify  
+
 Input  shell command to execute required job, example:  
 **execute-job --job-name import-csv-to-db --file-storage-resource import_csv_to_db.csv**
