@@ -34,8 +34,8 @@ services:
       - batch-db
     env_file: .env
 
-  batch-db-file-storage:
-    container_name: batch-db-file-storage
+  batch-file-storage:
+    container_name: batch-file-storage
     image: localstack/localstack
     ports:
       - "${AWS_S3_EXTERNAL_PORT}:${AWS_S3_INTERNAL_PORT}"
