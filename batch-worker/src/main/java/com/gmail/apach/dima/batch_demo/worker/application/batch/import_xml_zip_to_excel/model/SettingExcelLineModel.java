@@ -1,0 +1,13 @@
+package com.gmail.apach.dima.batch_demo.worker.application.batch.import_xml_zip_to_excel.model;
+
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+
+@Builder
+public record SettingExcelLineModel(
+    @NotNull
+    Boolean activeFlag,
+    @NotNull
+    Boolean approveFlag
+) {
+}
