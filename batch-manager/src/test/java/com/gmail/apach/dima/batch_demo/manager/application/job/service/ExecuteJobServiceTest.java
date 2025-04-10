@@ -2,6 +2,8 @@ package com.gmail.apach.dima.batch_demo.manager.application.job.service;
 
 import com.gmail.apach.dima.batch_demo.common.exception.ResourceNotFoundException;
 import com.gmail.apach.dima.batch_demo.common.exception.ValidationException;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionInfo;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionResult;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.manager.application.job.validator.JobExecutionValidator;
 import com.gmail.apach.dima.batch_demo.manager.application.job.validator.JobRegistrationValidator;
@@ -15,13 +17,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -140,7 +140,15 @@ class ExecuteJobServiceTest {
         final var batchStatus = BatchStatus.COMPLETED;
         final var requestParameters = RequestParametersReceiver.parameters();
         final var jobName = requestParameters.get(RequestParameter.JOB_NAME);
+        final var marker = requestParameters.get(RequestParameter.JOB_EXECUTION_MARKER);
         final var jobExecutions = List.of(jobExecution);
+        final var workerJobExecution = JobExecutionResult.builder()
+            .info(JobExecutionInfo.builder()
+                .jobName(jobName)
+                .jobExecutionMarker(marker)
+                .batchStatus(batchStatus.name())
+                .build())
+            .build();
 
         doNothing()
             .when(jobRegistrationValidator).checkRegistration(jobName);
@@ -153,9 +161,14 @@ class ExecuteJobServiceTest {
         doNothing()
             .when(jobExecutionValidator).checkUniqueParameters(jobExecutions, requestParameters);
         when(executeJobOutputPort.execute(requestParameters))
-            .thenReturn(HttpStatus.CREATED);
+            .thenReturn(workerJobExecution);
 
-        assertDoesNotThrow(() -> executeJobService.execute(requestParameters));
+        final var actual = executeJobService.execute(requestParameters);
+        assertNotNull(actual);
+        assertNotNull(actual.info());
+        assertEquals(jobName, actual.info().jobName());
+        assertEquals(marker, actual.info().jobExecutionMarker());
+        assertEquals(batchStatus.name(), actual.info().batchStatus());
 
         verify(jobRegistrationValidator, times(1))
             .checkRegistration(jobName);

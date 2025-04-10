@@ -1,5 +1,6 @@
 package com.gmail.apach.dima.batch_demo.manager.infrastructure.input.common.mapper;
 
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionResult;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.manager.application.job.model.BatchStatus;
@@ -7,11 +8,9 @@ import com.gmail.apach.dima.batch_demo.manager.application.job.model.ExecutedJob
 import com.gmail.apach.dima.batch_demo.manager.application.job.model.ExitCode;
 import com.gmail.apach.dima.batch_demo.manager.application.job.model.RegisteredJob;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.controller.batch.dto.ExecuteJobRequest;
+import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.controller.batch.dto.ExecuteJobResponse;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.controller.batch.dto.GetExecutedJobResponse;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 import org.springframework.lang.NonNull;
 
 import java.util.HashMap;
@@ -55,4 +54,13 @@ public interface JobRestMapper {
 
         return new RequestParameters(result);
     }
+
+    @Mapping(target = "jobName", source = "info.jobName")
+    @Mapping(target = "jobExecutionMarker", source = "info.jobExecutionMarker")
+    @Mapping(target = "batchStatus", source = "info.batchStatus")
+    @Mapping(target = "errors.status", source = "error.status")
+    @Mapping(target = "errors.message", source = "error.message")
+    @Mapping(target = "errors.errors", source = "error.errors")
+    @Mapping(target = "errors.timestamp", source = "error.timestamp")
+    ExecuteJobResponse toExecuteJobResponse(JobExecutionResult jobExecutionResult);
 }
