@@ -1,6 +1,11 @@
 package com.gmail.apach.dima.batch_demo.manager.infrastructure.output.rest;
 
-import com.gmail.apach.dima.batch_demo.common.dto.BatchWorkerJobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.common.dto.WorkerJobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionError;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionInfo;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionResult;
+import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.manager.application.job.model.BatchStatus;
 import com.gmail.apach.dima.batch_demo.manager.application.receiver.RequestParametersReceiver;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.output.rest.config.worker.BatchWorkerClientUriConfig;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.output.rest.mapper.BatchWorkerRestMapper;
@@ -12,11 +17,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClient;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -37,9 +41,17 @@ class ExecuteJobRestServiceTest {
 
     @Test
     void execute_success() {
-        final var jobExecutionRequest = mock(BatchWorkerJobExecutionRequest.class);
-        final var response = new ResponseEntity<Void>(HttpStatus.CREATED);
+        final var jobExecutionRequest = mock(WorkerJobExecutionRequest.class);
         final var requestParameters = RequestParametersReceiver.parameters();
+        final var jobName = requestParameters.get(RequestParameter.JOB_NAME);
+        final var marker = requestParameters.get(RequestParameter.JOB_EXECUTION_MARKER);
+        final var response = JobExecutionResult.builder()
+            .info(JobExecutionInfo.builder()
+                .jobName(jobName)
+                .jobExecutionMarker(marker)
+                .batchStatus(BatchStatus.COMPLETED.getStatus())
+                .build())
+            .build();
 
         when(batchWorkerRestMapper.toJobExecutionRequest(requestParameters))
             .thenReturn(jobExecutionRequest);
@@ -49,20 +61,29 @@ class ExecuteJobRestServiceTest {
             .uri(URI)
             .contentType(MediaType.APPLICATION_JSON)
             .body(jobExecutionRequest)
-            .retrieve()
-            .toBodilessEntity())
+            .exchange(any()))
             .thenReturn(response);
 
         final var actual = executeJobRestService.execute(requestParameters);
 
         assertNotNull(actual);
-        assertEquals(HttpStatus.CREATED, actual);
+        assertNull(actual.error());
+        assertNotNull(actual.info());
+        assertEquals(jobName, actual.info().jobName());
+        assertEquals(marker, actual.info().jobExecutionMarker());
     }
 
     @Test
     void execute_fail() {
-        final var jobExecutionRequest = mock(BatchWorkerJobExecutionRequest.class);
-        final var response = new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        final var jobExecutionRequest = mock(WorkerJobExecutionRequest.class);
+        final var errorMessage = "error-message";
+        final var internalServerError = HttpStatus.INTERNAL_SERVER_ERROR;
+        final var response = JobExecutionResult.builder()
+            .error(JobExecutionError.builder()
+                .status(internalServerError)
+                .message(errorMessage)
+                .build())
+            .build();
         final var requestParameters = RequestParametersReceiver.parameters();
 
         when(batchWorkerRestMapper.toJobExecutionRequest(requestParameters))
@@ -73,13 +94,15 @@ class ExecuteJobRestServiceTest {
             .uri(URI)
             .contentType(MediaType.APPLICATION_JSON)
             .body(jobExecutionRequest)
-            .retrieve()
-            .toBodilessEntity())
+            .exchange(any()))
             .thenReturn(response);
 
         final var actual = executeJobRestService.execute(requestParameters);
 
         assertNotNull(actual);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actual);
+        assertNull(actual.info());
+        assertNotNull(actual.error());
+        assertEquals(internalServerError, actual.error().status());
+        assertEquals(errorMessage, actual.error().message());
     }
 }

@@ -1,6 +1,8 @@
 package com.gmail.apach.dima.batch_demo.worker.infrastructure.input.common.mapper;
 
-import com.gmail.apach.dima.batch_demo.common.dto.BatchWorkerJobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.common.dto.WorkerJobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.common.dto.WorkerJobExecutionResponse;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionInfo;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameters;
 import org.mapstruct.InjectionStrategy;
@@ -19,7 +21,7 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface JobRestMapper {
 
-    default RequestParameters toRequestParameters(BatchWorkerJobExecutionRequest request) {
+    default RequestParameters toRequestParameters(WorkerJobExecutionRequest request) {
         final var result = new HashMap<RequestParameter, String>();
 
         result.put(RequestParameter.JOB_NAME, request.jobName());
@@ -30,4 +32,6 @@ public interface JobRestMapper {
 
         return new RequestParameters(result);
     }
+
+    WorkerJobExecutionResponse toJobExecutionResponse(JobExecutionInfo result);
 }

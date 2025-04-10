@@ -2,6 +2,7 @@ package com.gmail.apach.dima.batch_demo.worker.application.core.service;
 
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
+import com.gmail.apach.dima.batch_demo.common.exception.ApplicationServerException;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import com.gmail.apach.dima.batch_demo.worker.application.receiver.RequestParametersReceiver;
@@ -18,6 +19,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,7 +42,8 @@ class ExecuteJobServiceTest {
         doThrow(NoSuchBeanDefinitionException.class)
             .when(context).getBean(jobName, Job.class);
 
-        executeJobService.execute(requestParameters);
+        assertThrows(ApplicationServerException.class,
+            () -> executeJobService.execute(requestParameters));
 
         verify(context, times(1))
             .getBean(jobName, Job.class);
@@ -65,7 +68,10 @@ class ExecuteJobServiceTest {
         when(jobExecution.getStatus())
             .thenReturn(batchStatus);
 
-        executeJobService.execute(requestParameters);
+        final var actual = executeJobService.execute(requestParameters);
+        assertNotNull(actual);
+        assertEquals(jobName, actual.jobName());
+        assertEquals(batchStatus.name(), actual.batchStatus());
 
         verify(context, times(1))
             .getBean(jobName, Job.class);

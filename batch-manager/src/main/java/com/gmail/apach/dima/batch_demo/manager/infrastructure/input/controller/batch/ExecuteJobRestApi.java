@@ -4,10 +4,12 @@ import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.common.const
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.common.mapper.JobRestMapper;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.common.swagger.OpenApiTag;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.controller.batch.dto.ExecuteJobRequest;
+import com.gmail.apach.dima.batch_demo.manager.infrastructure.input.controller.batch.dto.ExecuteJobResponse;
 import com.gmail.apach.dima.batch_demo.manager.port.input.job.ExecuteJobInputPort;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +29,10 @@ public class ExecuteJobRestApi {
     private final ExecuteJobInputPort executeJobInputPort;
 
     @PostMapping
-    public ResponseEntity<Void> execute(@Valid @RequestBody ExecuteJobRequest request) {
+    public ResponseEntity<ExecuteJobResponse> execute(@Valid @RequestBody ExecuteJobRequest request) {
         final var requestParameters = jobRestMapper.toRequestParameters(request);
-        final var status = executeJobInputPort.execute(requestParameters);
-        return ResponseEntity.status(status).build();
+        final var result = executeJobInputPort.execute(requestParameters);
+        final var response = jobRestMapper.toExecuteJobResponse(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

@@ -2,6 +2,8 @@ package com.gmail.apach.dima.batch_demo.worker.application.core.service;
 
 import com.gmail.apach.dima.batch_demo.common.constant.Error;
 import com.gmail.apach.dima.batch_demo.common.constant.Info;
+import com.gmail.apach.dima.batch_demo.common.exception.ApplicationServerException;
+import com.gmail.apach.dima.batch_demo.common.model.JobExecutionInfo;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameters;
 import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
@@ -23,7 +25,7 @@ public class ExecuteJobService implements ExecuteJobInputPort {
     private final MessageUtil messageUtil;
 
     @Override
-    public void execute(RequestParameters parameters) {
+    public JobExecutionInfo execute(RequestParameters parameters) {
         final var jobName = parameters.get(RequestParameter.JOB_NAME);
         final var marker = parameters.get(RequestParameter.JOB_EXECUTION_MARKER);
         try {
@@ -32,8 +34,12 @@ public class ExecuteJobService implements ExecuteJobInputPort {
 
             final var execution = jobLauncher.run(job, parameters.toJobParameters());
             log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, marker, execution.getStatus()));
+
+            return new JobExecutionInfo(jobName, marker, execution.getStatus().name());
         } catch (Exception e) {
-            log.error(messageUtil.getMessage(Error.JOB_FAILED, jobName, marker, e.getMessage()));
+            final var errorMessage = messageUtil.getMessage(Error.JOB_FAILED, jobName, marker, e.getMessage());
+            log.error(errorMessage);
+            throw new ApplicationServerException(errorMessage);
         }
     }
 }

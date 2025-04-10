@@ -1,6 +1,7 @@
 package com.gmail.apach.dima.batch_demo.worker.infrastructure.input.controller;
 
-import com.gmail.apach.dima.batch_demo.common.dto.BatchWorkerJobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.common.dto.WorkerJobExecutionRequest;
+import com.gmail.apach.dima.batch_demo.common.dto.WorkerJobExecutionResponse;
 import com.gmail.apach.dima.batch_demo.worker.infrastructure.input.common.constant.RequestPath;
 import com.gmail.apach.dima.batch_demo.worker.infrastructure.input.common.mapper.JobRestMapper;
 import com.gmail.apach.dima.batch_demo.worker.infrastructure.input.common.swagger.OpenApiTag;
@@ -28,9 +29,12 @@ public class ExecuteJobRestApi {
     private final ExecuteJobInputPort executeJobInputPort;
 
     @PostMapping
-    public ResponseEntity<Void> execute(@Valid @RequestBody BatchWorkerJobExecutionRequest request) {
+    public ResponseEntity<WorkerJobExecutionResponse> execute(
+        @Valid @RequestBody WorkerJobExecutionRequest request
+    ) {
         final var requestParameters = jobRestMapper.toRequestParameters(request);
-        executeJobInputPort.execute(requestParameters);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        final var result = executeJobInputPort.execute(requestParameters);
+        final var response = jobRestMapper.toJobExecutionResponse(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
 @Builder
-public record BatchWorkerJobExecutionRequest(
+public record WorkerJobExecutionRequest(
     @NotBlank
     String jobName,
     @NotBlank
