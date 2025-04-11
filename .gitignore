@@ -21,11 +21,8 @@ build/
 
 ### VS Code ###
 .vscode/
-/dev-tools/.env
 /.mvn/wrapper/maven-wrapper.properties
 /mvnw
 /mvnw.cmd
 /logs/
 /.gitattributes
-/batch-demo.log
-/spring-shell.log
