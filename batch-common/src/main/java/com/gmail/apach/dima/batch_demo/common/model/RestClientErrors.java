@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @Builder
-public record JobExecutionError(
+public record RestClientErrors(
     HttpStatus status,
     String message,
     List<String> errors,

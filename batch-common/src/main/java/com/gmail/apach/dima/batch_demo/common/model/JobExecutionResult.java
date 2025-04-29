@@ -5,6 +5,6 @@ import lombok.Builder;
 @Builder
 public record JobExecutionResult(
     JobExecutionInfo info,
-    JobExecutionError error
+    RestClientErrors errors
 ) {
 }

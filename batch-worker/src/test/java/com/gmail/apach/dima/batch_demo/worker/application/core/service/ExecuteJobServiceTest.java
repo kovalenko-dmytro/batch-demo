@@ -78,6 +78,6 @@ class ExecuteJobServiceTest {
         verify(jobLauncher, times(1))
             .run(any(), any());
         verify(messageUtil, times(1))
-            .getMessage(eq(Info.JOB_FINISHED), eq(jobName), any(), eq(batchStatus));
+            .getMessage(eq(Info.JOB_FINISHED), eq(jobName), any(), eq(batchStatus.name()));
     }
 }

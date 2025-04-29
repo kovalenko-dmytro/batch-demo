@@ -50,12 +50,9 @@ These files can be uploaded to local object storage using running application **
 
 
 ### Active profile \<local\>
-1. Create a file **.env** under **dev-tools** directory using example **dev-tools/.env-example**
-2. Fill in  **.env** file using your preferred configurations
-3. Run your Docker (for Windows: Docker Desktop)
-4. Run command **\<application-directory-destination\>/dev-tools** **docker compose up**
-5. Set up active profiles as environment variable **APPLICATION_PROFILE**=**local**   
-6. Launch applications **batch-manager** and **batch-worker**  
+1. Fill in  **\<application-directory-destination\>/dev-tools/.env** file with your preferred configurations
+2. Run your Docker (for Windows: Docker Desktop)  
+3. Launch applications **batch-manager** and **batch-worker**  using environment variable **APPLICATION_PROFILE**=**local**  
 
 #### <ins>Application \<batch-manager\></ins>
 Application provides batch execution management.  

@@ -10,10 +10,13 @@ import com.gmail.apach.dima.batch_demo.common.util.MessageUtil;
 import com.gmail.apach.dima.batch_demo.worker.port.input.ExecuteJobInputPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -33,13 +36,21 @@ public class ExecuteJobService implements ExecuteJobInputPort {
             log.info(messageUtil.getMessage(Info.JOB_INITIALIZED, jobName, marker));
 
             final var execution = jobLauncher.run(job, parameters.toJobParameters());
-            log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, marker, execution.getStatus()));
+            final var status = execution.getStatus().name();
+            final var failures = execution.getAllFailureExceptions();
 
-            return new JobExecutionInfo(jobName, marker, execution.getStatus().name());
+            log.info(messageUtil.getMessage(Info.JOB_FINISHED, jobName, marker, status));
+            return new JobExecutionInfo(jobName, marker, status, getFailures(failures));
         } catch (Exception e) {
             final var errorMessage = messageUtil.getMessage(Error.JOB_FAILED, jobName, marker, e.getMessage());
             log.error(errorMessage);
             throw new ApplicationServerException(errorMessage);
         }
+    }
+
+    private List<String> getFailures(List<Throwable> failures) {
+        return CollectionUtils.emptyIfNull(failures).stream()
+            .map(Throwable::getMessage)
+            .toList();
     }
 }

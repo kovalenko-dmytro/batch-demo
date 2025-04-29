@@ -1,10 +1,10 @@
 package com.gmail.apach.dima.batch_demo.manager.infrastructure.output.rest;
 
 import com.gmail.apach.dima.batch_demo.common.dto.WorkerJobExecutionRequest;
-import com.gmail.apach.dima.batch_demo.common.model.JobExecutionError;
 import com.gmail.apach.dima.batch_demo.common.model.JobExecutionInfo;
 import com.gmail.apach.dima.batch_demo.common.model.JobExecutionResult;
 import com.gmail.apach.dima.batch_demo.common.model.RequestParameter;
+import com.gmail.apach.dima.batch_demo.common.model.RestClientErrors;
 import com.gmail.apach.dima.batch_demo.manager.application.job.model.BatchStatus;
 import com.gmail.apach.dima.batch_demo.manager.application.receiver.RequestParametersReceiver;
 import com.gmail.apach.dima.batch_demo.manager.infrastructure.output.rest.config.worker.BatchWorkerClientUriConfig;
@@ -67,7 +67,7 @@ class ExecuteJobRestServiceTest {
         final var actual = executeJobRestService.execute(requestParameters);
 
         assertNotNull(actual);
-        assertNull(actual.error());
+        assertNull(actual.errors());
         assertNotNull(actual.info());
         assertEquals(jobName, actual.info().jobName());
         assertEquals(marker, actual.info().jobExecutionMarker());
@@ -76,10 +76,10 @@ class ExecuteJobRestServiceTest {
     @Test
     void execute_fail() {
         final var jobExecutionRequest = mock(WorkerJobExecutionRequest.class);
-        final var errorMessage = "error-message";
+        final var errorMessage = "errors-message";
         final var internalServerError = HttpStatus.INTERNAL_SERVER_ERROR;
         final var response = JobExecutionResult.builder()
-            .error(JobExecutionError.builder()
+            .errors(RestClientErrors.builder()
                 .status(internalServerError)
                 .message(errorMessage)
                 .build())
@@ -101,8 +101,8 @@ class ExecuteJobRestServiceTest {
 
         assertNotNull(actual);
         assertNull(actual.info());
-        assertNotNull(actual.error());
-        assertEquals(internalServerError, actual.error().status());
-        assertEquals(errorMessage, actual.error().message());
+        assertNotNull(actual.errors());
+        assertEquals(internalServerError, actual.errors().status());
+        assertEquals(errorMessage, actual.errors().message());
     }
 }

@@ -2,7 +2,7 @@ name: batch-demo
 services:
   batch-db:
     container_name: batch-db
-    image: postgres:16-alpine
+    image: postgres:17.4
     hostname: ${DB_HOST}
     ports:
       - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
@@ -10,11 +10,6 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    healthcheck:
-      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${DB_USERNAME}'" ]
-      timeout: 5s
-      interval: 2s
-      retries: 3
     restart: always
     volumes:
       - "./db-init:/docker-entrypoint-initdb.d"

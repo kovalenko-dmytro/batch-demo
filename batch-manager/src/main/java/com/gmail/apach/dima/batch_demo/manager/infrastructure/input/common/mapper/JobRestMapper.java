@@ -58,9 +58,10 @@ public interface JobRestMapper {
     @Mapping(target = "jobName", source = "info.jobName")
     @Mapping(target = "jobExecutionMarker", source = "info.jobExecutionMarker")
     @Mapping(target = "batchStatus", source = "info.batchStatus")
-    @Mapping(target = "errors.status", source = "error.status")
-    @Mapping(target = "errors.message", source = "error.message")
-    @Mapping(target = "errors.errors", source = "error.errors")
-    @Mapping(target = "errors.timestamp", source = "error.timestamp")
+    @Mapping(target = "failures", source = "info.failures")
+    @Mapping(target = "restClientErrors.status", source = "errors.status")
+    @Mapping(target = "restClientErrors.message", source = "errors.message")
+    @Mapping(target = "restClientErrors.errors", source = "errors.errors")
+    @Mapping(target = "restClientErrors.timestamp", source = "errors.timestamp")
     ExecuteJobResponse toExecuteJobResponse(JobExecutionResult jobExecutionResult);
 }
