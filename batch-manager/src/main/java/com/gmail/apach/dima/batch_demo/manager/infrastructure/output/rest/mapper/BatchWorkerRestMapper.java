@@ -20,7 +20,7 @@ public class BatchWorkerRestMapper {
 
     public JobExecutionResult toErrorExecutionResult(@NonNull RestApiErrorResponse response) {
         return JobExecutionResult.builder()
-            .error(JobExecutionError.builder()
+            .errors(RestClientErrors.builder()
                 .status(response.status())
                 .message(response.message())
                 .errors(response.errors())
@@ -35,6 +35,7 @@ public class BatchWorkerRestMapper {
                 .jobName(response.jobName())
                 .jobExecutionMarker(response.jobExecutionMarker())
                 .batchStatus(response.batchStatus())
+                .failures(response.failures())
                 .build())
             .build();
     }

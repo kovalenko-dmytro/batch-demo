@@ -1,9 +1,9 @@
 package com.gmail.apach.dima.batch_demo.common.constant;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public enum Info {
 

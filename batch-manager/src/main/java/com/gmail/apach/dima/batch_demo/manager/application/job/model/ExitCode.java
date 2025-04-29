@@ -1,13 +1,13 @@
 package com.gmail.apach.dima.batch_demo.manager.application.job.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public enum ExitCode {
 

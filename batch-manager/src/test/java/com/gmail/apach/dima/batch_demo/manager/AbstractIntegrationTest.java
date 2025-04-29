@@ -36,7 +36,7 @@ public abstract class AbstractIntegrationTest {
     private static final String BUCKET_NAME = "test-bucket";
 
     protected static final PostgreSQLContainer<?> POSTGRESQL_CONTAINER =
-        new PostgreSQLContainer<>(DockerImageName.parse("postgres:16-alpine"));
+        new PostgreSQLContainer<>(DockerImageName.parse("postgres:17.4"));
 
     protected static final LocalStackContainer LOCAL_STACK_CONTAINER =
         new LocalStackContainer(DockerImageName.parse("localstack/localstack"))
